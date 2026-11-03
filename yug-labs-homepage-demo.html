@@ -1,0 +1,1549 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="description" content="Yug Labs — websites for small businesses, built by you in your own Lab workspace or built for you by our team. Order by WhatsApp enquiry. Founded by Suman Chhetri, Guwahati, Assam, India." />
+    <meta name="theme-color" content="#0a0f1c" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f3f4f1" media="(prefers-color-scheme: light)" />
+    <link rel="icon" href="data:," />
+    <title>Yug Labs — Websites, Lab Workspace &amp; AI Chatbot</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet" />
+    <style>
+      :root{
+        --bg:#0a0f1c; --bg2:#0d1424; --surface:#111a2e; --surface2:#16223c;
+        --ink:#eef2f8; --muted:#a3b1c6; --faint:#71809a;
+        --line:#233252; --line-soft:#1b2745;
+        --gold:#f2a33c; --gold-strong:#ffb84f; --gold-soft:#2a2010;
+        --teal:#2dd4bf; --teal-deep:#0d7a6a; --teal-soft:#0e2b2b;
+        --navy:#080d18; --wa:#22b358; --danger:#f87171;
+        --radius:18px; --shadow:0 24px 50px -20px rgba(0,0,0,.65);
+        --glow:0 0 0 1px rgba(242,163,60,.45), 0 22px 44px -18px rgba(242,163,60,.28);
+      }
+      @media (prefers-color-scheme: light){
+        :root{
+          --bg:#f3f4f1; --bg2:#e9ebe4; --surface:#ffffff; --surface2:#f7f6f1;
+          --ink:#141c2c; --muted:#4b5a70; --faint:#7a879c;
+          --line:#d8dcd2; --line-soft:#e4e6de;
+          --gold:#c97a12; --gold-strong:#b06c08; --gold-soft:#fdf0da;
+          --teal:#0d7a6a; --teal-deep:#0d7a6a; --teal-soft:#e0f2ee;
+          --navy:#101a30;
+          --shadow:0 24px 50px -22px rgba(16,26,48,.3);
+          --glow:0 0 0 1px rgba(201,122,18,.4), 0 22px 44px -20px rgba(201,122,18,.3);
+        }
+      }
+      *{box-sizing:border-box}
+      html{scroll-behavior:smooth}
+      body{margin:0;background:var(--bg);color:var(--ink);font-family:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:16.5px;line-height:1.6;padding-bottom:118px;overflow-x:hidden}
+      h1,h2,h3{font-family:"Bricolage Grotesque",sans-serif;line-height:1.12;margin:0;letter-spacing:-.015em}
+      p{margin:0}
+      a{color:var(--teal)}
+      .wrap{max-width:1200px;margin:0 auto;padding-left:22px;padding-right:22px}
+      section{scroll-margin-top:96px}
+      ::selection{background:var(--gold);color:#1c1204}
+      .progress{position:fixed;top:0;left:0;height:3px;width:0%;background:var(--gold);z-index:120}
+      /* header */
+      .site-head{position:sticky;top:0;z-index:100;background:color-mix(in srgb, var(--bg) 78%, transparent);backdrop-filter:blur(16px) saturate(1.4);-webkit-backdrop-filter:blur(16px) saturate(1.4);border-bottom:1px solid var(--line-soft)}
+      .head-in{display:flex;align-items:center;gap:14px;height:70px;flex-wrap:nowrap}
+      .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+      .brand-mark{width:39px;height:39px;border-radius:11px;background:var(--navy);border:1px solid var(--line);display:grid;place-items:center;flex:none}
+      @media (prefers-color-scheme: light){ .brand-mark{background:#101a30} }
+      .brand-name{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:21px;letter-spacing:-.02em;white-space:nowrap}
+      .main-nav{display:flex;gap:2px;margin-left:auto}
+      .main-nav a{color:var(--muted);text-decoration:none;font-weight:600;font-size:14.5px;padding:8px 11px;border-radius:9px;transition:color .2s,background .2s;white-space:nowrap;cursor:pointer}
+      .main-nav a:hover,.main-nav a.active{color:var(--ink);background:var(--surface2)}
+      .head-actions{display:flex;align-items:center;gap:9px;margin-left:4px;flex:none}
+      .btn{display:inline-flex;align-items:center;gap:8px;font-family:"Manrope",sans-serif;font-weight:700;font-size:15.5px;padding:12px 22px;border-radius:12px;border:1px solid transparent;cursor:pointer;text-decoration:none;line-height:1.2;text-align:center;transition:transform .25s ease, box-shadow .25s ease, background .2s, border-color .2s;position:relative;overflow:hidden}
+      .btn-gold{background:var(--gold);color:#221300}
+      .btn-gold:hover{transform:translateY(-2px);box-shadow:0 14px 28px -12px rgba(242,163,60,.55)}
+      .btn-gold::after{content:"";position:absolute;top:0;left:-70%;width:45%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.45),transparent);transform:skewX(-20deg);transition:left .55s ease}
+      .btn-gold:hover::after{left:120%}
+      .btn-ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+      .btn-ghost:hover{border-color:var(--teal);color:var(--teal);transform:translateY(-2px)}
+      .btn-teal{background:var(--teal-deep);color:#fff}
+      .btn-teal:hover{transform:translateY(-2px);filter:brightness(1.12)}
+      .btn-wa{background:var(--wa);color:#fff}
+      .btn-wa:hover{filter:brightness(1.07);transform:translateY(-2px)}
+      .btn-sm{padding:9px 16px;font-size:14px;border-radius:10px}
+      .soon-pill{display:inline-block;vertical-align:middle;font-family:"IBM Plex Mono",monospace;font-size:9.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;background:var(--gold);color:#221300;border-radius:999px;padding:2px 7px;margin-left:6px;white-space:nowrap}
+      .soon-banner{display:flex;gap:14px;align-items:flex-start;background:var(--gold-soft);border:1px solid color-mix(in srgb, var(--gold) 42%, transparent);border-radius:16px;padding:20px 22px}
+      .soon-banner svg{flex:none;margin-top:2px;color:var(--gold-strong)}
+      .soon-banner p{font-size:15.5px;color:var(--muted)} .soon-banner p b{color:var(--ink)}
+      a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,summary:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:6px}
+      @keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.55);opacity:.5}}
+      .burger{display:none;background:var(--surface);border:1px solid var(--line);border-radius:10px;width:42px;height:42px;cursor:pointer;place-items:center;color:var(--ink);flex:none}
+      .mnav{display:none;border-top:1px solid var(--line-soft);padding:10px 22px 16px}
+      .mnav.open{display:block}
+      .mnav a{display:block;padding:10px 6px;color:var(--ink);text-decoration:none;font-weight:600;border-bottom:1px solid var(--line-soft);cursor:pointer}
+      .mnav a:last-of-type{border-bottom:none}
+      /* pages */
+      .page{display:none}
+      .page.active{display:block;animation:pageIn .45s cubic-bezier(.22,.8,.3,1)}
+      @keyframes pageIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+      .rv{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s cubic-bezier(.22,.8,.3,1)}
+      .rv.in{opacity:1;transform:none}
+      .rv-d1{transition-delay:.08s}.rv-d2{transition-delay:.16s}.rv-d3{transition-delay:.24s}
+      /* hero */
+      .hero{padding:64px 0 44px;position:relative;background:radial-gradient(720px 380px at 88% -60px, rgba(242,163,60,.13), transparent 65%),radial-gradient(640px 360px at -80px 30%, rgba(45,212,191,.08), transparent 65%)}
+      @media (prefers-color-scheme: light){ .hero{background:radial-gradient(720px 380px at 88% -60px, rgba(201,122,18,.1), transparent 65%),radial-gradient(640px 360px at -80px 30%, rgba(13,122,106,.07), transparent 65%)} }
+      .hero-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:48px;align-items:center}
+      .hero-eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:"IBM Plex Mono",monospace;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-strong);border:1px solid color-mix(in srgb, var(--gold) 40%, transparent);background:var(--gold-soft);padding:6px 13px;border-radius:999px;margin-bottom:22px}
+      .hero h1{font-size:clamp(36px,4.8vw,58px);font-weight:800}
+      .hero h1 .hl{color:var(--teal)} .hero h1 .hl2{color:var(--gold-strong)}
+      .hero-sub{margin-top:20px;font-size:18.5px;color:var(--muted);max-width:33em}
+      .hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+      .hero-points{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:28px;color:var(--muted);font-size:14.5px;font-weight:600}
+      .hero-points span{display:inline-flex;align-items:center;gap:7px}
+      .hero-points svg{color:var(--teal);flex:none}
+      .dash{background:var(--surface);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);overflow:hidden;transition:transform .5s cubic-bezier(.22,.8,.3,1), box-shadow .5s;will-change:transform}
+      .dash:hover{box-shadow:var(--glow)}
+      .dash-bar{display:flex;align-items:center;gap:7px;padding:11px 15px;background:var(--surface2);border-bottom:1px solid var(--line-soft)}
+      .dash-bar i{width:10px;height:10px;border-radius:50%;background:var(--line);display:block}
+      .dash-url{margin-left:9px;font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--muted);background:var(--bg);border:1px solid var(--line-soft);border-radius:7px;padding:3px 11px;display:inline-flex;align-items:center;gap:6px}
+      .dash-url b{color:var(--teal);font-weight:600}
+      .dash-body{display:grid;grid-template-columns:128px 1fr;min-height:308px}
+      .dash-side{border-right:1px solid var(--line-soft);padding:15px 12px;display:flex;flex-direction:column;gap:5px;background:color-mix(in srgb, var(--surface2) 55%, transparent)}
+      .dash-side .ds-label{font-family:"IBM Plex Mono",monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin:6px 4px 3px}
+      .ds-item{font-size:12.5px;font-weight:600;color:var(--muted);padding:6px 9px;border-radius:8px;display:flex;align-items:center;gap:7px}
+      .ds-item.on{background:var(--gold-soft);color:var(--gold-strong)}
+      .ds-item .pip{width:6px;height:6px;border-radius:50%;background:currentColor;flex:none;opacity:.7}
+      .dash-main{padding:17px 18px}
+      .dash-main .dm-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:13px}
+      .dm-title{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:16.5px}
+      .illus-banner{display:flex;align-items:center;justify-content:center;gap:8px;background:var(--gold);color:#221300;font-family:"IBM Plex Mono",monospace;font-size:11.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;text-align:center;padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.18);line-height:1.45}
+      .dm-preview{border:1px solid var(--line-soft);border-radius:12px;padding:13px 14px;background:var(--bg2)}
+      .dm-preview .pv-title{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:14.5px}
+      .dm-preview .pv-sub{font-size:11.5px;color:var(--muted);margin-top:1px}
+      .dm-preview .pv-btn{display:inline-block;margin-top:8px;font-size:10.5px;font-weight:700;background:var(--gold);color:#221300;padding:4px 11px;border-radius:999px}
+      .dm-row{display:flex;gap:8px;margin-top:9px}
+      .dm-tile{flex:1;border:1px solid var(--line-soft);border-radius:9px;padding:8px 9px;font-size:10.5px;font-weight:700;background:var(--surface)}
+      .dm-tile small{display:block;font-weight:600;color:var(--faint);font-size:9.5px;margin-top:1px}
+      .dm-credits{margin-top:13px;display:flex;align-items:center;gap:12px}
+      .dm-credits .cr-num{font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:13px;color:var(--gold-strong);white-space:nowrap}
+      .cr-bar{flex:1;height:7px;border-radius:99px;background:var(--line-soft);overflow:hidden}
+      .cr-bar i{display:block;height:100%;width:64%;border-radius:99px;background:var(--gold)}
+      .dm-credits small{font-size:11px;color:var(--faint)}
+      .hero-art{position:relative}
+      .art-chip{position:absolute;display:flex;align-items:center;gap:9px;background:var(--surface);border:1px solid var(--line);border-radius:13px;box-shadow:var(--shadow);padding:10px 14px;font-size:13.5px;font-weight:700;z-index:2}
+      .art-chip small{display:block;font-weight:600;color:var(--muted);font-size:11.5px}
+      .chip-lab{left:-16px;bottom:30px}
+      /* sections */
+      .sec{padding:72px 0}
+      .sec-alt{background:var(--bg2);border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft)}
+      .sec-head{max-width:46em;margin-bottom:36px}
+      .kicker{font-family:"IBM Plex Mono",monospace;font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-strong);display:block;margin-bottom:12px}
+      .sec-head h2{font-size:clamp(27px,3.4vw,38px);font-weight:700}
+      .sec-head p{margin-top:13px;color:var(--muted);font-size:17px}
+      .lift{transition:transform .35s cubic-bezier(.22,.8,.3,1), box-shadow .35s, border-color .35s}
+      .lift:hover{transform:translateY(-6px);border-color:color-mix(in srgb, var(--gold) 55%, var(--line));box-shadow:var(--shadow)}
+      .paths{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+      .path-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:30px;display:flex;flex-direction:column;gap:14px}
+      .path-card.featured{border:2px solid var(--gold)}
+      .path-tag{align-self:flex-start;font-family:"IBM Plex Mono",monospace;font-size:11.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:4px 11px;border-radius:999px}
+      .tag-sub{background:var(--gold-soft);color:var(--gold-strong)}
+      .tag-once{background:var(--teal-soft);color:var(--teal)}
+      .path-card h3{font-size:23px}
+      .path-card p{color:var(--muted)}
+      .path-price{font-family:"Bricolage Grotesque",sans-serif;font-size:19px;font-weight:700}
+      .path-price small{font-family:"Manrope",sans-serif;font-size:13.5px;color:var(--muted);font-weight:600}
+      .tick-list{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+      .tick-list li{display:flex;gap:10px;align-items:flex-start;font-size:15.5px}
+      .tick-list svg{color:var(--teal);flex:none;margin-top:3px}
+      .path-card .btn{margin-top:auto;align-self:flex-start}
+      .stack{display:grid;gap:22px;max-width:880px}
+      .stack-card{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:30px 32px;display:grid;grid-template-columns:86px 1fr;gap:24px;align-items:start;box-shadow:0 18px 36px -20px rgba(0,0,0,.5)}
+      .stack-card .st-num{font-family:"Bricolage Grotesque",sans-serif;font-size:52px;font-weight:800;line-height:1;color:var(--gold-strong)}
+      .stack-card h3{font-size:22px;margin-bottom:8px}
+      .stack-card p{color:var(--muted);max-width:38em}
+      .stack-card .st-meta{margin-top:13px;display:flex;flex-wrap:wrap;gap:8px}
+      .st-chip{font-size:12.5px;font-weight:700;border:1px solid var(--line);border-radius:999px;padding:4px 11px;color:var(--muted)}
+      @media (min-width:861px){ .stack-card{position:sticky} .stack-card:nth-child(1){top:96px} .stack-card:nth-child(2){top:118px} .stack-card:nth-child(3){top:140px} .stack-card:nth-child(4){top:162px} }
+      .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+      .svc{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:25px;display:flex;flex-direction:column;gap:11px}
+      .svc-icon{width:45px;height:45px;border-radius:12px;background:var(--teal-soft);color:var(--teal);display:grid;place-items:center}
+      .svc h3{font-size:18.5px}
+      .svc p{color:var(--muted);font-size:15px;flex:1}
+      .svc-link{font-weight:700;font-size:14.5px;cursor:pointer}
+      /* showcase */
+      .show-row{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:start;padding:38px 0;border-top:1px solid var(--line-soft)}
+      .show-row:first-of-type{border-top:none;padding-top:6px}
+      .show-text h3{font-size:clamp(22px,2.6vw,29px)}
+      .show-text p{color:var(--muted);margin-top:13px;max-width:32em}
+      .show-text .tick-list{margin-top:17px}
+      .show-visual{position:relative}
+      @media (min-width:861px){ .show-visual{position:sticky;top:104px} .show-row.flip .show-visual{order:2} .show-row.flip .show-text{order:1} }
+      .browser{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--surface);box-shadow:var(--shadow)}
+      .browser-bar{display:flex;align-items:center;gap:6px;background:var(--surface2);padding:9px 13px;border-bottom:1px solid var(--line-soft)}
+      .browser-bar i{width:9px;height:9px;border-radius:50%;background:var(--line);display:block}
+      .browser-url{margin-left:8px;font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--muted);background:var(--bg);border:1px solid var(--line-soft);border-radius:6px;padding:2px 9px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+      .mock{padding:20px;position:relative;overflow:hidden;min-height:196px}
+      .mock .m-title{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:19px}
+      .mock .m-sub{font-size:12.5px;margin-top:2px}
+      .mock .m-btn{display:inline-block;margin-top:11px;font-size:11.5px;font-weight:700;padding:6px 13px;border-radius:999px}
+      .mock .m-row{display:flex;gap:8px;margin-top:13px}
+      .mock .m-tile{flex:1;border-radius:9px;padding:9px;font-size:10.5px;font-weight:700;line-height:1.4}
+      .mock-salon{background:#faf1ea;color:#4a2c22} .mock-salon .m-sub{color:#8a6252} .mock-salon .m-btn{background:#b4593b;color:#fff} .mock-salon .m-tile{background:#fff;border:1px solid #ecd9cd}
+      .mock-cafe{background:#f7ead9;color:#43302a} .mock-cafe .m-sub{color:#7d5f43} .mock-cafe .m-btn{background:#c97b2d;color:#fff} .mock-cafe .m-tile{background:#fff8ee;border:1px solid #e6cf9f}
+      .mock-gym{background:#101418;color:#e8f0e9} .mock-gym .m-sub{color:#9fb3a4} .mock-gym .m-btn{background:#b7e04a;color:#131a05} .mock-gym .m-tile{background:#1b222a;border:1px solid #2c3641;color:#cfe3d2}
+      /* pricing */
+      .credit-box{display:flex;gap:14px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:14px;padding:18px 20px;margin-bottom:30px}
+      .credit-box svg{flex:none;margin-top:2px;color:var(--gold-strong)}
+      .credit-box p{font-size:15.5px;color:var(--muted)} .credit-box p b{color:var(--ink)}
+      .tip{position:relative;border-bottom:2px dotted var(--gold);cursor:help;color:var(--ink);font-weight:700}
+      .tip::after{content:attr(data-tip);position:absolute;left:50%;bottom:calc(100% + 10px);transform:translateX(-50%) translateY(4px);width:230px;background:var(--navy);color:#eef2f8;border:1px solid var(--line);border-radius:11px;padding:10px 12px;font-size:12.5px;font-weight:600;line-height:1.45;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:40;box-shadow:var(--shadow);text-align:left}
+      @media (prefers-color-scheme: light){ .tip::after{background:#101a30} }
+      .tip:hover::after,.tip:focus::after{opacity:1;transform:translateX(-50%) translateY(0)}
+      .price-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;align-items:stretch}
+      .price-grid.three{grid-template-columns:repeat(3,1fr)}
+      .price-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:26px 23px;display:flex;flex-direction:column;gap:12px;position:relative}
+      .price-card.popular{border:2px solid var(--gold);box-shadow:var(--glow)}
+      .pop-chip{position:absolute;top:-13px;left:20px;background:var(--gold);color:#221300;font-family:"IBM Plex Mono",monospace;font-size:10.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:4px 11px;border-radius:999px}
+      .price-card h3{font-size:19px}
+      .plan-for{font-size:13.5px;color:var(--faint);min-height:2.6em}
+      .price-amt{font-family:"Bricolage Grotesque",sans-serif;font-size:37px;font-weight:800;letter-spacing:-.02em;line-height:1.05}
+      .price-amt small{font-size:14.5px;font-weight:600;color:var(--muted);font-family:"Manrope",sans-serif}
+      .price-amt.custom{font-size:29px;padding:5px 0}
+      .plan-credits{display:flex;gap:8px;flex-wrap:wrap}
+      .cr-pill{font-family:"IBM Plex Mono",monospace;font-size:11.5px;font-weight:600;background:var(--gold-soft);color:var(--gold-strong);border:1px solid color-mix(in srgb, var(--gold) 35%, transparent);padding:4px 10px;border-radius:999px}
+      .cr-pill.alt{background:var(--teal-soft);color:var(--teal);border-color:color-mix(in srgb, var(--teal) 35%, transparent)}
+      .price-card .tick-list li{font-size:14.5px}
+      .price-card .btn{margin-top:auto;justify-content:center}
+      .price-sub{font-size:13.5px;color:var(--faint)}
+      .pay-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:30px}
+      .pay-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:22px}
+      .pay-card h3{font-size:17px;margin-bottom:7px}
+      .pay-card p{color:var(--muted);font-size:14.5px}
+      .pay-card .pay-tag{display:inline-block;font-family:"IBM Plex Mono",monospace;font-size:10.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:999px;background:var(--teal-soft);color:var(--teal);margin-bottom:11px}
+      .pay-card .pay-tag.soon{background:var(--gold-soft);color:var(--gold-strong)}
+      .illus-badge{position:absolute;top:12px;right:12px;z-index:3;background:var(--gold);color:#221300;font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:4px 11px;border-radius:999px;border:1px solid rgba(0,0,0,.2);box-shadow:0 8px 16px -8px rgba(0,0,0,.45)}
+      .cmp-wrap{margin-top:38px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--surface)}
+      .cmp-wrap h3{font-size:18px;padding:20px 22px 4px}
+      .cmp-wrap .cmp-sub{padding:0 22px 14px;color:var(--muted);font-size:14px}
+      table.cmp{width:100%;border-collapse:collapse;font-size:14.5px}
+      table.cmp th,table.cmp td{padding:12px 16px;text-align:left;border-top:1px solid var(--line-soft);vertical-align:top}
+      table.cmp thead th{border-top:none;background:var(--surface2);font-family:"Bricolage Grotesque",sans-serif;font-size:15.5px}
+      table.cmp thead th.pop{color:var(--gold-strong)}
+      table.cmp td:first-child,table.cmp th:first-child{font-weight:700;white-space:nowrap}
+      table.cmp td{color:var(--muted)} table.cmp td b{color:var(--ink)}
+      .cmp-scroll{overflow-x:auto}
+      .wf-note{display:flex;gap:11px;align-items:flex-start;background:var(--teal-soft);border:1px solid color-mix(in srgb, var(--teal) 35%, transparent);border-radius:13px;padding:15px 18px;font-size:14.5px;color:var(--muted);margin-bottom:26px}
+      .wf-note svg{flex:none;margin-top:2px;color:var(--teal)} .wf-note b{color:var(--ink)}
+      /* chatbot strip */
+      .chat-strip{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:36px;display:grid;grid-template-columns:.95fr 1.05fr;gap:36px;align-items:center}
+      .chat-strip h2{font-size:clamp(24px,3vw,33px)}
+      .chat-strip-sub{color:var(--muted);margin-top:12px}
+      .chat-try{background:var(--bg2);border:1px solid var(--line-soft);border-radius:15px;padding:21px}
+      .chat-try h3{font-size:14px;font-family:"IBM Plex Mono",monospace;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:14px}
+      .try-chips{display:flex;flex-wrap:wrap;gap:8px}
+      .try-chip{background:var(--surface);border:1px solid var(--line);color:var(--ink);border-radius:999px;font-size:13.5px;font-weight:600;padding:6px 12px;cursor:pointer;transition:border-color .2s,color .2s;font-family:inherit}
+      .try-chip:hover{border-color:var(--gold);color:var(--gold-strong)}
+      .chat-try p{margin-top:14px;font-size:14px;color:var(--muted)}
+      /* faq / forms / legal */
+      .faq-list{display:grid;gap:12px;max-width:840px}
+      details.faq{background:var(--surface);border:1px solid var(--line);border-radius:13px;padding:4px 21px;transition:border-color .25s}
+      details.faq:hover{border-color:color-mix(in srgb, var(--gold) 45%, var(--line))}
+      details.faq summary{cursor:pointer;font-weight:700;font-size:16.5px;padding:15px 0;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px}
+      details.faq summary::-webkit-details-marker{display:none}
+      details.faq summary .pm{color:var(--gold-strong);font-size:22px;font-weight:600;line-height:1;transition:transform .25s}
+      details.faq[open ] summary .pm{transform:rotate(45deg)}
+      details.faq p{color:var(--muted);padding:0 0 17px;font-size:15.5px}
+      .contact-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:20px;align-items:stretch}
+      .contact-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:27px}
+      .contact-card h3{font-size:20px;margin-bottom:10px}
+      .contact-card p{color:var(--muted);font-size:15px}
+      .contact-card .btn{margin-top:16px}
+      .detail-list{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:12px}
+      .detail-list li{display:flex;gap:12px;align-items:flex-start;font-size:15px}
+      .detail-list svg{color:var(--gold-strong);flex:none;margin-top:3px}
+      .detail-list b{display:block;font-size:13px;font-family:"IBM Plex Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);font-weight:600}
+      .enquiry-form{display:grid;gap:12px;margin-top:6px}
+      .enquiry-form label{font-size:13.5px;font-weight:700;display:grid;gap:6px}
+      .enquiry-form input,.enquiry-form select,.enquiry-form textarea{font:inherit;font-size:15px;padding:11px 13px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);width:100%}
+      .enquiry-form textarea{resize:vertical;min-height:74px}
+      .form-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+      .form-note{font-size:13px;color:var(--faint)}
+      .order-out{display:none;margin-top:14px;background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:16px}
+      .order-out.show{display:block}
+      .order-out pre{white-space:pre-wrap;font-family:"IBM Plex Mono",monospace;font-size:13px;margin:0 0 12px;color:var(--ink)}
+      .legal{max-width:820px}
+      .legal h2{font-size:clamp(28px,3.6vw,40px);margin-bottom:10px}
+      .legal .updated{color:var(--faint);font-size:14px;margin-bottom:30px}
+      .legal h3{font-size:19px;margin:28px 0 9px}
+      .legal p,.legal li{color:var(--muted);font-size:15.5px}
+      .legal ul{margin:8px 0 0;padding-left:20px;display:grid;gap:6px}
+      .page-hero{padding:56px 0 8px}
+      .page-hero h1{font-size:clamp(32px,4.4vw,50px);font-weight:800;max-width:20em}
+      .page-hero p{margin-top:16px;color:var(--muted);font-size:18px;max-width:38em}
+      .about-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:24px;align-items:start}
+      .founder-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:28px}
+      .founder-card .fc-role{font-family:"IBM Plex Mono",monospace;font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-strong)}
+      .founder-card h3{font-size:24px;margin:8px 0 10px}
+      .founder-card p{color:var(--muted);font-size:15px}
+      footer.site-foot{background:#080d18;color:#c3cfe0;border-top:1px solid #1c2a47;box-shadow:inset 0 2px 0 rgba(242,163,60,.35)}
+      .foot-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:28px;padding:50px 0 30px}
+      .foot-grid h3{color:#fff;font-size:13.5px;font-family:"IBM Plex Mono",monospace;font-weight:600;letter-spacing:.07em;text-transform:uppercase;margin-bottom:14px}
+      .foot-grid ul{list-style:none;margin:0;padding:0;display:grid;gap:9px;font-size:14.5px}
+      .foot-grid a{color:#c3cfe0;text-decoration:none;cursor:pointer;transition:color .2s}
+      .to-top{color:#c3cfe0;text-decoration:none;cursor:pointer;font-weight:700;margin-left:auto;transition:color .2s}
+      .to-top:hover{color:var(--gold-strong)}
+      .foot-grid a:hover{color:var(--gold-strong)}
+      .foot-brand p{font-size:14.5px;margin-top:12px;max-width:26em;color:#93a5c0}
+      .foot-bottom{border-top:1px solid #1c2a47;padding:20px 0 28px;display:flex;flex-wrap:wrap;align-items:center;gap:8px 22px;font-size:13px;color:#7e90ad}
+      /* floating dock */
+      .dock{position:fixed;right:16px;bottom:max(18px, env(safe-area-inset-bottom));z-index:105;display:flex;align-items:flex-end;gap:12px}
+      .dock-wa{display:inline-flex;align-items:center;gap:8px;background:var(--wa);color:#fff;font-weight:700;font-size:14.5px;padding:12px 17px;border-radius:999px;box-shadow:0 12px 26px -10px rgba(20,90,45,.55);text-decoration:none;border:none;cursor:pointer;transition:transform .25s;font-family:inherit}
+      .dock-wa:hover{transform:translateY(-2px)}
+      .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:#0c1526;color:#fff;font-size:14.5px;font-weight:600;border:1px solid #2b3d63;padding:11px 18px;border-radius:12px;z-index:210;opacity:0;pointer-events:none;transition:opacity .3s ease,transform .3s ease;max-width:calc(100vw - 32px);text-align:center}
+      .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+      /* demos */
+      .demo-flag{position:absolute;top:12px;right:12px;z-index:3;background:#b91c1c;color:#fff;font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:4px 11px;border-radius:999px;box-shadow:0 8px 16px -8px rgba(0,0,0,.45)}
+      .demo-note{display:flex;gap:11px;align-items:flex-start;background:var(--gold-soft);border:1px solid color-mix(in srgb, var(--gold) 40%, transparent);border-radius:13px;padding:15px 18px;font-size:14.5px;color:var(--muted);margin-bottom:8px}
+      .demo-note svg{flex:none;margin-top:2px;color:var(--gold-strong)} .demo-note b{color:var(--ink)}
+      /* assistant chat panel */
+      .dock-chat{display:inline-flex;align-items:center;gap:8px;background:#0c1526;color:#fff;font-weight:700;font-size:14.5px;padding:12px 17px;border-radius:999px;box-shadow:0 12px 26px -10px rgba(0,0,0,.55);border:1px solid #2b3d63;cursor:pointer;font-family:inherit;transition:transform .25s,border-color .2s}
+      .dock-chat:hover{transform:translateY(-2px);border-color:var(--gold)}
+      .chat-panel{position:fixed;right:16px;bottom:106px;z-index:115;width:min(386px,calc(100vw - 24px));height:min(520px,88vh);height:min(520px,calc(100dvh - 160px));background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);display:flex;flex-direction:column;overflow:hidden}
+      .chat-panel[hidden]{display:none}
+      .chat-head{display:flex;align-items:flex-start;gap:10px;padding:15px 16px 12px;border-bottom:1px solid var(--line-soft);background:var(--surface2)}
+      .chat-head h3{font-size:16.5px}
+      .chat-head p{font-size:12px;color:var(--muted);margin-top:2px;line-height:1.45}
+      .chat-close{margin-left:auto;background:var(--bg);border:1px solid var(--line);color:var(--ink);width:29px;height:29px;border-radius:8px;cursor:pointer;font-size:16px;line-height:1;flex:none}
+      .chat-log{flex:1;overflow-y:auto;padding:14px 14px 8px;display:flex;flex-direction:column;gap:9px}
+      .msg{max-width:87%;padding:9px 12px;border-radius:13px;font-size:14.5px;line-height:1.55;overflow-wrap:anywhere}
+      .msg.bot{background:var(--bg2);border:1px solid var(--line-soft);align-self:flex-start;border-bottom-left-radius:5px;color:var(--ink)}
+      .msg.user{background:var(--gold);color:#221300;font-weight:600;align-self:flex-end;border-bottom-right-radius:5px}
+      .chat-chips{display:flex;flex-wrap:wrap;gap:7px;padding:6px 14px 10px}
+      .ask-chip{background:var(--bg);border:1px solid var(--line);color:var(--ink);border-radius:999px;font-size:12.5px;font-weight:600;padding:5px 11px;cursor:pointer;transition:border-color .2s}
+      .ask-chip:hover{border-color:var(--gold);color:var(--gold-strong)}
+      .chat-form{display:flex;gap:8px;padding:11px 12px;border-top:1px solid var(--line-soft);align-items:center;background:var(--surface)}
+      .chat-form input{flex:1;font:inherit;font-size:14.5px;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);min-width:0}
+      .chat-send{background:var(--gold);color:#221300;border:none;font-family:inherit;font-weight:700;font-size:14.5px;padding:11px 15px;border-radius:10px;cursor:pointer;flex:none}
+      @media (max-width:1180px){ .main-nav a{padding:8px 8px;font-size:14px} }
+      @media (max-width:1080px){ .price-grid{grid-template-columns:1fr 1fr} .price-grid.three{grid-template-columns:1fr 1fr} .price-card.popular{order:-1} .main-nav .soon-pill{display:none} }
+      @media (max-width:1020px){ .hero-grid{grid-template-columns:1fr;gap:36px} .svc-grid,.pay-strip{grid-template-columns:1fr 1fr} .chat-strip{grid-template-columns:1fr} .foot-grid{grid-template-columns:1fr 1fr} .chip-lab{left:6px} .show-row{grid-template-columns:1fr;gap:24px} .about-grid{grid-template-columns:1fr} }
+      @media (max-width:760px){
+        .main-nav{display:none} .head-actions .btn{display:none} .burger{display:grid} .head-in{gap:9px} .brand-name{font-size:18px}
+        .paths,.svc-grid,.pay-strip,.price-grid,.price-grid.three,.contact-grid{grid-template-columns:1fr}
+        .hero{padding-top:40px} .sec{padding:52px 0} .chat-strip{padding:25px}
+        .stack-card{grid-template-columns:1fr;gap:8px;padding:25px} .stack-card .st-num{font-size:38px}
+        .dash-body{grid-template-columns:1fr} .dash-side{display:none}
+        .dock-wa span.wa-text{display:none} .dock-wa{padding:12px 14px}
+        .dock-chat span.chat-text{display:none} .dock-chat{padding:12px 14px}
+        .chat-panel{right:12px;bottom:96px}
+        .dock{right:10px;bottom:max(16px, env(safe-area-inset-bottom));max-width:calc(100vw - 20px)}
+        .tip::after{width:190px;left:auto;right:-30px;transform:translateY(4px)} .tip:hover::after,.tip:focus::after{transform:translateY(0)}
+        table.cmp td:first-child,table.cmp th:first-child{white-space:normal}
+        .foot-brand{grid-column:1 / -1}
+        .to-top{margin-left:0}
+        .cmp-scroll{overflow-x:visible}
+        table.cmp,table.cmp tbody,table.cmp tr,table.cmp td{display:block;width:100%}
+        table.cmp thead{display:none}
+        table.cmp tr{padding:10px 0 12px;border-top:1px solid var(--line-soft)}
+        table.cmp td{display:flex;justify-content:space-between;align-items:baseline;gap:14px;border-top:none;padding:5px 16px;text-align:right}
+        table.cmp td:first-child{display:block;text-align:left;font-size:15.5px;color:var(--ink);padding-top:2px;padding-bottom:3px}
+        table.cmp td[data-label]::before{content:attr(data-label);font-weight:700;color:var(--faint);font-size:13px;text-align:left;flex:none}
+      }
+      @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} .rv{opacity:1;transform:none;transition:none} .page.active{animation:none} .btn,.lift,.dash{transition:none} .btn-gold::after{display:none} }
+    </style>
+  </head>
+  <body>
+    <div class="progress" id="progress" aria-hidden="true"></div>
+
+    <header class="site-head">
+      <div class="wrap head-in">
+        <a class="brand" data-route="home" aria-label="Yug Labs home" style="cursor:pointer">
+          <span class="brand-mark" aria-hidden="true"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#f2a33c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v6L4.5 18a2 2 0 0 0 1.8 3h11.4a2 2 0 0 0 1.8-3L14 8V2"/><path d="M8.5 2h7"/><path d="M7 15h10"/></svg></span>
+          <span class="brand-name">Yug Labs</span>
+        </a>
+        <nav class="main-nav" aria-label="Main">
+          <a data-route="home">Home</a>
+          <a data-route="services">Services</a>
+          <a data-route="demos">Demos</a>
+          <a data-route="lab">Lab<span class="soon-pill">Soon</span></a>
+          <a data-route="pricing">Pricing</a>
+          <a data-route="about">About</a>
+          <a data-route="contact">Contact</a>
+        </nav>
+        <div class="head-actions">
+          <a class="btn btn-gold btn-sm" data-route="pricing" style="cursor:pointer">Order a website</a>
+        </div>
+        <button class="burger" id="burger" type="button" aria-label="Open menu" aria-expanded="false">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+      <nav class="mnav" id="mnav" aria-label="Mobile">
+        <a data-route="home">Home</a>
+        <a data-route="services">Services</a>
+        <a data-route="demos">Demos</a>
+        <a data-route="lab">Lab<span class="soon-pill">Coming Soon</span></a>
+        <a data-route="pricing">Pricing</a>
+        <a data-route="about">About</a>
+        <a data-route="contact">Contact</a>
+        <a data-route="privacy">Privacy Policy</a>
+        <a data-route="terms">Terms of Service</a>
+        <a data-route="refund">Refund Policy</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <!-- ================= PAGE: HOME ================= -->
+      <div class="page" data-page="home">
+        <section class="hero">
+          <div class="wrap hero-grid">
+            <div>
+              <span class="hero-eyebrow">Websites · Lab workspace · AI chatbot</span>
+              <h1>Your own <span class="hl">Lab</span>. Your projects. A website you <span class="hl2">actually launch</span>.</h1>
+              <p class="hero-sub">Build your website yourself in the Lab — AI helps, and you spend credits only when the AI does the work. Or skip all that: our team builds the whole site for you. One payment, no subscription.</p>
+              <div class="hero-cta">
+                <a class="btn btn-gold" data-route="pricing" style="cursor:pointer">See plans — from $19/mo</a>
+                <a class="btn btn-ghost" data-goto="#home-styles" style="cursor:pointer">See website styles</a>
+              </div>
+              <div class="hero-points">
+                <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Manual edits always free</span>
+                <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Order on WhatsApp</span>
+                <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> No checkout yet — orders go through WhatsApp</span>
+                <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> AI chatbot — tap Ask Yug in the corner</span>
+              </div>
+            </div>
+            <div class="hero-art">
+              <div class="dash" id="dashIllus" aria-label="Illustration of the Lab workspace — not a live workspace">
+                <div class="dash-bar"><i></i><i></i><i></i><span class="dash-url"><b>●</b> lab.yuglab.online/your-workspace</span></div>
+                <div class="illus-banner" role="note">Illustration · Not a live workspace</div>
+                <div class="dash-body">
+                  <div class="dash-side" aria-hidden="true">
+                    <span class="ds-label">Workspace</span>
+                    <span class="ds-item on"><span class="pip"></span>Projects</span>
+                    <span class="ds-item"><span class="pip"></span>Templates</span>
+                    <span class="ds-item"><span class="pip"></span>AI Builder</span>
+                    <span class="ds-label">Manage</span>
+                    <span class="ds-item"><span class="pip"></span>Preview links</span>
+                    <span class="ds-item"><span class="pip"></span>Versions</span>
+                    <span class="ds-item"><span class="pip"></span>Credits</span>
+                  </div>
+                  <div class="dash-main">
+                    <div class="dm-head"><span class="dm-title">Your Project</span></div>
+                    <div class="dm-preview">
+                      <div class="pv-title">Your Business Name</div>
+                      <div class="pv-sub">Example page layout — your services here</div>
+                      <span class="pv-btn">Book appointment</span>
+                      <div class="dm-row">
+                        <div class="dm-tile">Home<small>Edited by you — free</small></div>
+                        <div class="dm-tile">Services<small>AI draft — 12 credits</small></div>
+                        <div class="dm-tile">Gallery<small>AI layout — 8 credits</small></div>
+                      </div>
+                    </div>
+                    <div class="dm-credits"><span class="cr-num">960 / 1,500 credits left</span><span class="cr-bar" aria-hidden="true"><i></i></span><small>Cost shown before every AI run</small></div>
+                  </div>
+                </div>
+              </div>
+              <div class="art-chip chip-lab">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2dd4bf" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 2v6L4.5 18a2 2 0 0 0 1.8 3h11.4a2 2 0 0 0 1.8-3L14 8V2"/><path d="M8.5 2h7"/><path d="M7 15h10"/></svg>
+                <span>Your Lab workspace<small>Coming soon — login in the works</small></span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="sec" id="paths" style="padding-top:30px">
+          <div class="wrap">
+            <div class="sec-head rv">
+              <span class="kicker">Two ways in</span>
+              <h2>Build it yourself in the Lab — or we build it for you</h2>
+              <p>Two different things, so don't mix them up. In the Lab, <em>you</em> build the site, with AI help. Done-for-you means <em>we</em> build it. Separate service, separate price — both are on the <a data-route="pricing" style="cursor:pointer">Pricing page</a>.</p>
+            </div>
+            <div class="paths">
+              <article class="path-card featured lift">
+                <span class="path-tag tag-sub">Subscription · The Lab · Coming Soon</span>
+                <h3>Your own Lab workspace<span class="soon-pill">Coming Soon</span></h3>
+                <p class="path-price">From $19 <small>/month · when the Lab opens</small></p>
+                <p>The Lab isn't open yet — no account, no workspace today. When it opens, you get projects, templates and a monthly pool of AI credits. A project is one website you're working on, and you can edit it by hand as much as you like, free. For now, just register your interest on the Pricing page.</p>
+                <ul class="tick-list">
+                  <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> 1–20 projects depending on plan</li>
+                  <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> AI credits — the cost shows before each run</li>
+                  <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Best if your business keeps growing month after month</li>
+                </ul>
+                <a class="btn btn-gold" data-route="pricing" style="cursor:pointer">Compare Lab plans</a>
+              </article>
+              <article class="path-card lift">
+                <span class="path-tag tag-once">One-time · We build it</span>
+                <h3>A finished website, built for you</h3>
+                <p class="path-price">From $299 <small>one-time · no subscription · max $599</small></p>
+                <p>You tell us about your business. We design and build the whole website and hand it over, ready to launch. Nothing for you to learn, nothing to run.</p>
+                <ul class="tick-list">
+                  <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Fixed scope and price, agreed before work starts</li>
+                  <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Mobile-first design, ready for your customers</li>
+                  <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Best if you want one good website, done properly, once</li>
+                </ul>
+                <a class="btn btn-teal" data-route="pricing" style="cursor:pointer">See done-for-you packages</a>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="sec sec-alt" id="how">
+          <div class="wrap">
+            <div class="sec-head rv">
+              <span class="kicker">How it works</span>
+              <h2>Four steps — keep scrolling, they stack up</h2>
+              <p>From this page to a live site in four steps. Orders go through WhatsApp — there's no online checkout yet.</p>
+            </div>
+            <div class="stack">
+              <article class="stack-card"><div class="st-num">01</div><div><h3>Pick your plan</h3><p>Choose a Lab plan or a done-for-you package. All prices are in US dollars, shown in full before you order. No hidden charges.</p><div class="st-meta"><span class="st-chip">Prices in USD</span><span class="st-chip">Scope fixed before payment</span></div></div></article>
+              <article class="stack-card"><div class="st-num">02</div><div><h3>Order on WhatsApp</h3><p>Tap Order, fill the short form, send it on WhatsApp. We confirm scope, time and total in the chat before you pay anything.</p><div class="st-meta"><span class="st-chip">WhatsApp ordering</span><span class="st-chip">Confirmation before payment</span></div></div></article>
+              <article class="stack-card"><div class="st-num">03</div><div><h3>Payment — later</h3><p>There's no online checkout yet. PayPal and UPI (via Razorpay / Cashfree) will be added later. Until then, nothing is charged through this site — your order stays a WhatsApp conversation.</p><div class="st-meta"><span class="st-chip">Checkout not live yet</span><span class="st-chip">WhatsApp enquiry only</span></div></div></article>
+              <article class="stack-card"><div class="st-num">04</div><div><h3>Build, preview, go live</h3><p>In the Lab, you build it: edit by hand for free, call the AI when you want help — the credit cost shows before it runs. Done-for-you: preview your finished site, use your revision rounds, then launch.</p><div class="st-meta"><span class="st-chip">Manual edits: always free</span><span class="st-chip">Version history on Standard and up</span></div></div></article>
+            </div>
+          </div>
+        </section>
+
+        <section class="sec" id="home-services">
+          <div class="wrap">
+            <div class="sec-head rv">
+              <span class="kicker">Services</span>
+              <h2>What Yug Labs does</h2>
+              <p>Websites, chatbots and Founder Post are open for orders today, on WhatsApp. The Lab is coming soon — you can register interest, but there's no account or workspace yet. Full details on the <a data-route="services" style="cursor:pointer">Services page</a>.</p>
+            </div>
+            <div class="svc-grid">
+              <article class="svc lift rv"><div class="svc-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><h3>Business Website</h3><p>A clean website for your shop, salon, cafe or startup. Built for phones first — your pages, photos and prices, plus a clear way for customers to reach you.</p><a class="svc-link" data-route="services">See details →</a></article>
+              <article class="svc lift rv rv-d1"><div class="svc-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v6L4.5 18a2 2 0 0 0 1.8 3h11.4a2 2 0 0 0 1.8-3L14 8V2"/><path d="M8.5 2h7"/><path d="M7 15h10"/></svg></div><h3>The Lab Workspace<span class="soon-pill">Coming Soon</span></h3><p>Your own workspace for building websites with AI help. Projects, templates, monthly AI credits — and editing by hand is always free. It opens when login launches.</p><a class="svc-link" data-route="lab">See the Lab →</a></article>
+              <article class="svc lift rv rv-d2"><div class="svc-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div><h3>AI Chatbot</h3><p>A chatbot on your site that answers from your own details — your timings, your prices, your services. Not made-up answers.</p><a class="svc-link" data-route="services">See details →</a></article>
+              <article class="svc lift rv"><div class="svc-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></div><h3>Founder Post</h3><p>Posts written for founders and small businesses. You give us at least 2 facts about your business, we write the post, you get it on WhatsApp.</p><a class="svc-link" data-route="services">See details →</a></article>
+              <article class="svc lift rv rv-d1"><div class="svc-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div><h3>Website + Chatbot</h3><p>The full package: a complete website plus a chatbot set up with your real details, answering customers day and night.</p><a class="svc-link" data-route="pricing">See package →</a></article>
+              <article class="svc lift rv rv-d2"><div class="svc-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><h3>Support &amp; Revisions</h3><p>Every done-for-you package comes with revision rounds, and every Lab plan comes with support. Message us on WhatsApp any time.</p><a class="svc-link" data-route="contact">Contact us →</a></article>
+            </div>
+          </div>
+        </section>
+
+        <section class="sec sec-alt" id="home-styles">
+          <div class="wrap">
+            <div class="sec-head rv">
+              <span class="kicker">Website styles</span>
+              <h2>Three styles we build most</h2>
+              <p>These are illustrations of the styles, not client sites — your name, prices and photos go in when we build yours. Each one is made for phones first, around one clear action: booking, ordering, or joining.</p>
+            </div>
+            <div class="show-row">
+              <div class="show-text rv"><h3>Websites for Salons &amp; Spas</h3><p>Services up front, prices easy to scan, booking in two taps. Your name, services, prices and photos go straight into the design.</p><ul class="tick-list"><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Online appointment booking flow</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Service menu with clear pricing layout</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Built for phones first — most salon customers book on mobile</li></ul><p style="margin-top:18px"><a class="btn btn-gold btn-sm" data-order="Done-for-you website — Business ($449)" style="cursor:pointer">Order a salon website</a></p></div>
+              <div class="show-visual rv rv-d1"><div class="browser lift"><div class="browser-bar"><i></i><i></i><i></i><span class="browser-url">Salon website — illustration</span></div><div class="mock mock-salon"><span class="illus-badge">Illustration</span><div class="m-title">Your Salon Name</div><div class="m-sub">Hair · Skin · Bridal — book in 2 taps</div><span class="m-btn">Book appointment</span><div class="m-row"><div class="m-tile">Haircut<br />Your price</div><div class="m-tile">Facial<br />Your price</div><div class="m-tile">Bridal<br />Your price</div></div></div></div></div>
+            </div>
+            <div class="show-row flip">
+              <div class="show-text rv"><h3>Websites for Cafes &amp; Restaurants</h3><p>Menu, photos and table booking — without making anyone call. Your menu, timings and location go straight in.</p><ul class="tick-list"><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Menu pages that load fast on mobile data</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Table booking for 2–6 guests</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Warm cream and coffee-brown palette</li></ul><p style="margin-top:18px"><a class="btn btn-gold btn-sm" data-order="Done-for-you website — Business ($449)" style="cursor:pointer">Order a cafe website</a></p></div>
+              <div class="show-visual rv rv-d1"><div class="browser lift"><div class="browser-bar"><i></i><i></i><i></i><span class="browser-url">Cafe website — illustration</span></div><div class="mock mock-cafe"><span class="illus-badge">Illustration</span><div class="m-title">Your Cafe Name</div><div class="m-sub">Coffee · Snacks · Table booking</div><span class="m-btn">See the menu</span><div class="m-row"><div class="m-tile">Cold coffee<br />Your price</div><div class="m-tile">Sandwich<br />Your price</div><div class="m-tile">Book table<br />2–6 guests</div></div></div></div></div>
+            </div>
+            <div class="show-row">
+              <div class="show-text rv"><h3>Websites for Gyms &amp; Fitness Studios</h3><p>Dark, bold design with plan cards and a simple joining flow. Your plans, trainers and timings go straight in.</p><ul class="tick-list"><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Plan comparison cards that sell the upgrade</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Trainer and schedule sections</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Join-now flow with enquiry form</li></ul><p style="margin-top:18px"><a class="btn btn-gold btn-sm" data-order="Done-for-you website — Business ($449)" style="cursor:pointer">Order a gym website</a></p></div>
+              <div class="show-visual rv rv-d1"><div class="browser lift"><div class="browser-bar"><i></i><i></i><i></i><span class="browser-url">Fitness website — illustration</span></div><div class="mock mock-gym"><span class="illus-badge">Illustration</span><div class="m-title">Your Gym Name</div><div class="m-sub">Train hard. Stay consistent.</div><span class="m-btn">View plans</span><div class="m-row"><div class="m-tile">Starter<br />Your plan</div><div class="m-tile">Pro<br />Your plan</div><div class="m-tile">Elite<br />Your plan</div></div></div></div></div>
+            </div>
+          </div>
+          <div class="wrap" style="text-align:center;margin-top:4px"><a class="btn btn-ghost" data-route="demos" style="cursor:pointer">See the full demo websites — salon, cafe, fitness</a></div>
+        </section>
+
+        <section class="sec" id="chatbot" style="padding-top:16px">
+          <div class="wrap">
+            <div class="chat-strip rv">
+              <div>
+                <span class="kicker">Ask Yug · Chatbot</span>
+                <h2>Questions? Type them — the chatbot answers here</h2>
+                <p class="chat-strip-sub">The Yug Labs chatbot is text-only: type a question and it answers from this site's own information — prices, the Lab, demos, ordering and refunds. It can also open pages for you and help fill the order form. No AI key is connected yet. One rule: passwords, OTPs and payments are <strong>never</strong> taken in chat — those always stay typed by you, in the secure place that asks for them.</p>
+                <p style="margin-top:20px"><button class="btn btn-gold" id="openChatStrip" type="button">Open the Ask Yug chat</button></p>
+              </div>
+              <div class="chat-try">
+                <h3>Try typing</h3>
+                <div class="try-chips">
+                  <button class="try-chip" type="button" data-route="services">“Go to services”</button>
+                  <button class="try-chip" type="button" data-route="demos">“Show the demos”</button>
+                  <button class="try-chip" type="button" data-route="lab">“Show the Lab”</button>
+                  <button class="try-chip" type="button" data-route="pricing">“Show pricing”</button>
+                  <button class="try-chip" type="button" data-ask="What are your prices?">“What are your prices?”</button>
+                  <button class="try-chip" type="button" data-route="about">“Open About”</button>
+                  <button class="try-chip" type="button" data-ask="Fill the order form">“Fill the order form”</button>
+                  <button class="try-chip" type="button" data-ask="How do I order?">“How do I order?”</button>
+                  <button class="try-chip" type="button" data-route="home">“Back to home”</button>
+                </div>
+                <p>Tap a chip and the chatbot or the page does the rest — or open the chat and type your own question.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="sec sec-alt" id="home-faq">
+          <div class="wrap">
+            <div class="sec-head rv"><span class="kicker">FAQ</span><h2>Questions, answered straight</h2></div>
+            <div class="faq-list">
+              <details class="faq rv"><summary>What exactly is the Lab? <span class="pm" aria-hidden="true">+</span></summary><p>Your own workspace for building websites, with AI help. It's not open yet — login and online payment are still being built, so nobody can create an account today. When it opens: one project = one website, editing by hand is free, and you spend AI credits when you want the AI to draft something. More on the <a data-route="lab" style="cursor:pointer">Lab page</a>.</p></details>
+              <details class="faq rv"><summary>How do I order and pay? <span class="pm" aria-hidden="true">+</span></summary><p>Pick a plan, tap Order, fill the form, send it on WhatsApp. We confirm scope and total in the chat before anything is paid. There's no online checkout yet — PayPal and UPI (via Razorpay / Cashfree) come later.</p></details>
+              <details class="faq rv"><summary>What is a credit, in plain words? <span class="pm" aria-hidden="true">+</span></summary><p>A credit is a small unit of AI work. Doing things yourself — typing, editing, moving blocks, changing colours — is free, always. Asking the AI to draft a page or write a section costs credits, usually 10–15 for a page draft, and the cost shows before it runs. Credits refresh every month.</p></details>
+              <details class="faq rv"><summary>Lab plan or done-for-you — what is the difference? <span class="pm" aria-hidden="true">+</span></summary><p>Lab plan: <em>you</em> build, in your own workspace, for a monthly price. Done-for-you: <em>we</em> build and hand over a finished site, for one payment. They're separate — a Lab plan never includes a site built by our team, and a done-for-you package never includes Lab credits.</p></details>
+              <details class="faq rv"><summary>Why are prices in US dollars? <span class="pm" aria-hidden="true">+</span></summary><p>So everyone, wherever they are, sees the same price. Orders go through WhatsApp for now — no online checkout yet (see Payment methods on the Pricing page).</p></details>
+              <details class="faq rv"><summary>Can I get a refund? <span class="pm" aria-hidden="true">+</span></summary><p>Yes, in the cases in our <a data-route="refund" style="cursor:pointer">Refund Policy</a>. Short version: cancel before work starts and you get a full refund. Lab plans can be cancelled any time and stop at the end of the paid month.</p></details>
+            </div>
+          </div>
+        </section>
+      </div>
+      <!-- ================= PAGE: SERVICES ================= -->
+      <div class="page" data-page="services">
+        <div class="wrap page-hero">
+          <span class="kicker">Services</span>
+          <h1>What we offer, in plain detail</h1>
+          <p>Websites, chatbots and Founder Post are open for orders today, on WhatsApp. The Lab is coming soon — register interest only; no account or workspace exists yet. There's no online checkout yet, so scope gets confirmed in the chat first.</p>
+        </div>
+        <section class="sec" style="padding-top:36px">
+          <div class="wrap" style="display:grid;gap:20px">
+            <article class="path-card lift">
+              <span class="path-tag tag-once">Service 01 · One-time or in the Lab</span>
+              <h3>Business Website</h3>
+              <p>A clean website for shops, salons, cafes, gyms, startups and local services. Built for phones first — your real photos, your real prices, and an obvious way for customers to contact or book you.</p>
+              <ul class="tick-list">
+                <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Home, services, about, gallery and contact pages</li>
+                <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Enquiry / booking form and WhatsApp contact buttons</li>
+                <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Basic SEO on every page — title, meta description, headings, image alt text</li>
+                <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Fast loading on mobile data, designed phone-first</li>
+              </ul>
+              <p class="path-price">From $299 <small>one-time, done for you · or build it in the Lab from $19/mo when it opens</small></p>
+              <a class="btn btn-gold" data-order="Done-for-you website — Business ($449)" style="cursor:pointer">Order a business website</a>
+            </article>
+            <article class="path-card lift">
+              <span class="path-tag tag-sub">Service 02 · Subscription</span>
+              <h3>The Lab Workspace<span class="soon-pill">Coming Soon</span></h3>
+              <p>Your own workspace for building websites with AI help. Start from a template, edit everything yourself for free, and spend credits only when the AI makes something for you.</p>
+              <p><b style="color:var(--ink)">Where it stands:</b> not open yet — login and online payment are still being built. Prices are on the Pricing page, you can register interest on WhatsApp today, and the full picture is on the <a data-route="lab" style="cursor:pointer">Lab page</a>.</p>
+              <ul class="tick-list">
+                <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> 1–20 projects depending on plan — one project = one website in progress</li>
+                <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Monthly AI credits — the cost of every AI run is shown before it runs</li>
+                <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Live preview, preview share links and version history (Standard and up)</li>
+                <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Export your finished site any time</li>
+              </ul>
+              <p class="path-price">From $19 <small>/month · cancel anytime</small></p>
+              <a class="btn btn-gold" data-route="pricing" style="cursor:pointer">Compare Lab plans</a>
+            </article>
+            <article class="path-card lift">
+              <span class="path-tag tag-once">Service 03 · Add-on or package</span>
+              <h3>AI Chatbot for Your Website</h3>
+              <p>A chatbot added to your existing website. It answers from your own details — your timings, prices and services. If a question needs a person, it points the visitor to your WhatsApp or contact form.</p>
+              <ul class="tick-list">
+                <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Set up with your real business information — no made-up answers</li>
+                <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Answers FAQs instantly, day and night</li>
+                <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Falls back to WhatsApp / contact form for anything it cannot answer</li>
+              </ul>
+              <p class="path-price">Included in Website + Chatbot — $599 <small>one-time · or ask on WhatsApp for chatbot-only pricing</small></p>
+              <a class="btn btn-teal" data-order="AI chatbot for my website" style="cursor:pointer">Order a chatbot</a>
+            </article>
+            <article class="path-card lift">
+              <span class="path-tag tag-once">Service 04 · WhatsApp delivery</span>
+              <h3>Founder Post</h3>
+              <p>Posts written for founders and small businesses that need to show up online regularly. Text only — you order on WhatsApp, we deliver on WhatsApp.</p>
+              <ul class="tick-list">
+                <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> You share a minimum of 2 real facts about your business — posts are written only from your facts</li>
+                <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Post language chosen by you when you order</li>
+                <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> 1 edit per post included · delivery on WhatsApp</li>
+                <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Writing only — design, posting to your accounts and proposals are not included</li>
+              </ul>
+              <a class="btn btn-teal" data-order="Founder Post" style="cursor:pointer">Order a Founder Post</a>
+            </article>
+          </div>
+        </section>
+      </div>
+
+      <!-- ================= PAGE: DEMOS ================= -->
+      <div class="page" data-page="demos">
+        <div class="wrap page-hero">
+          <span class="kicker">Demo websites</span>
+          <h1>See the styles, live in your browser</h1>
+          <p>One full demo per business type — salon, cafe and fitness. Every demo below is a fictional business built to show the design. When you order, we rebuild the same style with your real name, prices and photos.</p>
+        </div>
+        <section class="sec" style="padding-top:36px">
+          <div class="wrap">
+            <div class="demo-note rv in">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+              <span><b>These are demos, not client websites.</b> The business names are fictional, the salon and cafe prices are <b>sample prices</b> shown only to display the layout, and the fitness plans are <b>template plans only</b>. No real client's work, reviews or results are shown here.</span>
+            </div>
+            <div class="show-row">
+              <div class="show-text rv"><span class="kicker">Demo 1 · Salon</span><h3>Velvet Roots Salon — salon demo</h3><p>A fictional salon website with the things salon customers actually use: a clear service menu, prices that are easy to scan, and appointment booking in two taps. This is the style our Salon Demo template is built on.</p><ul class="tick-list"><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Service menu with prices — samples here, yours when we build it</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Book appointment flow, made for phones first</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> WhatsApp enquiry button on every page</li></ul><p style="margin-top:18px"><a class="btn btn-gold btn-sm" data-order="Salon website — demo style" style="cursor:pointer">Order this salon style</a></p></div>
+              <div class="show-visual rv rv-d1"><div class="browser lift"><div class="browser-bar"><i></i><i></i><i></i><span class="browser-url">Velvet Roots Salon — demo</span></div><div class="mock mock-salon"><span class="demo-flag">Demo</span><div class="m-title">Velvet Roots Salon</div><div class="m-sub">Hair · Skin · Bridal — a fictional salon</div><span class="m-btn">Book appointment</span><div class="m-row"><div class="m-tile">Haircut &amp; styling<br />$25 · sample price</div><div class="m-tile">Facial &amp; cleanup<br />$40 · sample price</div><div class="m-tile">Bridal package<br />$299 · sample price</div></div><div class="m-row"><div class="m-tile">Open Tue–Sun<br />10 am – 8 pm</div><div class="m-tile">Book on WhatsApp<br />2 taps</div></div></div></div></div>
+            </div>
+            <div class="show-row flip">
+              <div class="show-text rv"><span class="kicker">Demo 2 · Cafe</span><h3>BrewNest Cafe — cafe demo</h3><p>A fictional cafe website in warm cream, coffee brown and caramel orange: menu up front, photos doing the selling, and table booking without a phone call. This is the style our Cafe Demo template is built on.</p><ul class="tick-list"><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Menu page that loads fast on mobile data — sample prices here</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Table booking for 2–6 guests</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Timings and location, easy to find</li></ul><p style="margin-top:18px"><a class="btn btn-gold btn-sm" data-order="Cafe website — demo style" style="cursor:pointer">Order this cafe style</a></p></div>
+              <div class="show-visual rv rv-d1"><div class="browser lift"><div class="browser-bar"><i></i><i></i><i></i><span class="browser-url">BrewNest Cafe — demo</span></div><div class="mock mock-cafe"><span class="demo-flag">Demo</span><div class="m-title">BrewNest Cafe</div><div class="m-sub">Coffee · Snacks · Table booking — a fictional cafe</div><span class="m-btn">See the menu</span><div class="m-row"><div class="m-tile">Cold coffee<br />$6 · sample price</div><div class="m-tile">Grilled sandwich<br />$8 · sample price</div><div class="m-tile">Book a table<br />2–6 guests</div></div><div class="m-row"><div class="m-tile">Open daily<br />9 am – 10 pm</div><div class="m-tile">Takeaway<br />Order on WhatsApp</div></div></div></div></div>
+            </div>
+            <div class="show-row">
+              <div class="show-text rv"><span class="kicker">Demo 3 · Fitness</span><h3>IronPulse Fitness — gym demo</h3><p>A fictional gym website: dark, bold design with plan cards and a simple joining flow. The plans below are template plans only — a structure to show the layout, not any real gym's pricing.</p><ul class="tick-list"><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Plan comparison cards — template plans only</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Trainer and schedule sections</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Join-now enquiry flow with WhatsApp follow-up</li></ul><p style="margin-top:18px"><a class="btn btn-gold btn-sm" data-order="Fitness website — demo style" style="cursor:pointer">Order this fitness style</a></p></div>
+              <div class="show-visual rv rv-d1"><div class="browser lift"><div class="browser-bar"><i></i><i></i><i></i><span class="browser-url">IronPulse Fitness — demo</span></div><div class="mock mock-gym"><span class="demo-flag">Demo</span><div class="m-title">IronPulse Fitness</div><div class="m-sub">Train hard. Stay consistent. — a fictional gym</div><span class="m-btn">View plans</span><div class="m-row"><div class="m-tile">Starter<br />Template plan only</div><div class="m-tile">Pro<br />Template plan only</div><div class="m-tile">Elite<br />Template plan only</div></div><div class="m-row"><div class="m-tile">Open Mon–Sat<br />5 am – 10 pm</div><div class="m-tile">Free trial class<br />Enquire on WhatsApp</div></div></div></div></div>
+            </div>
+            <div class="demo-note rv" style="margin-top:30px">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1 7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+              <span><b>Like one of these styles?</b> Tap its Order button — the order form opens with that style already selected — or ask the chatbot: tap <b>Ask Yug</b> in the corner and type “show the demos”.</span>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ================= PAGE: PRICING ================= -->
+      <div class="page" data-page="pricing">
+        <div class="wrap page-hero">
+          <span class="kicker">Pricing</span>
+          <h1>Simple pricing, in US dollars</h1>
+          <p>Two separate things, priced separately. Lab plans are listed for when the Lab opens — today you can only register interest on WhatsApp; you can't buy one, open an account, or get a workspace yet. Done-for-you packages are different: order those today, on WhatsApp. There's no online checkout yet.</p>
+        </div>
+        <section class="sec" style="padding-top:36px">
+          <div class="wrap">
+            <div class="sec-head rv"><span class="kicker">Part 1 · Subscription · Coming Soon</span><h2>The Lab — priced by workspace, projects and credits<span class="soon-pill">Coming Soon</span></h2><p>When the Lab opens, a plan gets you the workspace, a set number of projects, and a monthly pool of AI credits. Today the buttons below only register interest — they don't order a plan, and they don't give you a login, an account, or a workspace.</p></div>
+            <div class="soon-banner rv" style="margin-bottom:30px">
+              <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+              <p><b>The Lab isn't open yet.</b> Registering interest just means we'll message you when it opens. It's not an order, no account gets created, and nothing is charged. The done-for-you packages in Part 2 are separate — those you can order today.</p>
+            </div>
+            <div class="credit-box rv">
+              <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+              <p><b>What is a <span class="tip" tabindex="0" data-tip="A credit is one small unit of AI work inside your Lab — drafting a page, writing a section, generating a layout. You always see the cost before it runs.">credit</span>?</b> A small unit of AI work. Anything you do <b>by hand — editing text, moving blocks, changing colours — is free and unlimited</b>. When the AI drafts a page or writes a section, that costs credits, and the exact cost shows <b>before</b> it runs. A page draft is usually 10–15 credits.</p>
+            </div>
+            <div class="price-grid">
+              <article class="price-card lift rv"><h3>Basic<span class="soon-pill">Coming Soon</span></h3><p class="plan-for">For your first project — one website, built at your own pace.</p><div class="price-amt">$19<small> /month</small></div><div class="plan-credits"><span class="cr-pill">500 credits / mo</span><span class="cr-pill alt">1 project</span></div><ul class="tick-list"><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Full Lab workspace access — when the Lab opens</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Manual edits — free &amp; unlimited</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Starter templates &amp; blocks</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Live preview of your project</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Export your site when ready</li></ul><p class="price-sub">Coming soon — this only registers interest. No account, no workspace today.</p><a class="btn btn-ghost" data-order="Lab interest — Basic ($19/mo) — Coming Soon" style="cursor:pointer">Register interest in Basic on WhatsApp</a></article>
+              <article class="price-card popular lift rv rv-d1"><span class="pop-chip">Most popular</span><h3>Standard<span class="soon-pill">Coming Soon</span></h3><p class="plan-for">For a growing business — several projects, room to try things.</p><div class="price-amt">$49<small> /month</small></div><div class="plan-credits"><span class="cr-pill">1,500 credits / mo</span><span class="cr-pill alt">5 projects</span></div><ul class="tick-list"><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Everything in Basic</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Full template &amp; pattern library</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Version history — undo any change</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Preview share links for feedback</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Priority support</li></ul><p class="price-sub">Coming soon — this only registers interest. No account, no workspace today.</p><a class="btn btn-gold" data-order="Lab interest — Standard ($49/mo) — Coming Soon" style="cursor:pointer">Register interest in Standard on WhatsApp</a></article>
+              <article class="price-card lift rv rv-d2"><h3>Premium<span class="soon-pill">Coming Soon</span></h3><p class="plan-for">For heavy builders — many projects, a deep credit pool.</p><div class="price-amt">$99<small> /month</small></div><div class="plan-credits"><span class="cr-pill">5,000 credits / mo</span><span class="cr-pill alt">20 projects</span></div><ul class="tick-list"><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Everything in Standard</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> 20 active projects at once</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Draft projects before publishing</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> First access to new Lab tools</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Priority support, faster queue</li></ul><p class="price-sub">Coming soon — this only registers interest. No account, no workspace today.</p><a class="btn btn-ghost" data-order="Lab interest — Premium ($99/mo) — Coming Soon" style="cursor:pointer">Register interest in Premium on WhatsApp</a></article>
+              <article class="price-card lift rv rv-d3"><h3>Enterprise<span class="soon-pill">Coming Soon</span></h3><p class="plan-for">For teams and agencies building at a bigger scale.</p><div class="price-amt custom">Custom</div><div class="plan-credits"><span class="cr-pill">Custom credits</span><span class="cr-pill alt">Custom projects</span></div><ul class="tick-list"><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Everything in Premium</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Team workspace for your staff</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Custom limits, set together</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Invoice billing</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Dedicated priority support</li></ul><p class="price-sub">Coming soon — this only registers interest. No account, no workspace today.</p><a class="btn btn-ghost" data-order="Lab interest — Enterprise (custom) — Coming Soon" style="cursor:pointer">Register interest in Enterprise on WhatsApp</a></article>
+            </div>
+            <div class="cmp-wrap rv">
+              <h3>Lab plans, side by side</h3>
+              <p class="cmp-sub">What's planned for when the Lab opens. Same features on every plan — only the amounts change. You can't buy these yet; the buttons above register interest only.</p>
+              <div class="cmp-scroll"><table class="cmp"><thead><tr><th scope="col">Feature</th><th scope="col">Basic</th><th scope="col" class="pop">Standard</th><th scope="col">Premium</th><th scope="col">Enterprise</th></tr></thead><tbody>
+                <tr><td>Price (USD)</td><td data-label="Basic"><b>$19/mo</b></td><td data-label="Standard"><b>$49/mo</b></td><td data-label="Premium"><b>$99/mo</b></td><td data-label="Enterprise">Custom</td></tr>
+                <tr><td>Projects</td><td data-label="Basic"><b>1</b></td><td data-label="Standard"><b>5</b></td><td data-label="Premium"><b>20</b></td><td data-label="Enterprise">Custom</td></tr>
+                <tr><td>AI credits / month</td><td data-label="Basic"><b>500</b></td><td data-label="Standard"><b>1,500</b></td><td data-label="Premium"><b>5,000</b></td><td data-label="Enterprise">Custom pool</td></tr>
+                <tr><td>Manual edits</td><td data-label="Basic">Free, unlimited</td><td data-label="Standard">Free, unlimited</td><td data-label="Premium">Free, unlimited</td><td data-label="Enterprise">Free, unlimited</td></tr>
+                <tr><td>AI cost shown before a run</td><td data-label="Basic">Yes</td><td data-label="Standard">Yes</td><td data-label="Premium">Yes</td><td data-label="Enterprise">Yes</td></tr>
+                <tr><td>Templates &amp; blocks</td><td data-label="Basic">Starter set</td><td data-label="Standard">Full library</td><td data-label="Premium">Full library</td><td data-label="Enterprise">Full library</td></tr>
+                <tr><td>Live preview</td><td data-label="Basic">Yes</td><td data-label="Standard">Yes</td><td data-label="Premium">Yes</td><td data-label="Enterprise">Yes</td></tr>
+                <tr><td>Version history &amp; revert</td><td data-label="Basic">—</td><td data-label="Standard">Yes</td><td data-label="Premium">Yes</td><td data-label="Enterprise">Yes</td></tr>
+                <tr><td>Preview share links</td><td data-label="Basic">—</td><td data-label="Standard">Yes</td><td data-label="Premium">Yes</td><td data-label="Enterprise">Yes</td></tr>
+                <tr><td>Export your site</td><td data-label="Basic">Yes</td><td data-label="Standard">Yes</td><td data-label="Premium">Yes</td><td data-label="Enterprise">Yes</td></tr>
+                <tr><td>Support</td><td data-label="Basic">Standard</td><td data-label="Standard">Priority</td><td data-label="Premium">Priority, faster queue</td><td data-label="Enterprise">Dedicated</td></tr>
+              </tbody></table></div>
+            </div>
+            <p class="price-sub" style="margin-top:16px">When the Lab opens: credits refresh monthly, unused ones don't roll over, and you can cancel any time. Nothing can be subscribed to or paid for today.</p>
+          </div>
+        </section>
+        <section class="sec sec-alt">
+          <div class="wrap">
+            <div class="sec-head rv"><span class="kicker">Part 2 · One-time</span><h2>We build it for you — one payment, no subscription</h2><p>Nothing to do with the Lab. You pay once, we design and build the site, you launch it.</p></div>
+            <div class="wf-note rv"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span><b>Not a Lab plan:</b> these packages don't include Lab projects or credits, and Lab plans don't include a site built by our team.</span></div>
+            <div class="price-grid three">
+              <article class="price-card lift rv"><h3>Starter Website</h3><p class="plan-for">One sharp page that says who you are and how to reach you.</p><div class="price-amt">$299<small> one-time</small></div><ul class="tick-list"><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> 1-page website for your business</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Mobile-first, fast loading</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Contact &amp; WhatsApp buttons</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> 1 revision round included</li></ul><a class="btn btn-teal" data-order="Done-for-you website — Starter ($299)" style="cursor:pointer">Order Starter on WhatsApp</a></article>
+              <article class="price-card lift rv rv-d1"><h3>Business Website</h3><p class="plan-for">The full website most local businesses actually need.</p><div class="price-amt">$449<small> one-time</small></div><ul class="tick-list"><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Up to 5 pages — home, services, about, gallery, contact</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Enquiry / booking form</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Basic SEO — titles, meta, headings, alt text</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> 2 revision rounds included</li></ul><a class="btn btn-gold" data-order="Done-for-you website — Business ($449)" style="cursor:pointer">Order Business on WhatsApp</a></article>
+              <article class="price-card lift rv rv-d2"><h3>Website + Chatbot</h3><p class="plan-for">The full website, plus a chatbot that answers customers for you.</p><div class="price-amt">$599<small> one-time</small></div><ul class="tick-list"><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Everything in Business Website</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> AI chatbot answering customer questions</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Set up with your real business details</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> 2 revision rounds included</li></ul><a class="btn btn-ghost" data-order="Done-for-you website — Website + Chatbot ($599)" style="cursor:pointer">Order Website + Chatbot</a></article>
+            </div>
+            <p class="price-sub" style="margin-top:16px">One-time prices in USD, for the scope listed. Anything beyond that gets quoted before work starts — no surprise bills.</p>
+            <div class="sec-head rv" style="margin-top:52px"><span class="kicker">How you pay</span><h2>Payment methods</h2><p>Straight up: <strong>there's no online checkout on this site yet.</strong> Done-for-you packages are ordered on WhatsApp — you send the order, we confirm scope, time and total in the chat, and nothing is paid through this website. Lab plans can't be ordered at all yet; WhatsApp there is only for registering interest.</p></div>
+            <div class="pay-strip">
+              <div class="pay-card lift rv"><span class="pay-tag">Available now</span><h3>WhatsApp — order here, or register Lab interest</h3><p>For a done-for-you package, tap Order, fill the short form and send it to +91 87619 77477 on WhatsApp — we confirm everything in the chat. For a Lab plan, tap Register interest: that's all it is, for when the Lab opens. No workspace comes with it today.</p></div>
+              <div class="pay-card lift rv rv-d1"><span class="pay-tag soon">Not live yet</span><h3>PayPal — later</h3><p>Not available yet. When PayPal checkout is added, it'll be announced here. Until then there's no PayPal link to pay through.</p></div>
+              <div class="pay-card lift rv rv-d2"><span class="pay-tag soon">Not live yet</span><h3>UPI via Razorpay / Cashfree — later</h3><p>Not available yet either. UPI checkout will come with the same later step — there's no UPI payment on this site today.</p></div>
+            </div>
+            <p class="price-sub" style="margin-top:18px">We never ask for your card number, bank password or OTP — not here and not in chat. When checkout does launch, you'll pay inside the payment provider's own secure page. See our <a data-route="refund" style="cursor:pointer">Refund Policy</a> and <a data-route="terms" style="cursor:pointer">Terms of Service</a>.</p>
+          </div>
+        </section>
+      </div>
+      <!-- ================= PAGE: ABOUT ================= -->
+      <div class="page" data-page="about">
+        <div class="wrap page-hero">
+          <span class="kicker">About</span>
+          <h1>Small team. Straight dealing.</h1>
+          <p>Yug Labs builds websites and simple AI tools for small businesses. No fake clients, no big claims — clear scope, prices in US dollars, and work delivered as agreed.</p>
+        </div>
+        <section class="sec" style="padding-top:36px">
+          <div class="wrap about-grid">
+            <div class="founder-card lift rv">
+              <span class="fc-role">Founder</span>
+              <h3>Suman Chhetri</h3>
+              <p>Founder of Yug Labs, based in India. Suman builds websites for shops, salons, cafes, gyms and startups, and is also a Hindi / Hinglish tech creator. He runs every order himself — from the first WhatsApp message to final delivery.</p>
+              <ul class="detail-list">
+                <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg><span><b>Address</b>Guwahati, Assam 781036, India — serving customers worldwide</span></li>
+                <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg><span><b>Email</b><a href="mailto:admin@yuglab.online">admin@yuglab.online</a></span></li>
+                <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg><span><b>Website</b>yuglab.online</span></li>
+                <li><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.2 14.2c-.3.8-1.7 1.6-2.4 1.6-.6.1-1.4.2-4.7-1-4-1.6-6.5-5.6-6.7-5.9-.2-.3-1.6-2.1-1.6-4s.9-2.7 1.3-3.1c.4-.4.8-.5 1-.5h.8c.3 0 .6 0 .9.7l1.3 3.1c.1.3.1.6-.1.9l-.5.6-.5.5c.5 1 1.7 2.7 3.8 3.7l.6-.6.7-.8c.3-.3.6-.2.9-.1l3 1.5c.3.1.5.2.6.4 0 .1 0 .7-.2 1.2z"/></svg><span><b>WhatsApp</b>+91 87619 77477</span></li>
+              </ul>
+              <a class="btn btn-wa" href="https://wa.me/918761977477?text=Hello%20Yug%20Labs%2C%20I%20want%20to%20know%20more%20about%20your%20services." target="_blank" rel="noopener">Message Suman on WhatsApp</a>
+            </div>
+            <div style="display:grid;gap:20px">
+              <article class="path-card lift rv"><h3>What we do</h3><p>Business websites. The Lab, for building your own site with AI help. Chatbots for existing websites. Founder Post writing. Every price and limit is listed openly on this site — what you read is what you get.</p></article>
+              <article class="path-card lift rv rv-d1"><h3>How we work</h3><ul class="tick-list"><li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Scope and total price confirmed on WhatsApp before any payment</li><li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Orders go through WhatsApp — PayPal and UPI checkout come later, they're not live yet</li><li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Revision rounds included in every done-for-you package, as listed</li><li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> We write only from facts you give us — never invented results, reviews or clients</li></ul></article>
+              <article class="path-card lift rv rv-d2"><h3>Who we build for</h3><p>Local businesses and startups, anywhere in the world — salons, cafes, restaurants, gyms, shops and services that need a site which loads fast on phones and turns visitors into enquiries, bookings and orders.</p><a class="btn btn-gold" data-route="contact" style="cursor:pointer;align-self:flex-start">Start a conversation</a></article>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ================= PAGE: CONTACT ================= -->
+      <div class="page" data-page="contact">
+        <div class="wrap page-hero">
+          <span class="kicker">Contact</span>
+          <h1>Talk to Yug Labs</h1>
+          <p>WhatsApp is the fastest way to reach us — and how every order starts. Message any time, tell us what your business does and what you need.</p>
+        </div>
+        <section class="sec" style="padding-top:36px">
+          <div class="wrap contact-grid">
+            <div style="display:grid;gap:20px;align-content:start">
+              <div class="contact-card lift rv">
+                <h3>WhatsApp — fastest reply</h3>
+                <p>You'll talk directly with Suman Chhetri, the founder. Ask about a website, a chatbot, a Founder Post or a Lab plan — scope and price get confirmed in the chat before any payment.</p>
+                <ul class="detail-list">
+                  <li><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.2 14.2c-.3.8-1.7 1.6-2.4 1.6-.6.1-1.4.2-4.7-1-4-1.6-6.5-5.6-6.7-5.9-.2-.3-1.6-2.1-1.6-4s.9-2.7 1.3-3.1c.4-.4.8-.5 1-.5h.8c.3 0 .6 0 .9.7l1.3 3.1c.1.3.1.6-.1.9l-.5.6-.5.5c.5 1 1.7 2.7 3.8 3.7l.6-.6.7-.8c.3-.3.6-.2.9-.1l3 1.5c.3.1.5.2.6.4 0 .1 0 .7-.2 1.2z"/></svg><span><b>WhatsApp number</b>+91 87619 77477</span></li>
+                  <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span><b>When to message</b>Any time — we reply as soon as we are online</span></li>
+                  <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg><span><b>Payments</b>No checkout yet — orders go through WhatsApp; PayPal &amp; UPI come later</span></li>
+                  <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg><span><b>Email</b><a href="mailto:admin@yuglab.online">admin@yuglab.online</a></span></li>
+                </ul>
+                <a class="btn btn-wa" href="https://wa.me/918761977477?text=Hello%20Yug%20Labs%2C%20I%20want%20to%20know%20more%20about%20a%20website%20%2F%20Lab%20plan%20for%20my%20business." target="_blank" rel="noopener">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.2 14.2c-.3.8-1.7 1.6-2.4 1.6-.6.1-1.4.2-4.7-1-4-1.6-6.5-5.6-6.7-5.9-.2-.3-1.6-2.1-1.6-4s.9-2.7 1.3-3.1c.4-.4.8-.5 1-.5h.8c.3 0 .6 0 .9.7l1.3 3.1c.1.3.1.6-.1.9l-.5.6-.5.5c.5 1 1.7 2.7 3.8 3.7l.6-.6.7-.8c.3-.3.6-.2.9-.1l3 1.5c.3.1.5.2.6.4 0 .1 0 .7-.2 1.2z"/></svg>
+                  Chat on WhatsApp — +91 87619 77477
+                </a>
+              </div>
+              <div class="contact-card lift rv rv-d1">
+                <h3>Business details</h3>
+                <ul class="detail-list" style="margin-top:4px">
+                  <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v6L4.5 18a2 2 0 0 0 1.8 3h11.4a2 2 0 0 0 1.8-3L14 8V2"/><path d="M8.5 2h7"/><path d="M7 15h10"/></svg><span><b>Business name</b>Yug Labs</span></li>
+                  <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></svg><span><b>Founder</b>Suman Chhetri</span></li>
+                  <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg><span><b>Address</b>Guwahati, Assam 781036, India — serving customers worldwide</span></li>
+                  <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg><span><b>Email</b><a href="mailto:admin@yuglab.online">admin@yuglab.online</a></span></li>
+                  <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg><span><b>Website</b>yuglab.online</span></li>
+                </ul>
+                <p style="margin-top:16px;font-size:13.5px;color:var(--faint)">If you do not wish to receive further business messages from Yug Labs, simply reply with “Unsubscribe” on WhatsApp and we will stop contacting you.</p>
+              </div>
+            </div>
+            <div class="contact-card lift rv rv-d1">
+              <h3>Order / enquiry form</h3>
+              <p id="formIntro">Fill this in and tap the WhatsApp button — your message opens, ready-written, in WhatsApp to +91 87619 77477. Nothing sends until you press send there. Picking a Lab plan only registers your interest — the Lab is coming soon, so no account or workspace comes with it today.</p>
+              <form class="enquiry-form" id="enquiryForm" style="margin-top:16px">
+                <label>Your name
+                  <input type="text" id="fName" autocomplete="name" placeholder="e.g. Rohit Sharma" />
+                </label>
+                <label>Your business (name &amp; type)
+                  <input type="text" id="fBiz" placeholder="e.g. Sharma Hair Studio, salon in Pune" />
+                </label>
+                <label>Your email (optional)
+                  <input type="email" id="fEmail" autocomplete="email" placeholder="e.g. you@example.com" />
+                  <span class="form-note">Optional. Type your email here and check it looks right before you send. We never ask for any password here.</span>
+                </label>
+                <label>What do you need?
+                  <select id="fNeed">
+                    <option>Lab interest — Basic ($19/mo) — Coming Soon</option>
+                    <option>Lab interest — Standard ($49/mo) — Coming Soon</option>
+                    <option>Lab interest — Premium ($99/mo) — Coming Soon</option>
+                    <option>Lab interest — Enterprise (custom) — Coming Soon</option>
+                    <option>Done-for-you website — Starter ($299)</option>
+                    <option>Done-for-you website — Business ($449)</option>
+                    <option>Done-for-you website — Website + Chatbot ($599)</option>
+                    <option>AI chatbot for my website</option>
+                    <option>Founder Post</option>
+                    <option>Salon website — demo style</option>
+                    <option>Cafe website — demo style</option>
+                    <option>Fitness website — demo style</option>
+                    <option>Something else</option>
+                  </select>
+                </label>
+                <label>Your message
+                  <textarea id="fMsg" placeholder="Tell us about your business and what you want built…"></textarea>
+                </label>
+                <div class="form-row">
+                  <button class="btn btn-wa" type="submit" id="submitOrderBtn">
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.2 14.2c-.3.8-1.7 1.6-2.4 1.6-.6.1-1.4.2-4.7-1-4-1.6-6.5-5.6-6.7-5.9-.2-.3-1.6-2.1-1.6-4s.9-2.7 1.3-3.1c.4-.4.8-.5 1-.5h.8c.3 0 .6 0 .9.7l1.3 3.1c.1.3.1.6-.1.9l-.5.6-.5.5c.5 1 1.7 2.7 3.8 3.7l.6-.6.7-.8c.3-.3.6-.2.9-.1l3 1.5c.3.1.5.2.6.4 0 .1 0 .7-.2 1.2z"/></svg>
+                    <span id="submitLabel">Register Lab interest on WhatsApp</span>
+                  </button>
+                  <button class="btn btn-ghost" type="button" id="copyOrderBtn">Copy instead</button>
+                </div>
+                <div class="order-out" id="orderOut"><pre id="orderText"></pre><span class="form-note" id="orderOutNote">Your text is ready above. Send it on WhatsApp, or copy it and use it anywhere.</span></div>
+                <p class="form-note">Nothing is paid through this website — there's no checkout yet. Done-for-you orders get confirmed on WhatsApp first; Lab picks are interest only and create no account. We never ask for card numbers, passwords or OTPs.</p>
+              </form>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ================= PAGE: PRIVACY ================= -->
+      <div class="page" data-page="privacy">
+        <section class="sec"><div class="wrap"><div class="legal rv in">
+          <span class="kicker">Legal</span>
+          <h2>Privacy Policy</h2>
+          <p class="updated">Yug Labs · yuglab.online · Last updated: 3 November 2026</p>
+          <p>This policy explains what Yug Labs (“we”, “us”) collects when you use this website, order a service, or contact us — and what we do with it. Yug Labs is run by Suman Chhetri, based in India.</p>
+          <h3>1. Information you give us</h3>
+          <ul><li>Your name and business details when you fill the order / enquiry form or message us on WhatsApp.</li><li>The content of your messages, order requirements, and any facts, text or images you share for your website, chatbot or Founder Post.</li><li>Your WhatsApp number, because our conversation takes place on WhatsApp (+91 87619 77477 is our business number).</li></ul>
+          <h3>2. Information from payments</h3>
+          <p>Nothing is paid through this website right now. Orders go through WhatsApp — there's no checkout, and we don't collect card, bank, UPI or PayPal details here. PayPal and UPI (via Razorpay or Cashfree) will be added later. When they are, payments will run on the provider's own secure page, and we'll only ever see that a payment was made, the amount, and the payer's name — never your full card number, bank password, UPI PIN or OTP.</p>
+          <h3>3. How we use your information</h3>
+          <ul><li>To reply to enquiries, confirm scope and price, and deliver the service you ordered.</li><li>To open and manage your Lab workspace, projects and credits.</li><li>To send order updates and delivery messages on WhatsApp.</li><li>To meet legal, tax and accounting requirements for payments we receive.</li></ul>
+          <h3>4. What we do not do</h3>
+          <ul><li>We do not sell your personal information to anyone.</li><li>We do not use your business content, photos or customer data for any other client's work.</li><li>We do not send marketing messages after you reply “Unsubscribe” — we stop.</li></ul>
+          <h3>5. Sharing</h3>
+          <p>We share information only where it's needed to deliver your order — for example, with the hosting providers that run this website and yours. We don't share anything with payment processors today, because there's no payment processing on this site. When PayPal or UPI payments do go live, details would be shared with that processor only, and only to take that payment. The Ask Yug chatbot runs in your browser from this page's own information; what you type into it stays in your browser and is not sent to us or stored.</p>
+          <h3>6. Keeping and deleting your information</h3>
+          <p>Order messages and records are kept as long as needed to deliver your service and meet legal requirements. You can ask on WhatsApp any time what we hold about you, and ask us to delete your enquiry details. Content published on your own website at your request is yours to remove, or to ask us to remove during your support period.</p>
+          <h3>7. Cookies</h3>
+          <p>This website does not run advertising trackers. Any storage used is limited to making the site work (for example, remembering interface choices during your visit).</p>
+          <h3>8. Contact about privacy</h3>
+          <p>For any privacy question or request, message Yug Labs on WhatsApp: <a href="https://wa.me/918761977477" target="_blank" rel="noopener">+91 87619 77477</a>, or use the <a data-route="contact" style="cursor:pointer">Contact page</a>.</p>
+          <h3>9. Changes to this policy</h3>
+          <p>If this policy changes, the updated version will be published on this page with a new “last updated” date.</p>
+        </div></div></section>
+      </div>
+
+      <!-- ================= PAGE: TERMS ================= -->
+      <div class="page" data-page="terms">
+        <section class="sec"><div class="wrap"><div class="legal rv in">
+          <span class="kicker">Legal</span>
+          <h2>Terms of Service</h2>
+          <p class="updated">Yug Labs · yuglab.online · Last updated: 3 November 2026</p>
+          <p>These terms apply when you order or use any Yug Labs service. Yug Labs is run by Suman Chhetri, based in India. By placing an order, you accept these terms.</p>
+          <h3>1. Services</h3>
+          <ul><li><b>Lab subscription:</b> access to the Yug Labs workspace with the projects, templates and monthly AI credits listed for your plan. Manual editing is free and unlimited; AI generations cost credits, with the cost shown before each run. Unused credits do not roll over.</li><li><b>Done-for-you websites:</b> design and build of a website to the scope listed for the package you order (pages, features and revision rounds as listed on the Pricing page).</li><li><b>AI chatbot:</b> a chatbot configured with the business information you provide, added to your website.</li><li><b>Founder Post:</b> a text-only writing service. You provide a minimum of 2 facts; 1 edit per post is included; delivery is on WhatsApp. Design work, publishing to your accounts and proposals are not included.</li></ul>
+          <h3>2. Ordering and payment</h3>
+          <ul><li>All prices are in US dollars (USD) as listed on the Pricing page.</li><li>Orders are placed on WhatsApp. Scope, timeline and total are confirmed in the chat before payment.</li><li>Online checkout (PayPal worldwide; UPI via Razorpay or Cashfree in India) isn't live yet. When it launches, payment will run only through those providers' own secure pages.</li><li>Lab subscriptions renew monthly until cancelled. Cancelling stops the next renewal; the current paid month continues to its end.</li></ul>
+          <h3>3. Your responsibilities</h3>
+          <ul><li>Provide true and complete business information, text and images for your project. Content for websites and posts is created only from facts you provide.</li><li>Make sure you have the right to use any logo, photo or text you give us.</li><li>Review delivered work within the revision rounds included in your package and tell us clearly what to change.</li></ul>
+          <h3>4. Ownership</h3>
+          <p>Once your order is fully paid, the finished website content and design delivered to you are yours to use for your business. Lab workspace tooling, templates and underlying software remain the property of Yug Labs; your project content remains yours, and you can export your site as your plan allows.</p>
+          <h3>5. Acceptable use</h3>
+          <p>You may not use our services for unlawful content, fraud, spam, or content that infringes another person's rights. We may stop work on an order that breaks this rule, subject to the Refund Policy.</p>
+          <h3>6. Liability</h3>
+          <p>We work to the scope agreed in writing. To the maximum extent permitted by law, our total liability for any order is limited to the amount you paid for that order. We are not responsible for losses caused by information you provided, third-party platforms (including WhatsApp, PayPal, Razorpay, Cashfree or hosting providers), or changes you make after delivery.</p>
+          <h3>7. Changes</h3>
+          <p>We may update these terms; the version published on this page at the time of your order applies to that order.</p>
+          <h3>8. Contact</h3>
+          <p>Questions about these terms: WhatsApp <a href="https://wa.me/918761977477" target="_blank" rel="noopener">+91 87619 77477</a> or the <a data-route="contact" style="cursor:pointer">Contact page</a>.</p>
+        </div></div></section>
+      </div>
+
+      <!-- ================= PAGE: REFUND ================= -->
+      <div class="page" data-page="refund">
+        <section class="sec"><div class="wrap"><div class="legal rv in">
+          <span class="kicker">Legal</span>
+          <h2>Refund Policy</h2>
+          <p class="updated">Yug Labs · yuglab.online · Last updated: 3 November 2026</p>
+          <p>We want ordering from Yug Labs to feel safe, so here's exactly when refunds apply. Ask for one on WhatsApp at +91 87619 77477.</p>
+          <h3>1. Before work starts — full refund</h3>
+          <p>If you cancel an order before any work has begun on it, you receive a full refund of what you paid for that order.</p>
+          <h3>2. Done-for-you websites — after work starts</h3>
+          <ul><li>If we cannot deliver the agreed scope, you receive a refund for the undelivered part.</li><li>If design work has begun and you choose to stop, the portion of work already completed (as confirmed in the order chat) is chargeable, and the remainder is refunded.</li><li>Revision rounds included in your package should be used before requesting a refund for design preferences — we will work through your included revisions first.</li></ul>
+          <h3>3. Lab subscriptions</h3>
+          <ul><li>You can cancel any time; cancellation stops the next monthly renewal and your workspace stays available until the end of the paid month.</li><li>The current month is not refunded once the workspace has been used in that month, except where the workspace was unavailable due to a fault on our side for a substantial part of the month — in that case we will extend or refund the affected period.</li><li>AI credits are part of the subscription and have no separate cash value; unused credits expire at the end of each month.</li></ul>
+          <h3>4. Founder Post</h3>
+          <p>If a post has not yet been written, a full refund applies on cancellation. Once a post is delivered, the included edit should be used for changes; delivered writing is not refundable.</p>
+          <h3>5. How refunds are paid</h3>
+          <p>Approved refunds are returned through the same payment route used for the order (PayPal, Razorpay or Cashfree) to the original payer. Processing time depends on that provider and your bank.</p>
+          <h3>6. How to request</h3>
+          <p>Message us on WhatsApp: <a href="https://wa.me/918761977477" target="_blank" rel="noopener">+91 87619 77477</a> with your name, what you ordered, and the reason. We confirm receipt in the chat and process valid refunds under this policy.</p>
+        </div></div></section>
+      </div>
+
+      <!-- ================= PAGE: LAB ================= -->
+      <div class="page" data-page="lab">
+        <div class="wrap page-hero">
+          <span class="kicker">The Lab · Coming Soon</span>
+          <h1>Your own Lab workspace — almost here</h1>
+          <p>The Lab is where you'll build websites yourself, with AI help: start a project, edit pages by hand for free, and spend credits only when the AI does the work. It's still being built — here's what's coming, and what you can do today.</p>
+        </div>
+        <section class="sec" style="padding-top:36px">
+          <div class="wrap" style="display:grid;gap:26px">
+            <div class="soon-banner rv in">
+              <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+              <p><b>Still coming soon.</b> There's no Lab login yet, and no account can be opened today. Login, accounts and online payment (PayPal, and UPI via Razorpay / Cashfree) are being built as a separate step — access opens only when that's ready. Nothing is live yet, and nothing will be charged before it is.</p>
+            </div>
+            <div>
+              <div class="sec-head rv" style="margin-bottom:26px"><span class="kicker">Inside the Lab</span><h2>What your workspace will include</h2></div>
+              <div class="svc-grid">
+                <article class="svc lift rv"><div class="svc-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v6L4.5 18a2 2 0 0 0 1.8 3h11.4a2 2 0 0 0 1.8-3L14 8V2"/><path d="M8.5 2h7"/><path d="M7 15h10"/></svg></div><h3>Projects</h3><p>One project = one website you're working on. Your plan sets how many you can run at once — 1, 5 or 20.</p></article>
+                <article class="svc lift rv rv-d1"><div class="svc-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><h3>AI credits</h3><p>A monthly pool for AI work — drafting pages, writing sections, laying things out. The cost of every run shows before it runs.</p></article>
+                <article class="svc lift rv rv-d2"><div class="svc-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></div><h3>Free manual editing</h3><p>Typing, moving blocks, changing colours and photos yourself costs nothing. Free and unlimited, on every plan.</p></article>
+                <article class="svc lift rv"><div class="svc-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div><h3>Templates &amp; live preview</h3><p>Start from salon, cafe, gym and shop templates. Preview as you build, and share preview links for feedback (Standard and up).</p></article>
+                <article class="svc lift rv rv-d1"><div class="svc-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg></div><h3>Version history</h3><p>Every change is saved. Go back to an earlier version any time — from the Standard plan up.</p></article>
+                <article class="svc lift rv rv-d2"><div class="svc-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg></div><h3>Export your site</h3><p>When a project is ready, export the finished site. Your content is yours — the Lab never locks your own work in.</p></article>
+              </div>
+            </div>
+            <div>
+              <div class="sec-head rv" style="margin-bottom:26px"><span class="kicker">How access will work</span><h2>Three steps — when the Lab opens</h2><p>This is the plan, not a live flow. Login and payment don't exist on this site yet.</p></div>
+              <div class="paths">
+                <article class="path-card lift rv"><span class="path-tag tag-sub">Step 1 · Future</span><h3>Create your login</h3><p>Accounts are being built now. When they're ready, you'll sign in to your own private workspace — nobody else can see your projects.</p></article>
+                <article class="path-card lift rv rv-d1"><span class="path-tag tag-sub">Step 2 · Future</span><h3>Pay online, securely</h3><p>Payment will run through the provider's own secure checkout — PayPal, or UPI via Razorpay / Cashfree. That comes later; it's not live today.</p></article>
+                <article class="path-card lift rv"><span class="path-tag tag-once">Step 3 · Future</span><h3>Your workspace opens</h3><p>Once login and payment are in place, your Lab opens with your plan's projects and credits, ready to build in.</p></article>
+                <article class="path-card lift rv rv-d1"><span class="path-tag tag-once">Today</span><h3>What you can do right now</h3><p>Plans and prices are on the Pricing page, and you can register your interest on WhatsApp. We'll message you when the Lab opens. Need a website sooner? Our team can build it for you, one payment.</p><a class="btn btn-wa" href="https://wa.me/918761977477?text=Hello%20Yug%20Labs%2C%20I%20am%20interested%20in%20the%20Lab%20workspace.%20Please%20tell%20me%20when%20it%20opens." target="_blank" rel="noopener">Register interest on WhatsApp</a></article>
+              </div>
+            </div>
+            <div class="credit-box rv" style="margin-bottom:0">
+              <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+              <p><b>Lab plans, priced for when it opens:</b> Basic $19/mo (1 project, 500 credits) · Standard $49/mo (5 projects, 1,500 credits) · Premium $99/mo (20 projects, 5,000 credits) · Enterprise custom. Full comparison on the <a data-route="pricing" style="cursor:pointer">Pricing page</a>. Today, WhatsApp is interest only — no account gets created, and there's no checkout yet.</p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="site-foot">
+      <div class="wrap">
+        <div class="foot-grid">
+          <div class="foot-brand">
+            <a class="brand" data-route="home" style="color:#fff;cursor:pointer">
+              <span class="brand-mark" style="background:#16233f" aria-hidden="true"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#f2a33c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v6L4.5 18a2 2 0 0 0 1.8 3h11.4a2 2 0 0 0 1.8-3L14 8V2"/><path d="M8.5 2h7"/><path d="M7 15h10"/></svg></span>
+              <span class="brand-name">Yug Labs</span>
+            </a>
+            <p>Websites for small businesses — build yours in the Lab, or let our team build it for you. Run by Suman Chhetri, founder, India.</p>
+            <p style="margin-top:10px">WhatsApp: <a href="https://wa.me/918761977477" target="_blank" rel="noopener" style="color:#ffb84f;font-weight:700">+91 87619 77477</a></p>
+            <p style="margin-top:6px">Email: <a href="mailto:admin@yuglab.online" style="color:#ffb84f;font-weight:700">admin@yuglab.online</a></p>
+            <p style="margin-top:6px">Guwahati, Assam 781036, India</p>
+          </div>
+          <div>
+            <h3>Explore</h3>
+            <ul>
+              <li><a data-route="home">Home</a></li>
+              <li><a data-route="services">Services</a></li>
+              <li><a data-route="demos">Demos</a></li>
+              <li><a data-route="lab">Lab<span class="soon-pill">Coming Soon</span></a></li>
+              <li><a data-route="pricing">Pricing</a></li>
+              <li><a data-route="about">About</a></li>
+              <li><a data-route="contact">Contact</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3>Services</h3>
+            <ul>
+              <li><a data-route="services">Business Website</a></li>
+              <li><a data-route="services">AI Chatbot</a></li>
+              <li><a data-route="services">Founder Post</a></li>
+              <li><a data-route="lab">The Lab — Coming Soon</a></li>
+              <li><a data-route="pricing">Website built for you</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3>Legal</h3>
+            <ul>
+              <li><a data-route="privacy">Privacy Policy</a></li>
+              <li><a data-route="terms">Terms of Service</a></li>
+              <li><a data-route="refund">Refund Policy</a></li>
+              <li><a href="https://wa.me/918761977477" target="_blank" rel="noopener">WhatsApp us</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="foot-bottom">
+          <span>© <span id="year">2026</span> Yug Labs · yuglab.online · Founder: Suman Chhetri, India</span>
+          <span>All prices in USD · Orders by WhatsApp · No online checkout yet</span>
+          <a class="to-top" data-goto="#top">Back to top ↑</a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- FLOATING DOCK -->
+    <div class="dock">
+      <button class="dock-chat" id="chatBtn" type="button" aria-haspopup="dialog" aria-expanded="false" aria-label="Ask Yug — open the assistant chat">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        <span class="chat-text">Ask Yug</span>
+      </button>
+      <a class="dock-wa" href="https://wa.me/918761977477?text=Hello%20Yug%20Labs%2C%20I%20want%20to%20know%20more%20about%20a%20website%20%2F%20Lab%20plan%20for%20my%20business." target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.2 14.2c-.3.8-1.7 1.6-2.4 1.6-.6.1-1.4.2-4.7-1-4-1.6-6.5-5.6-6.7-5.9-.2-.3-1.6-2.1-1.6-4s.9-2.7 1.3-3.1c.4-.4.8-.5 1-.5h.8c.3 0 .6 0 .9.7l1.3 3.1c.1.3.1.6-.1.9l-.5.6-.5.5c.5 1 1.7 2.7 3.8 3.7l.6-.6.7-.8c.3-.3.6-.2.9-.1l3 1.5c.3.1.5.2.6.4 0 .1 0 .7-.2 1.2z"/></svg>
+        <span class="wa-text">Chat on WhatsApp</span>
+      </a>
+    </div>
+
+    <!-- ASSISTANT CHAT (text-only) -->
+    <div class="chat-panel" id="chatPanel" hidden role="dialog" aria-label="Yug Assistant — chat">
+      <div class="chat-head">
+        <div>
+          <h3>Yug Assistant</h3>
+          <p>Type a question and get an answer from this page's own information; no AI key is connected yet. Passwords, OTPs and payments are never taken here.</p>
+        </div>
+        <button class="chat-close" id="chatClose" type="button" aria-label="Close assistant chat">×</button>
+      </div>
+      <div class="chat-log" id="chatLog" aria-live="polite">
+        <div class="msg bot">Hello, I'm the Yug Labs assistant. I can open any page, answer questions about prices, the Lab, demos and ordering, and help fill the order form. Try a question below, or type your own.</div>
+      </div>
+      <div class="chat-chips">
+        <button class="ask-chip" type="button" data-ask="What are your prices?">Prices?</button>
+        <button class="ask-chip" type="button" data-ask="Show me the demos">See the demos</button>
+        <button class="ask-chip" type="button" data-ask="Is the Lab open?">Is the Lab open?</button>
+        <button class="ask-chip" type="button" data-ask="How do I order?">How do I order?</button>
+        <button class="ask-chip" type="button" data-ask="What is your WhatsApp number?">WhatsApp number?</button>
+        <button class="ask-chip" type="button" data-ask="Fill the order form">Fill the order form</button>
+      </div>
+      <form class="chat-form" id="chatForm">
+        <input type="text" id="chatInput" placeholder="Type a question — e.g. “What are your prices?”…" autocomplete="off" aria-label="Type a question for the assistant" />
+        <button class="chat-send" type="submit">Send</button>
+      </form>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script>
+    (function(){
+      "use strict";
+      var $ = function(s){ return document.querySelector(s); };
+      var $$ = function(s){ return Array.prototype.slice.call(document.querySelectorAll(s)); };
+      var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      var WA_NUMBER = "918761977477";
+
+      var yr = $("#year"); if (yr) yr.textContent = new Date().getFullYear();
+
+      var toastEl = $("#toast"), toastTimer = null;
+      function toast(msg){
+        if(!toastEl) return;
+        toastEl.textContent = msg;
+        toastEl.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function(){ toastEl.classList.remove("show"); }, 3400);
+      }
+      function copyText(text, doneMsg){
+        function done(){ toast(doneMsg); }
+        if (navigator.clipboard && navigator.clipboard.writeText){
+          navigator.clipboard.writeText(text).then(done, function(){ fallback(); });
+        } else { fallback(); }
+        function fallback(){
+          var ta = document.createElement("textarea");
+          ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+          document.body.appendChild(ta); ta.select();
+          try { document.execCommand("copy"); } catch(e){}
+          document.body.removeChild(ta); done();
+        }
+      }
+
+      /* ---------- PAGE ROUTER (hash based, all pages in one site) ---------- */
+      var PAGES = ["home","services","demos","lab","pricing","about","contact","privacy","terms","refund"];
+      var TITLES = {
+        home:"Yug Labs — Websites, Lab Workspace & AI Chatbot",
+        services:"Services — Yug Labs",
+        demos:"Demo Websites — Salon, Cafe & Fitness · Yug Labs",
+        lab:"The Lab — Coming Soon · Yug Labs",
+        pricing:"Pricing (USD) — Yug Labs",
+        about:"About — Yug Labs",
+        contact:"Contact — Yug Labs · WhatsApp +91 87619 77477",
+        privacy:"Privacy Policy — Yug Labs",
+        terms:"Terms of Service — Yug Labs",
+        refund:"Refund Policy — Yug Labs"
+      };
+      var currentPage = "home";
+      function showPage(name, push){
+        if (PAGES.indexOf(name) === -1) name = "home";
+        currentPage = name;
+        $$(".page").forEach(function(p){ p.classList.toggle("active", p.getAttribute("data-page") === name); });
+        $$(".main-nav a, .mnav a").forEach(function(a){ a.classList.toggle("active", a.getAttribute("data-route") === name); });
+        document.title = TITLES[name] || TITLES.home;
+        if (push !== false){
+          try { history.pushState(null, "", "#" + name); } catch(e){}
+        }
+        window.scrollTo({ top:0, behavior:"auto" });
+        var mnav = $("#mnav"), burger = $("#burger");
+        if (mnav) mnav.classList.remove("open");
+        if (burger) burger.setAttribute("aria-expanded","false");
+        revealScan();
+      }
+      function routeFromHash(){
+        var h = (location.hash || "").replace("#","");
+        if (PAGES.indexOf(h) > -1) return h;
+        return "home";
+      }
+      window.addEventListener("hashchange", function(){ showPage(routeFromHash(), false); });
+      window.addEventListener("popstate", function(){ showPage(routeFromHash(), false); });
+
+      document.addEventListener("click", function(ev){
+        var t = ev.target.closest ? ev.target.closest("[data-route],[data-order],[data-goto]") : null;
+        if (!t) return;
+        if (t.getAttribute("data-order")){
+          ev.preventDefault();
+          var need = t.getAttribute("data-order");
+          showPage("contact");
+          setTimeout(function(){
+            var sel = $("#fNeed");
+            if (sel){
+              for (var i = 0; i < sel.options.length; i++){
+                if (sel.options[i].text === need || sel.options[i].value === need){ sel.selectedIndex = i; break; }
+              }
+            }
+            if (typeof syncFormLabels === "function") syncFormLabels();
+            var nm = $("#fName"); if (nm) nm.focus({ preventScroll:true });
+            if (need.indexOf("Lab interest") === 0){
+              toast("Lab interest selected — this registers interest only, no workspace access today. Fill your details and send it on WhatsApp.");
+            } else {
+              toast("Plan selected — fill your details and send the order on WhatsApp.");
+            }
+          }, 60);
+          return;
+        }
+        if (t.getAttribute("data-goto")){
+          ev.preventDefault();
+          var el = document.querySelector(t.getAttribute("data-goto"));
+          if (el) el.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block:"start" });
+          return;
+        }
+        if (t.getAttribute("data-route")){
+          ev.preventDefault();
+          showPage(t.getAttribute("data-route"));
+        }
+      });
+
+      /* ---------- scroll progress ---------- */
+      var progress = $("#progress");
+      function onScroll(){
+        var h = document.documentElement;
+        var max = h.scrollHeight - h.clientHeight;
+        var pct = max > 0 ? (h.scrollTop / max) * 100 : 0;
+        if (progress) progress.style.width = pct + "%";
+      }
+      window.addEventListener("scroll", onScroll, { passive:true });
+
+      /* ---------- reveal on scroll ---------- */
+      var io = null;
+      if ("IntersectionObserver" in window && !reduceMotion){
+        io = new IntersectionObserver(function(entries){
+          entries.forEach(function(en){
+            if (en.isIntersecting){ en.target.classList.add("in"); io.unobserve(en.target); }
+          });
+        }, { threshold: 0.05, rootMargin: "0px 0px 60px 0px" });
+      }
+      function revealScan(){
+        $$(".page.active .rv").forEach(function(el){
+          if (el.classList.contains("in")) return;
+          if (io) io.observe(el); else el.classList.add("in");
+          var r = el.getBoundingClientRect();
+          if (r.top < window.innerHeight * 1.4 && r.bottom > -200) el.classList.add("in");
+        });
+        onScroll();
+      }
+
+      /* ---------- hero dashboard tilt ---------- */
+      var dash = $("#dashIllus");
+      if (dash && !reduceMotion && window.matchMedia("(pointer: fine)").matches){
+        var heroArt = dash.parentElement;
+        heroArt.addEventListener("mousemove", function(ev){
+          var r = dash.getBoundingClientRect();
+          var x = (ev.clientX - r.left) / r.width - 0.5;
+          var y = (ev.clientY - r.top) / r.height - 0.5;
+          dash.style.transform = "perspective(1100px) rotateY(" + (x * 5) + "deg) rotateX(" + (-y * 5) + "deg)";
+        });
+        heroArt.addEventListener("mouseleave", function(){ dash.style.transform = ""; });
+      }
+
+      /* ---------- mobile menu ---------- */
+      var burger = $("#burger"), mnav = $("#mnav");
+      if (burger && mnav){
+        burger.addEventListener("click", function(){
+          var open = mnav.classList.toggle("open");
+          burger.setAttribute("aria-expanded", open ? "true" : "false");
+        });
+      }
+
+      /* ---------- order form -> WhatsApp ---------- */
+      function isLabInterest(need){ return need && need.indexOf("Lab interest") === 0; }
+      function syncFormLabels(){
+        var sel = $("#fNeed"); if (!sel) return;
+        var lab = isLabInterest(sel.value || sel.options[sel.selectedIndex].text);
+        var lbl = $("#submitLabel");
+        if (lbl) lbl.textContent = lab ? "Register Lab interest on WhatsApp" : "Send order on WhatsApp";
+        var note = $("#orderOutNote");
+        if (note) note.textContent = lab ? "Your Lab interest text is ready above. Send it on WhatsApp, or copy it and use it anywhere. This registers interest only — no account or workspace is created today." : "Your order text is ready above. Send it on WhatsApp, or copy it and use it anywhere.";
+      }
+      function buildOrderText(){
+        var name = ($("#fName") ? $("#fName").value : "").trim();
+        var biz  = ($("#fBiz") ? $("#fBiz").value : "").trim();
+        var email = ($("#fEmail") ? $("#fEmail").value : "").trim();
+        var need = $("#fNeed") ? $("#fNeed").value : "";
+        var msg  = ($("#fMsg") ? $("#fMsg").value : "").trim();
+        if (isLabInterest(need)){
+          return "Hello Yug Labs, I want to register my interest in the Lab (Coming Soon).\n" +
+            (name ? "Name: " + name + "\n" : "") +
+            (biz ? "Business: " + biz + "\n" : "") +
+            (email ? "Email: " + email + "\n" : "") +
+            "Interested in: " + need + "\n" +
+            (msg ? "Details: " + msg + "\n" : "") +
+            "I understand this is interest registration only — no Lab account can be created today, no workspace is open yet, and this is not an order for workspace access today. Please let me know when the Lab opens.";
+        }
+        return "Hello Yug Labs, I want to place an order.\n" +
+          (name ? "Name: " + name + "\n" : "") +
+          (biz ? "Business: " + biz + "\n" : "") +
+          (email ? "Email: " + email + "\n" : "") +
+          "I need: " + need + "\n" +
+          (msg ? "Details: " + msg + "\n" : "") +
+          "Please confirm the scope, timeline and total in this chat.";
+      }
+      var needSel = $("#fNeed");
+      if (needSel){ needSel.addEventListener("change", syncFormLabels); syncFormLabels(); }
+      function submitOrder(){
+        var text = buildOrderText();
+        var out = $("#orderOut"), pre = $("#orderText");
+        if (pre) pre.textContent = text;
+        if (out) out.classList.add("show");
+        var url = "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(text);
+        window.open(url, "_blank", "noopener");
+        var needNow = $("#fNeed") ? $("#fNeed").value : "";
+        if (isLabInterest(needNow)){
+          toast("Opening WhatsApp — your Lab interest registration is ready to send to +91 87619 77477.");
+        } else {
+          toast("Opening WhatsApp — your order is ready to send to +91 87619 77477.");
+        }
+      }
+      var form = $("#enquiryForm");
+      if (form){
+        form.addEventListener("submit", function(ev){
+          ev.preventDefault();
+          submitOrder();
+        });
+      }
+      var copyBtn = $("#copyOrderBtn");
+      if (copyBtn){
+        copyBtn.addEventListener("click", function(){
+          var text = buildOrderText();
+          var out = $("#orderOut"), pre = $("#orderText");
+          if (pre) pre.textContent = text;
+          if (out) out.classList.add("show");
+          var needNow = $("#fNeed") ? $("#fNeed").value : "";
+          if (isLabInterest(needNow)){
+            copyText(text, "Lab interest text copied — paste it anywhere, or send it on WhatsApp.");
+          } else {
+            copyText(text, "Order copied — paste it anywhere, or send it on WhatsApp.");
+          }
+        });
+      }
+
+      /* ---------------- ASSISTANT CHAT (text-only) ----------------
+         The Ask Yug chatbot is typed chat only. It answers from this
+         page's own facts, opens pages, and helps fill the order form. */
+      var chatPanel = $("#chatPanel"), chatLog = $("#chatLog"), chatInput = $("#chatInput"),
+          chatBtn = $("#chatBtn"), chatCloseBtn = $("#chatClose"), chatForm = $("#chatForm");
+      var pendingField = null; /* form field waiting for typed text: "fName" | "fBiz" | "fEmail" | "fMsg" */
+
+      function addMsg(who, text){
+        if (!chatLog) return;
+        var d = document.createElement("div");
+        d.className = "msg " + who;
+        d.textContent = text;
+        chatLog.appendChild(d);
+        chatLog.scrollTop = chatLog.scrollHeight;
+      }
+      function openChat(){
+        if (!chatPanel) return;
+        chatPanel.hidden = false;
+        document.body.classList.add("chat-open");
+        if (chatBtn) chatBtn.setAttribute("aria-expanded", "true");
+        if (chatInput) chatInput.focus({ preventScroll:true });
+      }
+      function closeChat(){
+        if (!chatPanel) return;
+        chatPanel.hidden = true;
+        document.body.classList.remove("chat-open");
+        if (chatBtn) chatBtn.setAttribute("aria-expanded", "false");
+      }
+      if (chatBtn) chatBtn.addEventListener("click", function(){ if (chatPanel && chatPanel.hidden) openChat(); else closeChat(); });
+      if (chatCloseBtn) chatCloseBtn.addEventListener("click", closeChat);
+      var stripBtn = $("#openChatStrip");
+      if (stripBtn) stripBtn.addEventListener("click", openChat);
+      if (chatForm){
+        chatForm.addEventListener("submit", function(ev){
+          ev.preventDefault();
+          var v = chatInput ? chatInput.value.trim() : "";
+          if (!v) return;
+          chatInput.value = "";
+          addMsg("user", v);
+          processInput(v);
+        });
+      }
+      $$("[data-ask]").forEach(function(chip){
+        chip.addEventListener("click", function(){
+          var q = chip.getAttribute("data-ask");
+          openChat();
+          addMsg("user", q);
+          processInput(q);
+        });
+      });
+
+      function reply(text){ addMsg("bot", text); }
+      function goPage(page, label){
+        showPage(page);
+        reply("Opening " + label + ".");
+      }
+      function cleanEmailInput(v){
+        return v.toLowerCase().replace(/\s+/g, "").replace(/[।.,]+$/, "");
+      }
+      function fillField(id, value, label){
+        var el = document.getElementById(id);
+        if (!el) return false;
+        if (currentPage !== "contact") showPage("contact");
+        if (id === "fEmail") value = cleanEmailInput(value);
+        else value = value.replace(/\s+/g, " ").replace(/[।.]+$/, "").trim();
+        if (id === "fMsg" && el.value.trim()) el.value = el.value.replace(/\s+$/, "") + " " + value;
+        else el.value = value;
+        el.dispatchEvent(new Event("input", { bubbles:true }));
+        el.dispatchEvent(new Event("change", { bubbles:true }));
+        var shown = label + " set to: " + el.value;
+        reply(shown + (id === "fEmail" ? " — check it looks right. I never send email myself; sending always stays with you." : ""));
+        return true;
+      }
+      function selectNeedByText(t){
+        var sel = $("#fNeed"); if (!sel) return false;
+        var keys = [
+          ["salon", "Salon website"], ["cafe", "Cafe website"], ["fitness", "Fitness website"], ["gym", "Fitness website"],
+          ["basic", "Basic"], ["standard", "Standard"], ["premium", "Premium"], ["enterprise", "Enterprise"],
+          ["starter", "Starter"], ["business package", "Business ("], ["chatbot package", "Website + Chatbot"],
+          ["website + chatbot", "Website + Chatbot"], ["founder", "Founder Post"], ["chatbot", "AI chatbot"]
+        ];
+        for (var k = 0; k < keys.length; k++){
+          if (t.indexOf(keys[k][0]) > -1){
+            for (var i = 0; i < sel.options.length; i++){
+              if (sel.options[i].text.indexOf(keys[k][1]) > -1){
+                if (currentPage !== "contact") showPage("contact");
+                sel.selectedIndex = i;
+                sel.dispatchEvent(new Event("change", { bubbles:true }));
+                if (typeof syncFormLabels === "function") syncFormLabels();
+                reply("Package selected: " + sel.options[i].text);
+                return true;
+              }
+            }
+          }
+        }
+        return false;
+      }
+      function refuseSecret(){
+        reply("I can't take that — passwords, OTPs, PINs and card or payment details are never entered in chat, not here and not anywhere on this site. Those always stay typed by you, in the secure place that asks for them. Everything else on this site, I can do.");
+      }
+      var HELP_TEXT = "Here is what I can do — just type in the chat:\n• Open pages: “go to pricing”, “show the demos”, “open contact”\n• Scroll: “scroll down”, “scroll up”\n• Answer questions: prices, Lab plans, demos, ordering, refunds, WhatsApp number\n• Fill the order form: “my name is …”, “my business is …”, “my email is …”, “message …”\n• Choose a package: “select Business package” — then “send order” opens WhatsApp with it ready\n• Never: passwords, OTPs, PINs or payments — those stay typed by you.";
+
+      function askAgent(t){
+        if (/\b(hi|hello|hey|namaste)\b/.test(t) && t.length < 30) return "Hello! I can open pages, answer questions about prices, the Lab, demos and ordering, and help fill the order form — just type. Type “help” any time to see everything I can do.";
+        if (t.indexOf("price") > -1 || t.indexOf("cost") > -1 || t.indexOf("charge") > -1 || t.indexOf("plan") > -1 || t.indexOf("package") > -1 || t.indexOf("kitna") > -1)
+          return "Prices, all in US dollars. The Lab (coming soon — interest only today): Basic $19/mo, Standard $49/mo, Premium $99/mo, Enterprise custom. Built for you, one payment: Starter Website $299, Business Website $449, Website + Chatbot $599. Type “open pricing” for the full comparison.";
+        if (t.indexOf("lab") > -1)
+          return "The Lab is not open yet — it's coming soon. There is no login, account or workspace today; you can only register interest on WhatsApp, and nothing is charged. When it opens: you build your own site there, manual editing is free, and AI work spends credits. Type “open Lab” to see the Lab page.";
+        if (t.indexOf("whatsapp") > -1 && (t.indexOf("number") > -1 || t.indexOf("numbar") > -1 || t.indexOf("contact") > -1))
+          return "Our WhatsApp number is +91 87619 77477 — you'll talk directly with Suman Chhetri, the founder. Type “open WhatsApp” and I'll open the chat for you, or tap the green WhatsApp button in the corner.";
+        if (t.indexOf("email") > -1 && (t.indexOf("your") > -1 || t.indexOf("yours") > -1 || t.indexOf("id") > -1 || t.indexOf("address") > -1))
+          return "Our email is admin@yuglab.online. For your own email in the order form, type it in the Email field on the Contact page and check it looks right before sending. I never send email myself; sending always stays with you.";
+        if (t.indexOf("founder") > -1 && t.indexOf("post") === -1)
+          return "Yug Labs is run by Suman Chhetri, founder — a Hindi / Hinglish tech creator based in Guwahati, Assam, India. He handles every order himself, from the first WhatsApp message to delivery.";
+        if (t.indexOf("founder post") > -1)
+          return "Founder Post is a text-only writing service: you share at least 2 real facts about your business, we write the post in the language you choose, 1 edit per post is included, and delivery is on WhatsApp. Design and posting to your accounts are not included. For the current price, message us on WhatsApp — type “open contact”.";
+        if (t.indexOf("demo") > -1)
+          return "There are three demos — one per business type: Velvet Roots Salon, BrewNest Cafe and IronPulse Fitness. All three are fictional businesses: salon and cafe prices are samples, and the fitness plans are template plans only. Type “show the demos” to see them.";
+        if (t.indexOf("payment") > -1 || t.indexOf("pay") > -1 || t.indexOf("checkout") > -1 || t.indexOf("upi") > -1 || t.indexOf("paypal") > -1 || t.indexOf("razorpay") > -1)
+          return "There is no online checkout on this site yet, and nothing is paid through this page. Done-for-you orders are confirmed on WhatsApp first — scope, time and total in the chat. PayPal and UPI (via Razorpay / Cashfree) come later, on the provider's own secure page. We never ask for card numbers, passwords or OTPs — not here and not in chat.";
+        if (t.indexOf("how") > -1 && (t.indexOf("order") > -1 || t.indexOf("buy") > -1))
+          return "Ordering is simple: pick a plan or package, fill the short form on the Contact page (I can help fill it — type “fill the form”), and send it on WhatsApp. We confirm scope, time and total in the chat before anything is paid. There is no online checkout yet.";
+        if (t.indexOf("order") > -1)
+          return "To order, type “fill the form” and I'll open the order form — type your name, business, email and message, then type “send order” and WhatsApp opens with everything ready. Or type “open pricing” to compare packages first.";
+        if (t.indexOf("refund") > -1)
+          return "Short version: cancel before work starts and you get a full refund. If we can't deliver the agreed scope, the undelivered part is refunded. Lab plans can be cancelled any time and stop at the end of the paid month. Type “open refund policy” for the full policy.";
+        if (t.indexOf("credit") > -1)
+          return "A credit is one small unit of AI work inside the Lab — drafting a page or writing a section, usually 10–15 credits, and the cost always shows before it runs. Editing by hand is free and unlimited, and credits refresh every month.";
+        if (t.indexOf("chatbot") > -1 || t.indexOf("chat bot") > -1)
+          return "The AI chatbot is set up with your own business details — your timings, prices and services — and answers customers from those, day and night. It's included in the Website + Chatbot package ($599, one payment). For chatbot-only pricing, ask on WhatsApp.";
+        if (t.indexOf("service") > -1 || t.indexOf("offer") > -1)
+          return "Yug Labs offers: business websites (built for you, or built by you in the Lab when it opens), an AI chatbot for your website, and Founder Post writing. Websites, chatbots and Founder Post are open for orders today on WhatsApp; the Lab is coming soon. Type “open services” for full details.";
+        if (t.indexOf("where") > -1 || t.indexOf("location") > -1 || t.indexOf("address") > -1)
+          return "Yug Labs is based in Guwahati, Assam 781036, India, and serves customers worldwide. Email: admin@yuglab.online · WhatsApp: +91 87619 77477.";
+        if (t.indexOf("timing") > -1 || t.indexOf("hours") > -1 || t.indexOf("when") > -1 && t.indexOf("reply") > -1)
+          return "Message any time — we reply as soon as we are online. WhatsApp (+91 87619 77477) is the fastest way to reach us.";
+        if (t.indexOf("thank") > -1 || t.indexOf("shukriya") > -1 || t.indexOf("dhanyavad") > -1)
+          return "You're welcome! Anything else — a page to open, a price to check, or the order form to fill — just type it.";
+        return null;
+      }
+
+      function processInput(raw){
+        raw = (raw || "").trim();
+        if (!raw) return;
+        var t = " " + raw.toLowerCase().replace(/[“”"?।]+/g, " ").replace(/\s+/g, " ") + " ";
+        var isQuestion = /\?/.test(raw) || /^\s*(what|how|why|is|are|do|does|can|could|tell|kya|kitn|kaun|kab|kis)/.test(raw.toLowerCase());
+
+        /* 1 — secrets: refused before anything else */
+        if (/(password|passcode|otp|one[ -]?time code|cvv|upi pin|card number|bank password)\s*(is|:|=|hai|mera|my)/.test(t) ||
+            /(enter|type|daal|batao|bolo)\s+(my\s+|the\s+|mera\s+)?(password|otp|pin|cvv)/.test(t) ||
+            /(mera|my)\s+(password|otp|pin|cvv)\b/.test(t)){
+          refuseSecret();
+          return;
+        }
+
+        /* 2 — a form field is waiting for typed text */
+        if (pendingField){
+          var target = pendingField; pendingField = null;
+          if (!/^(stop|cancel|band|ruk)/.test(t.trim())){
+            fillField(target, raw, { fName:"Name", fBiz:"Business", fEmail:"Email", fMsg:"Message" }[target]);
+            return;
+          }
+          addMsg("bot", "Okay, cancelled — nothing was filled in.");
+          return;
+        }
+
+        /* 3 — direct form fills, English + Hinglish phrasing */
+        var m;
+        if ((m = raw.match(/(?:my name is|name is|mera naam|naam hai)\s+(.+)/i)) || (m = raw.match(/^naam\s+(.+?)\s*(?:hai)?$/i))) { fillField("fName", m[1], "Name"); return; }
+        if ((m = raw.match(/(?:my business is|business(?: name)? is|mera business|business hai)\s+(.+)/i))) { fillField("fBiz", m[1], "Business"); return; }
+        if ((m = raw.match(/(?:my email(?: id)? is|email(?: id)? is|mera email)\s+(.+)/i))) { fillField("fEmail", m[1], "Email"); return; }
+        if ((m = raw.match(/(?:message(?: is)?|note(?: is)?|likho|msg(?: is)?)\s*[:\-]?\s+(.+)/i))) { fillField("fMsg", m[1], "Message"); return; }
+        if (/\b(fill|open|dikhao|bharo)\b/.test(t) && (t.indexOf("form") > -1 || t.indexOf("order") > -1)){
+          if (currentPage !== "contact") showPage("contact");
+          addMsg("bot", "The order form is open. Fill it piece by piece in chat — type “my name is …”, “my business is …”, “my email is …”, “message …” — then type “select Business package” and “send order”. Or type “fill name” and then type just the name.");
+          return;
+        }
+        if ((m = t.match(/\bfill\s+(name|business|email|message)\b/)) || (m = t.match(/\b(name|business|email|message)\s+(fill|bharo|likho)\b/))){
+          var fieldMap = { name:"fName", business:"fBiz", email:"fEmail", message:"fMsg" };
+          pendingField = fieldMap[m[1]];
+          if (currentPage !== "contact") showPage("contact");
+          var labelFor = { fName:"your name", fBiz:"your business name and type", fEmail:"your email", fMsg:"your message" };
+          addMsg("bot", "Type " + labelFor[pendingField] + " now, and it goes straight into the form. Type “cancel” to stop.");
+          var elF = document.getElementById(pendingField); if (elF) elF.focus({ preventScroll:true });
+          return;
+        }
+        if ((m = t.match(/\bselect\s+(.+)/)) || /\bpackage\b/.test(t) && /(choose|pick|select|chahiye|le lo)/.test(t)){
+          if (selectNeedByText(t)) return;
+        }
+        if (/(send|place|submit|confirm)\s+(the\s+|my\s+)?order/.test(t) || /order\s+(bhej|send|kar)/.test(t)){
+          if (currentPage !== "contact"){ showPage("contact"); }
+          reply("Opening WhatsApp with your order ready — press Send there to finish, and nothing is paid through this site. If WhatsApp didn't open, your order text is ready in the form — tap Copy instead, or the green WhatsApp button.");
+          setTimeout(submitOrder, 350);
+          return;
+        }
+        if (/\bclear\s+(the\s+)?form\b/.test(t) || /\bform\s+(clear|saaf)\b/.test(t)){
+          ["fName","fBiz","fEmail","fMsg"].forEach(function(id){ var e = document.getElementById(id); if (e) e.value = ""; });
+          reply("Form cleared — name, business, email and message are empty again.");
+          return;
+        }
+
+        /* 4 — chat open/close + help */
+        if ((t.indexOf("chat") > -1 || t.indexOf("assistant") > -1) && /(close|band|hide)/.test(t)){ closeChat(); addMsg("bot", "Chat closed — the Ask Yug button is still in the corner."); return; }
+        if ((t.indexOf("chat") > -1 || t.indexOf("assistant") > -1) && /(open|khol|show|start)/.test(t)){ openChat(); addMsg("bot", "Chat is open — type your question."); return; }
+        if (/\b(help|commands|command list)\b/.test(t) || t.indexOf("kya kar sakte") > -1 || t.indexOf("what can you do") > -1){
+          openChat(); reply(HELP_TEXT); return;
+        }
+
+        /* 5 — navigation (explicit commands, or bare page names when not a question) */
+        var wantsNav = /(go|open|show|take me|dikhao|dikha|chalo|le chalo|navigate|visit|batao page)/.test(t) || !isQuestion;
+        if (wantsNav){
+          if (t.indexOf("demo") > -1) return goPage("demos", "Demos");
+          if (/\blab\b/.test(t)) return goPage("lab", "Lab");
+          if (t.indexOf("pricing") > -1 || t.indexOf("price") > -1 || t.indexOf("plan") > -1) return goPage("pricing", "Pricing");
+          if (t.indexOf("service") > -1) return goPage("services", "Services");
+          if (t.indexOf("privacy") > -1) return goPage("privacy", "Privacy Policy");
+          if (t.indexOf("refund") > -1) return goPage("refund", "Refund Policy");
+          if (t.indexOf("term") > -1) return goPage("terms", "Terms of Service");
+          if (t.indexOf("about") > -1) return goPage("about", "About");
+          if (t.indexOf("style") > -1){ showPage("home"); var hs = document.getElementById("home-styles"); if (hs) setTimeout(function(){ hs.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" }); }, 60); reply("Showing the website styles on the Home page — full versions are on the Demos page."); return; }
+          if (t.indexOf("contact") > -1 || t.indexOf("order") > -1) return goPage("contact", "Contact / Order");
+          if (t.indexOf("home") > -1 || /\btop\b/.test(t)) return goPage("home", "Home");
+        }
+        if (/\bdown\b/.test(t) && /(scroll|neeche)/.test(t) || /\bneeche\b/.test(t)){ window.scrollBy({ top: window.innerHeight * 0.8, behavior: reduceMotion ? "auto" : "smooth" }); reply("Scrolling down."); return; }
+        if (/\bup\b/.test(t) && /(scroll|upar)/.test(t) || /\bupar\b/.test(t)){ window.scrollBy({ top: -window.innerHeight * 0.8, behavior: reduceMotion ? "auto" : "smooth" }); reply("Scrolling up."); return; }
+        if (t.indexOf("whatsapp") > -1 && /(open|khol|start|chat)/.test(t)){
+          window.open("https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent("Hello Yug Labs, I want to know more about a website / Lab plan for my business."), "_blank", "noopener");
+          reply("Opening WhatsApp — your chat with Yug Labs (+91 87619 77477) starts there; press Send in WhatsApp to send your message.");
+          return;
+        }
+
+        /* 6 — questions answered from this page's own facts */
+        var answer = askAgent(t);
+        if (answer){
+          reply(answer);
+          return;
+        }
+
+        /* 7 — honest fallback */
+        reply("I couldn't match that to a page, a form field, or a question I can answer from this site. Try “show the demos”, “what are your prices?”, “fill the form” — or type “help” to see everything I can do.");
+      }
+
+      /* init */
+      showPage(routeFromHash(), false);
+    })();
+    </script>
+  </body>
+</html>
