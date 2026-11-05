@@ -8,7 +8,7 @@
     <meta name="theme-color" content="#0a0f1c" media="(prefers-color-scheme: dark)" />
     <meta name="theme-color" content="#f3f4f1" media="(prefers-color-scheme: light)" />
     <link rel="icon" href="data:," />
-    <title>Yug Labs — Websites, Lab Workspace &amp; AI Chatbot</title>
+    <title>Yug Labs — Lab Workspace, AI &amp; Store</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet" />
@@ -283,14 +283,14 @@
       .founder-card h3{font-size:24px;margin:8px 0 10px}
       .founder-card p{color:var(--muted);font-size:15px}
       footer.site-foot{background:#080d18;color:#c3cfe0;border-top:1px solid #1c2a47;box-shadow:inset 0 2px 0 rgba(242,163,60,.35)}
-      .foot-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:28px;padding:50px 0 30px}
+      .foot-grid{display:flex;flex-direction:column;align-items:center;text-align:center;gap:26px;padding:44px 0 26px}
       .foot-grid h3{color:#fff;font-size:13.5px;font-family:"IBM Plex Mono",monospace;font-weight:600;letter-spacing:.07em;text-transform:uppercase;margin-bottom:14px}
-      .foot-grid ul{list-style:none;margin:0;padding:0;display:grid;gap:9px;font-size:14.5px}
+      .foot-grid ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:8px 22px;font-size:14.5px}
       .foot-grid a{color:#c3cfe0;text-decoration:none;cursor:pointer;transition:color .2s}
       .to-top{color:#c3cfe0;text-decoration:none;cursor:pointer;font-weight:700;margin-left:auto;transition:color .2s}
       .to-top:hover{color:var(--gold-strong)}
       .foot-grid a:hover{color:var(--gold-strong)}
-      .foot-brand p{font-size:14.5px;margin-top:12px;max-width:26em;color:#93a5c0}
+      .foot-brand{text-align:center}.foot-brand p{font-size:14.5px;margin-top:12px;max-width:26em;color:#93a5c0}
       .foot-bottom{border-top:1px solid #1c2a47;padding:20px 0 28px;display:flex;flex-wrap:wrap;align-items:center;gap:8px 22px;font-size:13px;color:#7e90ad}
       /* floating dock */
       .dock{position:fixed;right:16px;bottom:max(18px, env(safe-area-inset-bottom));z-index:105;display:flex;align-items:flex-end;gap:12px}
@@ -418,17 +418,15 @@
         <section class="hero">
           <div class="wrap hero-grid">
             <div>
-              <span class="hero-eyebrow">Websites · Lab workspace · AI chatbot</span>
+              <span class="hero-eyebrow">Lab workspace · AI assistant · Store</span>
               <h1>Your own <span class="hl">Lab</span>. Your projects. A website you <span class="hl2">actually launch</span>.</h1>
-              <p class="hero-sub">Build your website yourself in the Lab — AI helps, and you spend credits only when the AI does the work. Or skip all that: our team builds the whole site for you. One payment, no subscription.</p>
+              <p class="hero-sub">Build your website yourself in the Lab — AI helps, and you spend credits only when the AI does the work.</p>
               <div class="hero-cta">
                 <a class="btn btn-gold" data-route="pricing" style="cursor:pointer">See plans — from $19/mo</a>
-                <a class="btn btn-ghost" data-goto="#home-styles" style="cursor:pointer">See website styles</a>
+                <a class="btn btn-ghost" data-route="store" style="cursor:pointer">Open the Store</a>
               </div>
               <div class="hero-points">
                 <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Manual edits always free</span>
-                <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Order on WhatsApp</span>
-                <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> No checkout yet — orders go through WhatsApp</span>
                 <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> AI chatbot — tap Ask Yug in the corner</span>
               </div>
             </div>
@@ -499,14 +497,14 @@
           <div class="wrap">
             <div class="sec-head rv">
               <span class="kicker">How it works</span>
-              <h2>Four steps — keep scrolling, they stack up</h2>
-              <p>From this page to a live site in four steps. Orders go through WhatsApp — there's no online checkout yet.</p>
+              <h2>How the Workspace works</h2>
+              <p>Open your workspace, tell the AI what to build, edit it yourself, then publish.</p>
             </div>
             <div class="stack">
-              <article class="stack-card"><div class="st-num">01</div><div><h3>Pick your plan</h3><p>Choose a Lab plan or a done-for-you package. All prices are in US dollars, shown in full before you order. No hidden charges.</p><div class="st-meta"><span class="st-chip">Prices in USD</span><span class="st-chip">Scope fixed before payment</span></div></div></article>
-              <article class="stack-card"><div class="st-num">02</div><div><h3>Order on WhatsApp</h3><p>Tap Order, fill the short form, send it on WhatsApp. We confirm scope, time and total in the chat before you pay anything.</p><div class="st-meta"><span class="st-chip">WhatsApp ordering</span><span class="st-chip">Confirmation before payment</span></div></div></article>
-              <article class="stack-card"><div class="st-num">03</div><div><h3>Payment — later</h3><p>There's no online checkout yet. PayPal and UPI (via Razorpay / Cashfree) will be added later. Until then, nothing is charged through this site — your order stays a WhatsApp conversation.</p><div class="st-meta"><span class="st-chip">Checkout not live yet</span><span class="st-chip">WhatsApp enquiry only</span></div></div></article>
-              <article class="stack-card"><div class="st-num">04</div><div><h3>Build, preview, go live</h3><p>In the Lab, you build it: edit by hand for free, call the AI when you want help — the credit cost shows before it runs. Done-for-you: preview your finished site, use your revision rounds, then launch.</p><div class="st-meta"><span class="st-chip">Manual edits: always free</span><span class="st-chip">Version history on Standard and up</span></div></div></article>
+              <article class="stack-card"><div class="st-num">01</div><div><h3>Open your workspace</h3><p>Log in, open a project. Your work saves as you go.</p><div class="st-meta"><span class="st-chip">Your projects</span><span class="st-chip">Saved as you go</span></div></div></article>
+              <article class="stack-card"><div class="st-num">02</div><div><h3>Tell the AI what to build</h3><p>Type what your business needs. The AI drafts the page — the cost shows before it runs.</p><div class="st-meta"><span class="st-chip">AI drafts</span><span class="st-chip">Cost shown first</span></div></div></article>
+              <article class="stack-card"><div class="st-num">03</div><div><h3>Edit it yourself, free</h3><p>Change text, photos and layout by hand. Manual edits are always free.</p><div class="st-meta"><span class="st-chip">Manual edits: always free</span><span class="st-chip">Your words, your photos</span></div></div></article>
+              <article class="stack-card"><div class="st-num">04</div><div><h3>Preview and publish</h3><p>Preview on your phone, then publish. Your site goes live from the Lab.</p><div class="st-meta"><span class="st-chip">Live preview</span><span class="st-chip">Publish from the Lab</span></div></div></article>
             </div>
           </div>
         </section>
@@ -523,33 +521,26 @@
               <article class="svc lift rv rv-d1"><div class="svc-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v6L4.5 18a2 2 0 0 0 1.8 3h11.4a2 2 0 0 0 1.8-3L14 8V2"/><path d="M8.5 2h7"/><path d="M7 15h10"/></svg></div><h3>The Lab Workspace<span class="soon-pill">Coming Soon</span></h3><p>Your own workspace for building websites with AI help. Projects, templates, monthly AI credits — and editing by hand is always free. It opens when login launches.</p><a class="svc-link" data-route="lab">See the Lab →</a></article>
               <article class="svc lift rv rv-d2"><div class="svc-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div><h3>AI Chatbot</h3><p>A chatbot on your site that answers from your own details — your timings, your prices, your services. Not made-up answers.</p><a class="svc-link" data-route="services">See details →</a></article>
               <article class="svc lift rv"><div class="svc-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></div><h3>Founder Post</h3><p>Posts written for founders and small businesses. You give us at least 2 facts about your business, we write the post, you get it on WhatsApp.</p><a class="svc-link" data-route="services">See details →</a></article>
-              <article class="svc lift rv rv-d1"><div class="svc-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div><h3>Website + Chatbot</h3><p>The full package: a complete website plus a chatbot set up with your real details, answering customers day and night.</p><a class="svc-link" data-route="pricing">See package →</a></article>
-              <article class="svc lift rv rv-d2"><div class="svc-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><h3>Support &amp; Revisions</h3><p>Every done-for-you package comes with revision rounds, and every Lab plan comes with support. Ask the chatbot any time — it answers most questions itself.</p><a class="svc-link" data-route="contact">Contact us →</a></article>
+              <article class="svc lift rv rv-d2"><div class="svc-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1 7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div><h3>AI in the Lab</h3><p>Ask the AI to draft a page, write a section or fix a layout. You see the credit cost before it runs.</p><a class="svc-link" data-route="lab">See the Lab →</a></article>
             </div>
           </div>
         </section>
 
-        <section class="sec sec-alt" id="home-styles">
+        <section class="sec sec-alt" id="home-store">
           <div class="wrap">
-            <div class="sec-head rv">
-              <span class="kicker">Website styles</span>
-              <h2>Three styles we build most</h2>
-              <p>These are illustrations of the styles, not client sites — your name, prices and photos go in when we build yours. Each one is made for phones first, around one clear action: booking, ordering, or joining.</p>
+            <div class="sec-head rv" style="text-align:center">
+              <span class="kicker">Store</span>
+              <h2>What&apos;s in the Store</h2>
+              <p>Everything in one place.</p>
             </div>
-            <div class="show-row">
-              <div class="show-text rv"><h3>Websites for Salons &amp; Spas</h3><p>Services up front, prices easy to scan, booking in two taps. Your name, services, prices and photos go straight into the design.</p><ul class="tick-list"><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Online appointment booking flow</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Service menu with clear pricing layout</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Built for phones first — most salon customers book on mobile</li></ul><p style="margin-top:18px"><a class="btn btn-gold btn-sm" data-order="Done-for-you website — Business ($449)" style="cursor:pointer">Order a salon website</a></p></div>
-              <div class="show-visual rv rv-d1"><div class="browser lift"><div class="browser-bar"><i></i><i></i><i></i><span class="browser-url">Salon website — illustration</span></div><div class="mock mock-salon"><span class="illus-badge">Illustration</span><div class="m-title">Your Salon Name</div><div class="m-sub">Hair · Skin · Bridal — book in 2 taps</div><span class="m-btn">Book appointment</span><div class="m-row"><div class="m-tile">Haircut<br />Your price</div><div class="m-tile">Facial<br />Your price</div><div class="m-tile">Bridal<br />Your price</div></div></div></div></div>
+            <div class="svc-grid">
+              <article class="svc lift rv"><h3>Ready-to-Grow Websites</h3><p>Salon, cafe, gym — ready to publish.</p><a class="svc-link" data-route="store">Open the Store →</a></article>
+              <article class="svc lift rv rv-d1"><h3>AI Apps</h3><p>Apps that work for you. Coming soon.</p><a class="svc-link" data-route="store">Open the Store →</a></article>
+              <article class="svc lift rv rv-d2"><h3>Chatbot Plugins</h3><p>Ready-to-go code for your site. Coming soon.</p><a class="svc-link" data-route="store">Open the Store →</a></article>
+              <article class="svc lift rv"><h3>E-books</h3><p>Practical guides. Coming soon.</p><a class="svc-link" data-route="store">Open the Store →</a></article>
             </div>
-            <div class="show-row flip">
-              <div class="show-text rv"><h3>Websites for Cafes &amp; Restaurants</h3><p>Menu, photos and table booking — without making anyone call. Your menu, timings and location go straight in.</p><ul class="tick-list"><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Menu pages that load fast on mobile data</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Table booking for 2–6 guests</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Warm cream and coffee-brown palette</li></ul><p style="margin-top:18px"><a class="btn btn-gold btn-sm" data-order="Done-for-you website — Business ($449)" style="cursor:pointer">Order a cafe website</a></p></div>
-              <div class="show-visual rv rv-d1"><div class="browser lift"><div class="browser-bar"><i></i><i></i><i></i><span class="browser-url">Cafe website — illustration</span></div><div class="mock mock-cafe"><span class="illus-badge">Illustration</span><div class="m-title">Your Cafe Name</div><div class="m-sub">Coffee · Snacks · Table booking</div><span class="m-btn">See the menu</span><div class="m-row"><div class="m-tile">Cold coffee<br />Your price</div><div class="m-tile">Sandwich<br />Your price</div><div class="m-tile">Book table<br />2–6 guests</div></div></div></div></div>
-            </div>
-            <div class="show-row">
-              <div class="show-text rv"><h3>Websites for Gyms &amp; Fitness Studios</h3><p>Dark, bold design with plan cards and a simple joining flow. Your plans, trainers and timings go straight in.</p><ul class="tick-list"><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Plan comparison cards that sell the upgrade</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Trainer and schedule sections</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Join-now flow with enquiry form</li></ul><p style="margin-top:18px"><a class="btn btn-gold btn-sm" data-order="Done-for-you website — Business ($449)" style="cursor:pointer">Order a gym website</a></p></div>
-              <div class="show-visual rv rv-d1"><div class="browser lift"><div class="browser-bar"><i></i><i></i><i></i><span class="browser-url">Fitness website — illustration</span></div><div class="mock mock-gym"><span class="illus-badge">Illustration</span><div class="m-title">Your Gym Name</div><div class="m-sub">Train hard. Stay consistent.</div><span class="m-btn">View plans</span><div class="m-row"><div class="m-tile">Starter<br />Your plan</div><div class="m-tile">Pro<br />Your plan</div><div class="m-tile">Elite<br />Your plan</div></div></div></div></div>
-            </div>
+            <div style="text-align:center;margin-top:26px"><a class="btn btn-gold" data-route="store" style="cursor:pointer">Open the Store</a></div>
           </div>
-          <div class="wrap" style="text-align:center;margin-top:4px"><a class="btn btn-ghost" data-route="store" style="cursor:pointer">See the Store — ready-to-publish websites</a></div>
         </section>
 
         <section class="sec" id="chatbot" style="padding-top:16px">
@@ -1023,16 +1014,6 @@
             </ul>
           </div>
           <div>
-            <h3>Services</h3>
-            <ul>
-              <li><a data-route="store">Store</a></li>
-              <li><a data-route="services">AI Chatbot</a></li>
-              <li><a data-route="services">Founder Post</a></li>
-              <li><a data-route="lab">The Lab — Coming Soon</a></li>
-              
-            </ul>
-          </div>
-          <div>
             <h3>Legal</h3>
             <ul>
               <li><a data-route="privacy">Privacy Policy</a></li>
@@ -1124,7 +1105,7 @@
       /* ---------- PAGE ROUTER (hash based, all pages in one site) ---------- */
       var PAGES = ["home","services","store","lab","pricing","about","contact","privacy","terms","refund"];
       var TITLES = {
-        home:"Yug Labs — Websites, Lab Workspace & AI Chatbot",
+        home:"Yug Labs — Lab Workspace, AI & Store",
         services:"Services — Yug Labs",
         store:"Store — Ready-to-Grow Websites · Yug Labs",
         lab:"The Lab — Coming Soon · Yug Labs",
@@ -1537,7 +1518,7 @@
           if (t.indexOf("refund") > -1) return goPage("refund", "Refund Policy");
           if (t.indexOf("term") > -1) return goPage("terms", "Terms of Service");
           if (t.indexOf("about") > -1) return goPage("about", "About");
-          if (t.indexOf("style") > -1){ showPage("home"); var hs = document.getElementById("home-styles"); if (hs) setTimeout(function(){ hs.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" }); }, 60); reply("Showing the website styles on the Home page — full versions are in the Store."); return; }
+          if (t.indexOf("style") > -1) return goPage("store", "Store");
           if (t.indexOf("contact") > -1 || t.indexOf("order") > -1) return goPage("contact", "Contact / Order");
           if (t.indexOf("home") > -1 || /\btop\b/.test(t)) return goPage("home", "Home");
         }
