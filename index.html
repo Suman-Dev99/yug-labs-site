@@ -1056,29 +1056,50 @@
             <a class="btn btn-gold" data-order="Lab interest — Free ($0/mo)" style="cursor:pointer">Register interest — free</a>
             <a class="btn btn-ghost" data-route="pricing" style="cursor:pointer">See plans</a>
           </p>
-          <p style="margin-top:16px"><a href="https://muse.ai/s/yug-lab-workspace-preview-xpp6xjady4fxyxz/hQS21B2UjGJnpAnrtjwKqm7I1Rgk0BMilXwl68UBt3o" target="_blank" rel="noopener" style="font-weight:700">Try the Lab prototype →</a> <span style="color:#64748b">— a working preview of the workspace. No account, no real data, nothing saved.</span></p>
+          <p style="margin-top:16px"><a data-scrollto="#lab-workspace" style="cursor:pointer;font-weight:700">Try the workspace ↓</a> <span style="color:#64748b">— a working prototype, right here on this page. No account, no real data, nothing saved.</span></p>
           <p class="price-sub" style="margin-top:14px">Coming soon — registering interest is free. No account, no workspace, no payment today.</p>
         </div>
 
         <section class="sec" style="padding-top:20px">
           <div class="wrap">
-            <div class="sec-head rv"><span class="kicker">A look inside</span><h2>What will it look like?</h2><p>One workspace. Your goal at the top, the plan under it, and every step waiting for your word.</p></div>
+            <div class="sec-head rv"><span class="kicker">Try it now</span><h2>The workspace — try it now</h2><p>A working prototype, right here. Make a plan, approve it, watch it run.</p></div>
             <div class="feat-visual rv">
-              <div style="background:#fff;border-radius:16px;padding:18px;box-shadow:0 8px 24px rgba(15,23,42,.08)">
-                <div style="display:flex;align-items:center;gap:8px;padding-bottom:12px;border-bottom:1px solid #e2e8f0"><span style="width:10px;height:10px;border-radius:50%;background:#f87171;display:inline-block"></span><span style="width:10px;height:10px;border-radius:50%;background:#fbbf24;display:inline-block"></span><span style="width:10px;height:10px;border-radius:50%;background:#34d399;display:inline-block"></span><b style="margin-left:6px;font-size:14px">YUGLAB — Plan a website for my shop</b></div>
-                <div style="display:grid;gap:10px;margin-top:14px">
-                  <div style="display:flex;gap:10px;align-items:center;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:12px 14px"><span style="font-size:16px">✓</span><div style="flex:1"><b>Step 1 — Understand the goal</b><br><small style="color:#64748b">Done · What your shop needs, in plain words</small></div><span style="font-size:12px;font-weight:700;color:#15803d">Done</span></div>
-                  <div style="display:flex;gap:10px;align-items:center;background:#eff6ff;border:1px solid #bfdbfe;border-radius:12px;padding:12px 14px"><span style="font-size:16px">◌</span><div style="flex:1"><b>Step 2 — Draft the plan</b><br><small style="color:#64748b">Running · Pages, tasks and costs, before anything runs</small></div><span style="font-size:12px;font-weight:700;color:#1d4ed8">Running</span></div>
-                  <div style="display:flex;gap:10px;align-items:center;background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:12px 14px"><span style="font-size:16px">?</span><div style="flex:1"><b>Step 3 — Build the pages</b><br><small style="color:#64748b">Waiting · Starts only after you approve the plan</small></div><span style="font-size:12px;font-weight:700;color:#b45309">Needs approval</span></div>
+              <div id="lab-workspace" style="background:#fff;border-radius:16px;padding:18px;box-shadow:0 8px 24px rgba(15,23,42,.08);text-align:left;scroll-margin-top:96px">
+                <div style="display:flex;align-items:center;gap:8px;padding-bottom:12px;border-bottom:1px solid #e2e8f0;flex-wrap:wrap"><span style="width:10px;height:10px;border-radius:50%;background:#f87171;display:inline-block"></span><span style="width:10px;height:10px;border-radius:50%;background:#fbbf24;display:inline-block"></span><span style="width:10px;height:10px;border-radius:50%;background:#34d399;display:inline-block"></span><b style="margin-left:6px;font-size:14px">YUG LAB — Workspace</b><span style="margin-left:auto;font-size:12px;font-weight:700;border:1px solid #e5e5e5;border-radius:999px;padding:4px 11px;color:#5d5d5d">Prototype · Free · 25 credits / mo</span></div>
+                <div style="margin-top:14px">
+                  <label for="wsGoal" style="font-weight:700;font-size:14px">Your goal</label>
+                  <div style="display:flex;gap:10px;margin-top:8px;flex-wrap:wrap">
+                    <input id="wsGoal" type="text" placeholder="Describe your goal — e.g. Plan a website for my shop…" aria-label="Describe your goal" style="flex:1;min-width:220px;border:1px solid #e5e5e5;border-radius:12px;padding:12px 14px;font:inherit;font-size:15px">
+                    <button class="btn btn-black" id="wsMake" type="button">Make a plan →</button>
+                  </div>
+                  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
+                    <button type="button" class="ws-chip" data-goal="Plan a booking website for my salon" style="border:1px solid #e5e5e5;background:#fff;border-radius:999px;padding:7px 13px;font:inherit;font-size:13.5px;font-weight:600;cursor:pointer">Salon booking website</button>
+                    <button type="button" class="ws-chip" data-goal="Set up a chatbot for my shop" style="border:1px solid #e5e5e5;background:#fff;border-radius:999px;padding:7px 13px;font:inherit;font-size:13.5px;font-weight:600;cursor:pointer">Chatbot for my shop</button>
+                    <button type="button" class="ws-chip" data-goal="Plan a portfolio website for my work" style="border:1px solid #e5e5e5;background:#fff;border-radius:999px;padding:7px 13px;font:inherit;font-size:13.5px;font-weight:600;cursor:pointer">Portfolio website</button>
+                  </div>
+                  <div id="wsClarify" style="margin-top:14px"></div>
+                  <div id="wsPlan" style="margin-top:14px"></div>
                 </div>
-                <div style="margin-top:14px;background:#fef3c7;border:1px solid #fde68a;border-radius:12px;padding:14px">
-                  <b>Waiting for your approval</b>
-                  <p style="margin:4px 0 12px;color:#57534e;font-size:14px">Plan ready: 5 pages, 12 tasks, 45 credits. Nothing runs until you say yes.</p>
-                  <p style="margin:0;display:flex;gap:10px;flex-wrap:wrap"><span class="btn btn-gold" style="opacity:.65;cursor:default">Approve — preview</span><span class="btn btn-ghost" style="opacity:.65;cursor:default">Change — preview</span></p>
+                <div style="margin-top:16px;border-top:1px solid #e2e8f0;padding-top:14px">
+                  <b>My projects</b>
+                  <div id="wsProjects" style="margin-top:10px"><p style="color:#64748b;font-size:14.5px">No projects yet — make a plan above.</p></div>
                 </div>
+                <div style="margin-top:14px;border-top:1px solid #e2e8f0;padding-top:14px">
+                  <b style="font-size:14px">Connectors</b>
+                  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
+                    <span style="font-size:13px;font-weight:600;border:1px solid #e5e5e5;border-radius:999px;padding:6px 12px">GitHub · Coming soon</span>
+                    <span style="font-size:13px;font-weight:600;border:1px solid #e5e5e5;border-radius:999px;padding:6px 12px">Google Drive · Coming soon</span>
+                    <span style="font-size:13px;font-weight:600;border:1px solid #e5e5e5;border-radius:999px;padding:6px 12px">Gmail · Coming soon</span>
+                    <span style="font-size:13px;font-weight:600;border:1px solid #e5e5e5;border-radius:999px;padding:6px 12px">Google Calendar · Coming soon</span>
+                    <span style="font-size:13px;font-weight:600;border:1px solid #e5e5e5;border-radius:999px;padding:6px 12px">Slack · Coming soon</span>
+                    <span style="font-size:13px;font-weight:600;border:1px solid #e5e5e5;border-radius:999px;padding:6px 12px">Notion · Coming soon</span>
+                    <span style="font-size:13px;font-weight:600;border:1px solid #e5e5e5;border-radius:999px;padding:6px 12px">Figma · Coming soon</span>
+                  </div>
+                </div>
+                <p style="margin-top:14px;font-size:13.5px;color:#64748b">Prototype — runs in your browser only. No account, no data saved, nothing is sent anywhere. Publish stays locked on the Free plan.</p>
               </div>
-              <p style="margin-top:14px;font-size:14px;color:#475569">Preview — a drawing of how the workspace will look. The Lab isn't open yet, so this is not a screenshot.</p>
-              <p style="margin-top:12px"><a class="btn btn-black" href="https://muse.ai/s/yug-lab-workspace-preview-xpp6xjady4fxyxz/hQS21B2UjGJnpAnrtjwKqm7I1Rgk0BMilXwl68UBt3o" target="_blank" rel="noopener">Open the Lab prototype →</a></p>
+              <p style="margin-top:14px;font-size:14px;color:#475569">Prototype — the real Lab (accounts, saved data, real AI) is still being built. This workspace runs in your browser only.</p>
+              
             </div>
           </div>
         </section>
@@ -1722,5 +1743,82 @@
       showPage(routeFromHash(), false);
     })();
     </script>
+  <script>
+(function(){
+  var goal=document.getElementById('wsGoal'), make=document.getElementById('wsMake'),
+      clarify=document.getElementById('wsClarify'), planBox=document.getElementById('wsPlan'),
+      projects=document.getElementById('wsProjects');
+  if(!goal||!make) return;
+  var TEMPLATES={
+    website:{steps:[['Understand the goal','clarify',2],['Draft the plan','plan',3],['Build the pages','draft',4],['Review & polish','review',3]]},
+    chatbot:{steps:[['Understand the goal','clarify',2],['Draft the plan','plan',3],['Write the answers','draft',3],['Review & test','review',3]]},
+    other:{steps:[['Understand the goal','clarify',2],['Draft the plan','plan',3],['Do the work','draft',3],['Review & deliver','review',2]]}
+  };
+  function typeOf(g){g=g.toLowerCase();if(/chat|bot/.test(g))return 'chatbot';if(/website|site|shop|salon|cafe|portfolio|store|business/.test(g))return 'website';return 'other';}
+  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+  function questionsFor(t){
+    if(t==='website')return ['What should the website do — bookings, menu, or just info?','What is your business name?','Do you have photos and prices ready, or should we use placeholders?'];
+    if(t==='chatbot')return ['What should the chatbot answer — timings, prices, or bookings?','Where does it live — your website or WhatsApp?','Who answers when the chatbot cannot?'];
+    return ['What does "done" look like for this goal?','Is there a deadline?','What should the Lab NOT do?'];
+  }
+  var current=null;
+  function renderPlan(){
+    var total=current.steps.reduce(function(a,s){return a+s.credits;},0);
+    var rows=current.steps.map(function(st,i){
+      var mark=st.status==='done'?'✓':(st.status==='running'?'◌':'·');
+      var stTxt=st.status==='done'?'Done':(st.status==='running'?'Running':'Waiting');
+      var col=st.status==='done'?'#15803d':(st.status==='running'?'#1d4ed8':'#64748b');
+      var drop=current.state==='draft'?'<button type="button" data-drop="'+i+'" style="border:none;background:none;color:#dc2626;font:inherit;font-size:13px;font-weight:700;cursor:pointer">Remove</button>':'';
+      return '<div style="display:flex;gap:10px;align-items:center;border:1px solid #e5e5e5;border-radius:12px;padding:11px 13px"><span style="font-size:15px">'+mark+'</span><div style="flex:1"><b>Step '+(i+1)+' — '+esc(st.title)+'</b><br><small style="color:#64748b">'+esc(st.kind)+' · '+st.credits+' credits</small></div><span style="font-size:12px;font-weight:700;color:'+col+'">'+stTxt+'</span>'+drop+'</div>';
+    }).join('');
+    var actions='';
+    if(current.state==='draft'){
+      actions='<p style="margin:12px 0 0;display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-black" id="wsApprove" type="button">Approve plan ✓</button><button class="btn btn-ghost" id="wsAgain" type="button">Start over</button></p><p style="margin:8px 0 0;font-size:13.5px;color:#64748b">Nothing runs until you approve. Publish stays locked on the Free plan.</p>';
+    }else if(current.state==='running'){
+      actions='<p style="margin:12px 0 0;font-size:14px;font-weight:700">Running — '+current.doneCount+' of '+current.steps.length+' steps done…</p>';
+    }else{
+      actions='<p style="margin:12px 0 0;font-size:14px;font-weight:700;color:#15803d">Done ✓ — project "'+esc(current.goal)+'" is in My projects below.</p><p style="margin:6px 0 0;font-size:13.5px;color:#64748b">Publish stays locked on the Free plan — upgrade to publish it live.</p>';
+    }
+    planBox.innerHTML='<div style="border:1px solid #e5e5e5;border-radius:14px;padding:14px"><b>Draft plan — '+esc(current.goal)+'</b><p style="margin:4px 0 12px;color:#64748b;font-size:14px">'+current.steps.length+' steps · '+total+' credits · Cost shown before anything runs</p><div style="display:grid;gap:9px">'+rows+'</div>'+actions+'</div>';
+    planBox.querySelectorAll('[data-drop]').forEach(function(b){b.addEventListener('click',function(){current.steps.splice(+b.getAttribute('data-drop'),1);if(!current.steps.length){planBox.innerHTML='';current=null;return;}renderPlan();});});
+    var ap=document.getElementById('wsApprove');if(ap)ap.addEventListener('click',approve);
+    var ag=document.getElementById('wsAgain');if(ag)ag.addEventListener('click',function(){current=null;planBox.innerHTML='';clarify.innerHTML='';goal.value='';goal.focus();});
+  }
+  function approve(){
+    if(!current||current.state!=='draft')return;
+    current.state='running';current.doneCount=0;renderPlan();
+    var i=0;
+    (function next(){
+      if(i>=current.steps.length){current.state='done';renderPlan();addProject();return;}
+      current.steps[i].status='running';renderPlan();
+      setTimeout(function(){current.steps[i].status='done';current.doneCount=i+1;i++;renderPlan();next();},700);
+    })();
+  }
+  function addProject(){
+    var total=current.steps.reduce(function(a,st){return a+st.credits;},0);
+    var empty=projects.querySelector('p');
+    if(empty)projects.innerHTML='';
+    var d=document.createElement('div');
+    d.style.cssText='border:1px solid #e5e5e5;border-radius:12px;padding:12px 14px;margin-top:9px';
+    d.innerHTML='<b>'+esc(current.goal)+'</b><br><small style="color:#64748b">Done · '+current.steps.length+' steps · '+total+' credits · Prototype — in this browser only</small>';
+    projects.appendChild(d);
+  }
+  function makePlan(g){
+    g=(g||'').trim();
+    clarify.innerHTML='';planBox.innerHTML='';current=null;
+    if(g.split(/\s+/).filter(Boolean).length<4){
+      var t=typeOf(g);
+      clarify.innerHTML='<div style="border:1px solid #fde68a;background:#fffbeb;border-radius:12px;padding:13px 14px"><b>Need a little more before planning</b><p style="margin:6px 0 0;color:#57534e;font-size:14px">'+questionsFor(t).map(function(q){return '· '+esc(q);}).join('<br>')+'</p><p style="margin:8px 0 0;font-size:13.5px;color:#64748b">Add a few more words to your goal and try again — the Lab never invents details.</p></div>';
+      return;
+    }
+    var t=typeOf(g);
+    current={goal:g,state:'draft',doneCount:0,steps:TEMPLATES[t].steps.map(function(x){return {title:x[0],kind:x[1],credits:x[2],status:'waiting'};})};
+    renderPlan();
+  }
+  make.addEventListener('click',function(){makePlan(goal.value);});
+  goal.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();makePlan(goal.value);}});
+  document.querySelectorAll('.ws-chip').forEach(function(c){c.addEventListener('click',function(){goal.value=c.getAttribute('data-goal');makePlan(goal.value);});});
+})();
+</script>
   </body>
 </html>
