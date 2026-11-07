@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="color-scheme" content="dark light" />
-    <meta name="description" content="Yug Labs — websites for small businesses, built by you in your own Lab workspace or built for you by our team. Order by WhatsApp enquiry. Founded by Suman Chhetri, Guwahati, Assam, India." />
-    <meta name="theme-color" content="#0a0f1c" media="(prefers-color-scheme: dark)" />
-    <meta name="theme-color" content="#f3f4f1" media="(prefers-color-scheme: light)" />
+    <meta name="color-scheme" content="light" />
+    <meta name="description" content="Yug Labs — your own Lab workspace for planning work with AI help, plus ready websites, apps and chatbots built for you. Order by WhatsApp enquiry. Founded by Suman Chhetri, Guwahati, Assam, India." />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
     <link rel="icon" href="data:," />
     <title>Yug Labs — Lab Workspace, AI &amp; Store</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -14,25 +14,25 @@
     <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet" />
     <style>
       :root{
-        --bg:#0a0f1c; --bg2:#0d1424; --surface:#111a2e; --surface2:#16223c;
-        --ink:#eef2f8; --muted:#a3b1c6; --faint:#71809a;
-        --line:#233252; --line-soft:#1b2745;
-        --gold:#f2a33c; --gold-strong:#ffb84f; --gold-soft:#2a2010;
-        --teal:#2dd4bf; --teal-deep:#0d7a6a; --teal-soft:#0e2b2b;
-        --navy:#080d18; --wa:#22b358; --danger:#f87171;
-        --radius:18px; --shadow:0 24px 50px -20px rgba(0,0,0,.65);
-        --glow:0 0 0 1px rgba(242,163,60,.45), 0 22px 44px -18px rgba(242,163,60,.28);
+        --bg:#ffffff; --bg2:#f7f7f8; --surface:#ffffff; --surface2:#f7f7f8;
+        --ink:#111111; --muted:#5d5d5d; --faint:#8a8a8a;
+        --line:#e5e5e5; --line-soft:#ececec;
+        --gold:#111111; --gold-strong:#000000; --gold-soft:#f0f0f0;
+        --teal:#111111; --teal-deep:#111111; --teal-soft:#f0f0f0;
+        --navy:#111111; --wa:#22b358; --danger:#dc2626;
+        --radius:18px; --shadow:0 24px 50px -22px rgba(0,0,0,.18);
+        --glow:0 0 0 1px rgba(0,0,0,.14), 0 22px 44px -20px rgba(0,0,0,.16);
       }
-      @media (prefers-color-scheme: light){
+      @media (prefers-color-scheme: dark){
         :root{
-          --bg:#f3f4f1; --bg2:#e9ebe4; --surface:#ffffff; --surface2:#f7f6f1;
-          --ink:#141c2c; --muted:#4b5a70; --faint:#7a879c;
-          --line:#d8dcd2; --line-soft:#e4e6de;
-          --gold:#c97a12; --gold-strong:#b06c08; --gold-soft:#fdf0da;
-          --teal:#0d7a6a; --teal-deep:#0d7a6a; --teal-soft:#e0f2ee;
-          --navy:#101a30;
-          --shadow:0 24px 50px -22px rgba(16,26,48,.3);
-          --glow:0 0 0 1px rgba(201,122,18,.4), 0 22px 44px -20px rgba(201,122,18,.3);
+          --bg:#ffffff; --bg2:#f7f7f8; --surface:#ffffff; --surface2:#f7f7f8;
+          --ink:#111111; --muted:#5d5d5d; --faint:#8a8a8a;
+          --line:#e5e5e5; --line-soft:#ececec;
+          --gold:#111111; --gold-strong:#000000; --gold-soft:#f0f0f0;
+          --teal:#111111; --teal-deep:#111111; --teal-soft:#f0f0f0;
+          --navy:#111111;
+          --shadow:0 24px 50px -22px rgba(0,0,0,.18);
+          --glow:0 0 0 1px rgba(0,0,0,.14), 0 22px 44px -20px rgba(0,0,0,.16);
         }
       }
       *{box-sizing:border-box}
@@ -43,22 +43,22 @@
       a{color:var(--teal)}
       .wrap{max-width:1200px;margin:0 auto;padding-left:22px;padding-right:22px}
       section{scroll-margin-top:96px}
-      ::selection{background:var(--gold);color:#1c1204}
+      ::selection{background:var(--gold);color:#ffffff}
       .progress{position:fixed;top:0;left:0;height:3px;width:0%;background:var(--gold);z-index:120}
       /* header */
       .site-head{position:sticky;top:0;z-index:100;background:color-mix(in srgb, var(--bg) 78%, transparent);backdrop-filter:blur(16px) saturate(1.4);-webkit-backdrop-filter:blur(16px) saturate(1.4);border-bottom:1px solid var(--line-soft)}
       .head-in{display:flex;align-items:center;gap:14px;height:70px;flex-wrap:nowrap}
       .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
       .brand-mark{width:39px;height:39px;border-radius:11px;background:var(--navy);border:1px solid var(--line);display:grid;place-items:center;flex:none}
-      @media (prefers-color-scheme: light){ .brand-mark{background:#101a30} }
+      @media (prefers-color-scheme: dark){ .brand-mark{background:#111111} }
       .brand-name{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:21px;letter-spacing:-.02em;white-space:nowrap}
       .main-nav{display:flex;gap:2px;margin-left:auto}
       .main-nav a{color:var(--muted);text-decoration:none;font-weight:600;font-size:14.5px;padding:8px 11px;border-radius:9px;transition:color .2s,background .2s;white-space:nowrap;cursor:pointer}
       .main-nav a:hover,.main-nav a.active{color:var(--ink);background:var(--surface2)}
       .head-actions{display:flex;align-items:center;gap:9px;margin-left:4px;flex:none}
       .btn{display:inline-flex;align-items:center;gap:8px;font-family:"Manrope",sans-serif;font-weight:700;font-size:15.5px;padding:12px 22px;border-radius:12px;border:1px solid transparent;cursor:pointer;text-decoration:none;line-height:1.2;text-align:center;transition:transform .25s ease, box-shadow .25s ease, background .2s, border-color .2s;position:relative;overflow:hidden}
-      .btn-gold{background:var(--gold);color:#221300}
-      .btn-gold:hover{transform:translateY(-2px);box-shadow:0 14px 28px -12px rgba(242,163,60,.55)}
+      .btn-gold{background:var(--gold);color:#ffffff}
+      .btn-gold:hover{transform:translateY(-2px);box-shadow:0 14px 28px -12px rgba(0,0,0,.25)}
       .btn-gold::after{content:"";position:absolute;top:0;left:-70%;width:45%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.45),transparent);transform:skewX(-20deg);transition:left .55s ease}
       .btn-gold:hover::after{left:120%}
       .btn-ghost{background:transparent;color:var(--ink);border-color:var(--line)}
@@ -68,7 +68,7 @@
       .btn-wa{background:var(--wa);color:#fff}
       .btn-wa:hover{filter:brightness(1.07);transform:translateY(-2px)}
       .btn-sm{padding:9px 16px;font-size:14px;border-radius:10px}
-      .soon-pill{display:inline-block;vertical-align:middle;font-family:"IBM Plex Mono",monospace;font-size:9.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;background:var(--gold);color:#221300;border-radius:999px;padding:2px 7px;margin-left:6px;white-space:nowrap}
+      .soon-pill{display:inline-block;vertical-align:middle;font-family:"IBM Plex Mono",monospace;font-size:9.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;background:var(--gold);color:#ffffff;border-radius:999px;padding:2px 7px;margin-left:6px;white-space:nowrap}
       .soon-banner{display:flex;gap:14px;align-items:flex-start;background:var(--gold-soft);border:1px solid color-mix(in srgb, var(--gold) 42%, transparent);border-radius:16px;padding:20px 22px}
       .soon-banner svg{flex:none;margin-top:2px;color:var(--gold-strong)}
       .soon-banner p{font-size:15.5px;color:var(--muted)} .soon-banner p b{color:var(--ink)}
@@ -113,11 +113,11 @@
       .dash-main{padding:17px 18px}
       .dash-main .dm-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:13px}
       .dm-title{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:16.5px}
-      .illus-banner{display:flex;align-items:center;justify-content:center;gap:8px;background:var(--gold);color:#221300;font-family:"IBM Plex Mono",monospace;font-size:11.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;text-align:center;padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.18);line-height:1.45}
+      .illus-banner{display:flex;align-items:center;justify-content:center;gap:8px;background:var(--gold);color:#ffffff;font-family:"IBM Plex Mono",monospace;font-size:11.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;text-align:center;padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.18);line-height:1.45}
       .dm-preview{border:1px solid var(--line-soft);border-radius:12px;padding:13px 14px;background:var(--bg2)}
       .dm-preview .pv-title{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:14.5px}
       .dm-preview .pv-sub{font-size:11.5px;color:var(--muted);margin-top:1px}
-      .dm-preview .pv-btn{display:inline-block;margin-top:8px;font-size:10.5px;font-weight:700;background:var(--gold);color:#221300;padding:4px 11px;border-radius:999px}
+      .dm-preview .pv-btn{display:inline-block;margin-top:8px;font-size:10.5px;font-weight:700;background:var(--gold);color:#ffffff;padding:4px 11px;border-radius:999px}
       .dm-row{display:flex;gap:8px;margin-top:9px}
       .dm-tile{flex:1;border:1px solid var(--line-soft);border-radius:9px;padding:8px 9px;font-size:10.5px;font-weight:700;background:var(--surface)}
       .dm-tile small{display:block;font-weight:600;color:var(--faint);font-size:9.5px;margin-top:1px}
@@ -194,13 +194,13 @@
       .credit-box p{font-size:15.5px;color:var(--muted)} .credit-box p b{color:var(--ink)}
       .tip{position:relative;border-bottom:2px dotted var(--gold);cursor:help;color:var(--ink);font-weight:700}
       .tip::after{content:attr(data-tip);position:absolute;left:50%;bottom:calc(100% + 10px);transform:translateX(-50%) translateY(4px);width:230px;background:var(--navy);color:#eef2f8;border:1px solid var(--line);border-radius:11px;padding:10px 12px;font-size:12.5px;font-weight:600;line-height:1.45;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:40;box-shadow:var(--shadow);text-align:left}
-      @media (prefers-color-scheme: light){ .tip::after{background:#101a30} }
+      @media (prefers-color-scheme: dark){ .tip::after{background:#111111} }
       .tip:hover::after,.tip:focus::after{opacity:1;transform:translateX(-50%) translateY(0)}
       .price-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;align-items:stretch}
       .price-grid.three{grid-template-columns:repeat(3,1fr)}
       .price-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:26px 23px;display:flex;flex-direction:column;gap:12px;position:relative}
       .price-card.popular{border:2px solid var(--gold);box-shadow:var(--glow)}
-      .pop-chip{position:absolute;top:-13px;left:20px;background:var(--gold);color:#221300;font-family:"IBM Plex Mono",monospace;font-size:10.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:4px 11px;border-radius:999px}
+      .pop-chip{position:absolute;top:-13px;left:20px;background:var(--gold);color:#ffffff;font-family:"IBM Plex Mono",monospace;font-size:10.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:4px 11px;border-radius:999px}
       .price-card h3{font-size:19px}
       .plan-for{font-size:13.5px;color:var(--faint);min-height:2.6em}
       .price-amt{font-family:"Bricolage Grotesque",sans-serif;font-size:37px;font-weight:800;letter-spacing:-.02em;line-height:1.05}
@@ -218,7 +218,7 @@
       .pay-card p{color:var(--muted);font-size:14.5px}
       .pay-card .pay-tag{display:inline-block;font-family:"IBM Plex Mono",monospace;font-size:10.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:999px;background:var(--teal-soft);color:var(--teal);margin-bottom:11px}
       .pay-card .pay-tag.soon{background:var(--gold-soft);color:var(--gold-strong)}
-      .illus-badge{position:absolute;top:12px;right:12px;z-index:3;background:var(--gold);color:#221300;font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:4px 11px;border-radius:999px;border:1px solid rgba(0,0,0,.2);box-shadow:0 8px 16px -8px rgba(0,0,0,.45)}
+      .illus-badge{position:absolute;top:12px;right:12px;z-index:3;background:var(--gold);color:#ffffff;font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:4px 11px;border-radius:999px;border:1px solid rgba(0,0,0,.2);box-shadow:0 8px 16px -8px rgba(0,0,0,.45)}
       .cmp-wrap{margin-top:38px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--surface)}
       .cmp-wrap h3{font-size:18px;padding:20px 22px 4px}
       .cmp-wrap .cmp-sub{padding:0 22px 14px;color:var(--muted);font-size:14px}
@@ -282,16 +282,16 @@
       .founder-card .fc-role{font-family:"IBM Plex Mono",monospace;font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-strong)}
       .founder-card h3{font-size:24px;margin:8px 0 10px}
       .founder-card p{color:var(--muted);font-size:15px}
-      footer.site-foot{background:#080d18;color:#c3cfe0;border-top:1px solid #1c2a47;box-shadow:inset 0 2px 0 rgba(242,163,60,.35)}
+      footer.site-foot{background:#ffffff;color:#5d5d5d;border-top:1px solid #e5e5e5;box-shadow:none}
       .foot-grid{display:flex;flex-direction:column;align-items:center;text-align:center;gap:26px;padding:44px 0 26px}
-      .foot-grid h3{color:#fff;font-size:13.5px;font-family:"IBM Plex Mono",monospace;font-weight:600;letter-spacing:.07em;text-transform:uppercase;margin-bottom:14px}
+      .foot-grid h3{color:#111111;font-size:13.5px;font-family:"IBM Plex Mono",monospace;font-weight:600;letter-spacing:.07em;text-transform:uppercase;margin-bottom:14px}
       .foot-grid ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:8px 22px;font-size:14.5px}
-      .foot-grid a{color:#c3cfe0;text-decoration:none;cursor:pointer;transition:color .2s}
-      .to-top{color:#c3cfe0;text-decoration:none;cursor:pointer;font-weight:700;margin-left:auto;transition:color .2s}
+      .foot-grid a{color:#5d5d5d;text-decoration:none;cursor:pointer;transition:color .2s}
+      .to-top{color:#5d5d5d;text-decoration:none;cursor:pointer;font-weight:700;margin-left:auto;transition:color .2s}
       .to-top:hover{color:var(--gold-strong)}
       .foot-grid a:hover{color:var(--gold-strong)}
-      .foot-brand{text-align:center}.foot-brand p{font-size:14.5px;margin-top:12px;max-width:26em;color:#93a5c0}
-      .foot-bottom{border-top:1px solid #1c2a47;padding:20px 0 28px;display:flex;flex-wrap:wrap;align-items:center;gap:8px 22px;font-size:13px;color:#7e90ad}
+      .foot-brand{text-align:center}.foot-brand p{font-size:14.5px;margin-top:12px;max-width:26em;color:#5d5d5d}
+      .foot-bottom{border-top:1px solid #e5e5e5;padding:20px 0 28px;display:flex;flex-wrap:wrap;align-items:center;gap:8px 22px;font-size:13px;color:#5d5d5d}
       /* floating dock */
       .dock{position:fixed;right:16px;bottom:max(18px, env(safe-area-inset-bottom));z-index:105;display:flex;align-items:flex-end;gap:12px}
       .dock-wa{display:inline-flex;align-items:center;gap:8px;background:var(--wa);color:#fff;font-weight:700;font-size:14.5px;padding:12px 17px;border-radius:999px;box-shadow:0 12px 26px -10px rgba(20,90,45,.55);text-decoration:none;border:none;cursor:pointer;transition:transform .25s;font-family:inherit}
@@ -314,13 +314,13 @@
       .chat-log{flex:1;overflow-y:auto;padding:14px 14px 8px;display:flex;flex-direction:column;gap:9px}
       .msg{max-width:87%;padding:9px 12px;border-radius:13px;font-size:14.5px;line-height:1.55;overflow-wrap:anywhere}
       .msg.bot{background:var(--bg2);border:1px solid var(--line-soft);align-self:flex-start;border-bottom-left-radius:5px;color:var(--ink)}
-      .msg.user{background:var(--gold);color:#221300;font-weight:600;align-self:flex-end;border-bottom-right-radius:5px}
+      .msg.user{background:var(--gold);color:#ffffff;font-weight:600;align-self:flex-end;border-bottom-right-radius:5px}
       .chat-chips{display:flex;flex-wrap:wrap;gap:7px;padding:6px 14px 10px}
       .ask-chip{background:var(--bg);border:1px solid var(--line);color:var(--ink);border-radius:999px;font-size:12.5px;font-weight:600;padding:5px 11px;cursor:pointer;transition:border-color .2s}
       .ask-chip:hover{border-color:var(--gold);color:var(--gold-strong)}
       .chat-form{display:flex;gap:8px;padding:11px 12px;border-top:1px solid var(--line-soft);align-items:center;background:var(--surface)}
       .chat-form input{flex:1;font:inherit;font-size:14.5px;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);min-width:0}
-      .chat-send{background:var(--gold);color:#221300;border:none;font-family:inherit;font-weight:700;font-size:14.5px;padding:11px 15px;border-radius:10px;cursor:pointer;flex:none}
+      .chat-send{background:var(--gold);color:#ffffff;border:none;font-family:inherit;font-weight:700;font-size:14.5px;padding:11px 15px;border-radius:10px;cursor:pointer;flex:none}
       @media (max-width:1180px){ .main-nav a{padding:8px 8px;font-size:14px} }
       @media (max-width:1080px){ .price-grid{grid-template-columns:1fr 1fr} .price-grid.three{grid-template-columns:1fr 1fr} .price-card.popular{order:-1} .main-nav .soon-pill{display:none} }
       @media (max-width:1020px){ .hero-grid{grid-template-columns:1fr;gap:36px} .svc-grid,.pay-strip{grid-template-columns:1fr 1fr} .chat-strip{grid-template-columns:1fr} .foot-grid{grid-template-columns:1fr 1fr} .chip-lab{left:6px} .show-row{grid-template-columns:1fr;gap:24px} .about-grid{grid-template-columns:1fr} }
@@ -358,7 +358,7 @@
     .th-salon{background:#2a2010;color:#f2a33c}
     .th-cafe{background:#2b1d12;color:#ffb84f}
     .th-gym{background:#101828;color:#eef2f8}
-    .th-soon{background:#16223c;color:#a3b1c6}
+    .th-soon{background:#f0f0f0;color:#5d5d5d}
     .store-price{font-weight:700;font-size:14px}
     .store-btns{display:flex;gap:8px;margin-top:auto}
     .store-btns .btn{flex:1;min-height:42px;padding:0 10px;font-size:14px}
@@ -478,10 +478,10 @@
             <div class="float-card fc-l2" data-route="store" style="cursor:pointer"><span class="sale-tag">SALE</span><div class="fc-title">IronPulse Fitness</div><div class="fc-sub">Website for sale</div><span class="fc-btn">Buy Now →</span></div>
             <div style="margin-bottom:20px"><span style="background:#dc2626;color:#fff;font-weight:800;border-radius:999px;padding:9px 20px;font-size:14px">SALE — Websites for sale</span></div>
             <span class="em-mark" aria-hidden="true">Y</span>
-            <h1>Tell AI what to build.<br><span class="grad">Launch it from your Lab.</span></h1>
+            <h1>Tell the Lab your goal.<br><span class="grad">Get a plan you approve.</span></h1>
             <form class="prompt-box" id="heroPrompt">
-              <input type="text" id="heroIdea" placeholder="Describe your website idea…" aria-label="Describe your website idea">
-              <button class="btn btn-black" type="submit">Build with AI →</button>
+              <input type="text" id="heroIdea" placeholder="Describe your goal — e.g. Plan a website for my shop…" aria-label="Describe your website idea">
+              <button class="btn btn-black" type="submit">Make a plan →</button>
             </form>
             <p class="hero-note">Websites for sale in the Store · No code needed · Manual edits always free</p>
           </div>
@@ -491,23 +491,23 @@
           <div class="wrap">
             <div class="sec-head rv" style="text-align:center">
               <span class="eyebrow">Features</span>
-              <h2>What can you build in the Lab?</h2>
-              <p>Two places. Build in the Lab Workspace. Buy in the Store.</p>
+              <h2>What can the Lab do for you?</h2>
+              <p>Two places. Plan work in the Lab. Buy in the Store.</p>
             </div>
             <div class="feat-wrap">
               <div class="feat-tabs" role="tablist">
-                <button class="feat-tab active" data-feat="0" role="tab"><b>Websites &amp; apps</b><span>Describe it in plain words. The Lab drafts the pages, layout and logic — then you shape it.</span></button>
+                <button class="feat-tab active" data-feat="0" role="tab"><b>Plans &amp; projects</b><span>Describe your goal in plain words. The Lab drafts a plan with steps and costs — you approve it, then the work runs.</span></button>
                 <button class="feat-tab" data-feat="1" role="tab"><b>AI chatbot</b><span>A chatbot on your site that answers from your own details — timings, prices, services.</span></button>
                 <button class="feat-tab" data-feat="2" role="tab"><b>Connectors</b><span>Plug your site into the tools you already use. Switch each one on when you need it.</span></button>
               </div>
               <div class="feat-visual">
                 <div class="feat-pane active" id="feat-0">
-                  <h3>Websites &amp; apps</h3>
-                  <p>Start with a sentence. The Lab builds the first version — pages, sections, forms — and you edit anything by hand, free. Preview on your phone, then publish from the Lab.</p>
+                  <h3>Plans &amp; projects</h3>
+                  <p>Start with a goal. The Lab breaks it into steps, shows the cost of each, and runs them only after you approve. You watch the progress and get the finished result.</p>
                   <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:18px">
-                    <div style="background:#fff;border-radius:14px;padding:14px"><b>Home</b><br><small style="color:#64748b">Edited by you — free</small></div>
-                    <div style="background:#fff;border-radius:14px;padding:14px"><b>Services</b><br><small style="color:#64748b">AI draft</small></div>
-                    <div style="background:#fff;border-radius:14px;padding:14px"><b>Contact</b><br><small style="color:#64748b">Form + map</small></div>
+                    <div style="background:#fff;border-radius:14px;padding:14px"><b>Goal</b><br><small style="color:#64748b">Described by you — free</small></div>
+                    <div style="background:#fff;border-radius:14px;padding:14px"><b>Plan</b><br><small style="color:#64748b">Steps + costs</small></div>
+                    <div style="background:#fff;border-radius:14px;padding:14px"><b>Result</b><br><small style="color:#64748b">Ready to export</small></div>
                   </div>
                 </div>
                 <div class="feat-pane" id="feat-1">
@@ -543,13 +543,13 @@
             <div class="sec-head rv">
               <span class="kicker">How it works</span>
               <h2>How the Workspace works</h2>
-              <p>Open your workspace, tell the AI what to build, edit it yourself, then publish.</p>
+              <p>Describe your goal, approve the plan, and get the finished result.</p>
             </div>
             <div class="stack">
-              <article class="stack-card"><div class="st-num">01</div><div><h3>Open your workspace</h3><p>Log in, open a project. Your work saves as you go.</p><div class="st-meta"><span class="st-chip">Your projects</span><span class="st-chip">Saved as you go</span></div></div></article>
-              <article class="stack-card"><div class="st-num">02</div><div><h3>Tell the AI what to build</h3><p>Type what your business needs. The AI drafts the page — the cost shows before it runs.</p><div class="st-meta"><span class="st-chip">AI drafts</span><span class="st-chip">Cost shown first</span></div></div></article>
-              <article class="stack-card"><div class="st-num">03</div><div><h3>Edit it yourself, free</h3><p>Change text, photos and layout by hand. Manual edits are always free.</p><div class="st-meta"><span class="st-chip">Manual edits: always free</span><span class="st-chip">Your words, your photos</span></div></div></article>
-              <article class="stack-card"><div class="st-num">04</div><div><h3>Preview and publish</h3><p>Preview on your phone, then publish. Your site goes live from the Lab.</p><div class="st-meta"><span class="st-chip">Live preview</span><span class="st-chip">Publish from the Lab</span></div></div></article>
+              <article class="stack-card"><div class="st-num">01</div><div><h3>Describe your goal</h3><p>Type what you want done, in plain words. One goal at a time.</p><div class="st-meta"><span class="st-chip">Plain words</span><span class="st-chip">One goal</span></div></div></article>
+              <article class="stack-card"><div class="st-num">02</div><div><h3>The Lab drafts a plan</h3><p>Steps, costs and risks — shown before anything runs. No invented steps.</p><div class="st-meta"><span class="st-chip">Steps, not guesses</span><span class="st-chip">Cost shown first</span></div></div></article>
+              <article class="stack-card"><div class="st-num">03</div><div><h3>You approve it</h3><p>Approve, change or drop any step. Nothing runs without your yes.</p><div class="st-meta"><span class="st-chip">Your approval</span><span class="st-chip">Change anything</span></div></div></article>
+              <article class="stack-card"><div class="st-num">04</div><div><h3>Work runs, you get the result</h3><p>Watch the progress live. The finished result lands in your workspace.</p><div class="st-meta"><span class="st-chip">Live progress</span><span class="st-chip">Export the result</span></div></div></article>
             </div>
           </div>
         </section>
@@ -566,11 +566,11 @@
               <button data-seg="ent" type="button">Enterprise</button>
             </div>
             <div class="price-grid" id="seg-ind">
-              <article class="price-card2"><h3>Free</h3><p style="color:#64748b;margin:6px 0 0">Try the Lab.</p><div class="p-amt">$0<small style="font-size:16px;color:#64748b"> /month</small></div><ul><li>✓ 1 project</li><li>✓ Try the Lab workspace</li><li>✓ Manual edits — free</li><li>✓ More details coming soon</li></ul><a class="btn btn-black" data-order="Lab interest — Free ($0/mo)" style="cursor:pointer">Try Free</a></article>
-              <article class="price-card lift rv"><h3>Free</h3><p class="plan-for">Try the Lab — start free.</p><div class="price-amt">$0<small> /month</small></div><ul class="tick-list"><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> 1 project</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Try the Lab workspace</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Manual edits — free &amp; unlimited</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> More details coming soon</li></ul><p class="price-sub">Coming soon — this only registers interest. No account, no workspace today.</p><a class="btn btn-gold" data-order="Lab interest — Free ($0/mo)" style="cursor:pointer">Try Free</a></article>
-              <article class="price-card2"><h3>Basic</h3><p style="color:#64748b;margin:6px 0 0">For your first project.</p><div class="p-amt">$19<small style="font-size:16px;color:#64748b"> /month</small></div><ul><li>✓ 500 credits / month</li><li>✓ 1 project</li><li>✓ Full Lab workspace, when it opens</li><li>✓ Manual edits — free &amp; unlimited</li><li>✓ Live preview, export your site</li></ul><a class="btn btn-black" data-order="Lab interest — Basic ($19/mo)" style="cursor:pointer">Try Basic</a></article>
-              <article class="price-card2"><h3>Standard</h3><p style="color:#64748b;margin:6px 0 0">For a growing business. <span style="color:#16a34a;font-weight:700">Most popular</span></p><div class="p-amt">$49<small style="font-size:16px;color:#64748b"> /month</small></div><ul><li>✓ 1,500 credits / month</li><li>✓ 5 projects</li><li>✓ Everything in Basic</li><li>✓ Version history — undo any change</li><li>✓ Preview share links, priority support</li></ul><a class="btn btn-black" data-order="Lab interest — Standard ($49/mo)" style="cursor:pointer">Try Standard</a></article>
-              <article class="price-card2"><h3>Premium</h3><p style="color:#64748b;margin:6px 0 0">For heavy builders.</p><div class="p-amt">$99<small style="font-size:16px;color:#64748b"> /month</small></div><ul><li>✓ 5,000 credits / month</li><li>✓ 20 projects</li><li>✓ Everything in Standard</li><li>✓ Draft projects before publishing</li><li>✓ First access to new Lab tools</li></ul><a class="btn btn-black" data-order="Lab interest — Premium ($99/mo)" style="cursor:pointer">Try Premium</a></article>
+              <article class="price-card2"><h3>Free</h3><p style="color:#64748b;margin:6px 0 0">Try the Lab.</p><div class="p-amt">$0<small style="font-size:16px;color:#64748b"> /month</small></div><ul><li>✓ 1 project</li><li>✓ Build freely — up to a limit</li><li>✓ 25 credits / month</li><li>✓ No publish until you pay</li></ul><a class="btn btn-black" data-order="Lab interest — Free ($0/mo)" style="cursor:pointer">Try Free</a></article>
+              
+              <article class="price-card2"><h3>Basic</h3><p style="color:#64748b;margin:6px 0 0">For your first project.</p><div class="p-amt">$9<small style="font-size:16px;color:#64748b"> /month</small></div><ul><li>✓ 100 credits / month</li><li>✓ 1 project</li><li>✓ Full Lab workspace, when it opens</li><li>✓ Manual edits — free &amp; unlimited</li><li>✓ Live progress, export your results</li></ul><a class="btn btn-black" data-order="Lab interest — Basic ($9/mo)" style="cursor:pointer">Try Basic</a></article>
+              <article class="price-card2"><h3>Standard</h3><p style="color:#64748b;margin:6px 0 0">For a growing business. <span style="color:#16a34a;font-weight:700">Most popular</span></p><div class="p-amt">$19<small style="font-size:16px;color:#64748b"> /month</small></div><ul><li>✓ 1,500 credits / month</li><li>✓ 5 projects</li><li>✓ Everything in Basic</li><li>✓ Version history — undo any change</li><li>✓ Preview share links, priority support</li></ul><a class="btn btn-black" data-order="Lab interest — Standard ($19/mo)" style="cursor:pointer">Try Standard</a></article>
+              <article class="price-card2"><h3>Premium</h3><p style="color:#64748b;margin:6px 0 0">For heavy workloads.</p><div class="p-amt">$49<small style="font-size:16px;color:#64748b"> /month</small></div><ul><li>✓ 5,000 credits / month</li><li>✓ 20 projects</li><li>✓ Everything in Standard</li><li>✓ Draft plans before tasks run</li><li>✓ First access to new Lab tools</li></ul><a class="btn btn-black" data-order="Lab interest — Premium ($49/mo)" style="cursor:pointer">Try Premium</a></article>
             </div>
             <div class="price-grid" id="seg-ent" hidden style="grid-template-columns:repeat(2,1fr)">
               <article class="price-card2"><h3>Enterprise</h3><p style="color:#64748b;margin:6px 0 0">For teams and agencies.</p><div class="p-amt">Custom</div><ul><li>✓ Custom credits &amp; projects</li><li>✓ Everything in Premium</li><li>✓ Team workspace, custom limits</li><li>✓ Invoice billing, dedicated support</li></ul><a class="btn btn-black" data-route="contact" style="cursor:pointer">Book a demo</a></article>
@@ -627,10 +627,10 @@
           <div class="wrap">
             <div class="sec-head rv" style="text-align:center"><span class="eyebrow">Frequently Asked Questions</span><h2>Curious about Yug Labs?<br>We&apos;ve got you covered.</h2></div>
             <div class="faq-list faq-col">
-              <details class="faq rv" open><summary>What exactly is the Lab? <span class="pm" aria-hidden="true">+</span></summary><p>Your own workspace for building websites, with AI help. It's not open yet — login and online payment are still being built, so nobody can create an account today. When it opens: one project = one website, editing by hand is free, and you spend AI credits when you want the AI to draft something. More on the <a data-route="lab" style="cursor:pointer">Lab page</a>.</p></details>
+              <details class="faq rv" open><summary>What exactly is the Lab? <span class="pm" aria-hidden="true">+</span></summary><p>Your own workspace for planning work, with AI help. It's not open yet — login and online payment are still being built, so nobody can create an account today. When it opens: you describe a goal, the Lab drafts a plan, you approve it, and the work gets done. Doing things by hand is free, and AI work spends credits. More on the <a data-route="lab" style="cursor:pointer">Lab page</a>.</p></details>
               <details class="faq rv"><summary>How do I order and pay? <span class="pm" aria-hidden="true">+</span></summary><p>Pick a plan, tap Order, fill the form, send it on WhatsApp. We confirm scope and total in the chat before anything is paid. There's no online checkout yet — PayPal and UPI (via Razorpay / Cashfree) come later.</p></details>
-              <details class="faq rv"><summary>What is a credit, in plain words? <span class="pm" aria-hidden="true">+</span></summary><p>A credit is a small unit of AI work. Doing things yourself — typing, editing, moving blocks, changing colours — is free, always. Asking the AI to draft a page or write a section costs credits, usually 10–15 for a page draft, and the cost shows before it runs. Credits refresh every month.</p></details>
-              <details class="faq rv"><summary>Lab plan or done-for-you — what is the difference? <span class="pm" aria-hidden="true">+</span></summary><p>Lab plan: <em>you</em> build, in your own workspace, for a monthly price. Done-for-you: <em>we</em> build and hand over a finished site, for one payment. They're separate — a Lab plan never includes a site built by our team, and a done-for-you package never includes Lab credits.</p></details>
+              <details class="faq rv"><summary>What is a credit, in plain words? <span class="pm" aria-hidden="true">+</span></summary><p>A credit is a small unit of AI work. Doing things yourself — typing, editing, moving blocks, changing colours — is free, always. Asking the AI to draft a plan or run a task costs credits, usually 10–15 for a plan draft, and the cost shows before it runs. Credits refresh every month.</p></details>
+              <details class="faq rv"><summary>Lab plan or done-for-you — what is the difference? <span class="pm" aria-hidden="true">+</span></summary><p>Lab plan: <em>you</em> plan work and get it done in your own workspace, for a monthly price. Done-for-you: <em>we</em> build and hand over a finished site, for one payment. They're separate — a Lab plan never includes a site built by our team, and a done-for-you package never includes Lab credits.</p></details>
               <details class="faq rv"><summary>Why are prices in US dollars? <span class="pm" aria-hidden="true">+</span></summary><p>So everyone, wherever they are, sees the same price. Orders go through WhatsApp for now — no online checkout yet (see Payment methods on the Pricing page).</p></details>
               <details class="faq rv"><summary>Can I get a refund? <span class="pm" aria-hidden="true">+</span></summary><p>Yes, in the cases in our <a data-route="refund" style="cursor:pointer">Refund Policy</a>. Short version: cancel before work starts and you get a full refund. Lab plans can be cancelled any time and stop at the end of the paid month.</p></details>
             </div>
@@ -662,15 +662,15 @@
             <article class="path-card lift">
               <span class="path-tag tag-sub">Service 02 · Subscription</span>
               <h3>The Lab Workspace<span class="soon-pill">Coming Soon</span></h3>
-              <p>Your own workspace for building websites with AI help. Start from a template, edit everything yourself for free, and spend credits only when the AI makes something for you.</p>
+              <p>Your own workspace for planning work, with AI help. Describe a goal, approve the plan, and get the finished result — doing things by hand is free.</p>
               <p><b style="color:var(--ink)">Where it stands:</b> not open yet — login and online payment are still being built. Prices are on the Pricing page, you can register interest on WhatsApp today, and the full picture is on the <a data-route="lab" style="cursor:pointer">Lab page</a>.</p>
               <ul class="tick-list">
-                <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> 1–20 projects depending on plan — one project = one website in progress</li>
+                <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> 1–20 projects depending on plan</li>
                 <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Monthly AI credits — the cost of every AI run is shown before it runs</li>
-                <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Live preview, preview share links and version history (Standard and up)</li>
-                <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Export your finished site any time</li>
+                <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Live progress, share links and version history (Standard and up)</li>
+                <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Export your finished results any time</li>
               </ul>
-              <p class="path-price">From $19 <small>/month · cancel anytime</small></p>
+              <p class="path-price">From $0 <small>/month · cancel anytime</small></p>
               <a class="btn btn-gold" data-route="pricing" style="cursor:pointer">Compare Lab plans</a>
             </article>
             <article class="path-card lift">
@@ -773,29 +773,29 @@
             </div>
             <div class="credit-box rv">
               <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-              <p><b>What is a <span class="tip" tabindex="0" data-tip="A credit is one small unit of AI work inside your Lab — drafting a page, writing a section, generating a layout. You always see the cost before it runs.">credit</span>?</b> A small unit of AI work. Anything you do <b>by hand — editing text, moving blocks, changing colours — is free and unlimited</b>. When the AI drafts a page or writes a section, that costs credits, and the exact cost shows <b>before</b> it runs. A page draft is usually 10–15 credits.</p>
+              <p><b>What is a <span class="tip" tabindex="0" data-tip="A credit is one small unit of AI work inside your Lab — drafting a plan, running a task, writing a section. You always see the cost before it runs.">credit</span>?</b> A small unit of AI work. Anything you do <b>by hand — editing text, moving blocks, changing colours — is free and unlimited</b>. When the AI drafts a page or writes a section, that costs credits, and the exact cost shows <b>before</b> it runs. A plan draft is usually 10–15 credits.</p>
             </div>
             <div class="price-grid">
-              <article class="price-card lift rv"><h3>Basic<span class="soon-pill">Coming Soon</span></h3><p class="plan-for">For your first project — one website, built at your own pace.</p><div class="price-amt">$19<small> /month</small></div><div class="plan-credits"><span class="cr-pill">500 credits / mo</span><span class="cr-pill alt">1 project</span></div><ul class="tick-list"><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Full Lab workspace access — when the Lab opens</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Manual edits — free &amp; unlimited</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Starter templates &amp; blocks</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Live preview of your project</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Export your site when ready</li></ul><p class="price-sub">Coming soon — this only registers interest. No account, no workspace today.</p><a class="btn btn-ghost" data-order="Lab interest — Basic ($19/mo) — Coming Soon" style="cursor:pointer">Register interest in Basic on WhatsApp</a></article>
-              <article class="price-card popular lift rv rv-d1"><span class="pop-chip">Most popular</span><h3>Standard<span class="soon-pill">Coming Soon</span></h3><p class="plan-for">For a growing business — several projects, room to try things.</p><div class="price-amt">$49<small> /month</small></div><div class="plan-credits"><span class="cr-pill">1,500 credits / mo</span><span class="cr-pill alt">5 projects</span></div><ul class="tick-list"><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Everything in Basic</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Full template &amp; pattern library</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Version history — undo any change</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Preview share links for feedback</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Priority support</li></ul><p class="price-sub">Coming soon — this only registers interest. No account, no workspace today.</p><a class="btn btn-gold" data-order="Lab interest — Standard ($49/mo) — Coming Soon" style="cursor:pointer">Register interest in Standard on WhatsApp</a></article>
-              <article class="price-card lift rv rv-d2"><h3>Premium<span class="soon-pill">Coming Soon</span></h3><p class="plan-for">For heavy builders — many projects, a deep credit pool.</p><div class="price-amt">$99<small> /month</small></div><div class="plan-credits"><span class="cr-pill">5,000 credits / mo</span><span class="cr-pill alt">20 projects</span></div><ul class="tick-list"><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Everything in Standard</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> 20 active projects at once</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Draft projects before publishing</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> First access to new Lab tools</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Priority support, faster queue</li></ul><p class="price-sub">Coming soon — this only registers interest. No account, no workspace today.</p><a class="btn btn-ghost" data-order="Lab interest — Premium ($99/mo) — Coming Soon" style="cursor:pointer">Register interest in Premium on WhatsApp</a></article>
+              <article class="price-card lift rv"><h3>Free<span class="soon-pill">Coming Soon</span></h3><p class="plan-for">Try the Lab — build freely, up to a limit. No publish until you pay.</p><div class="price-amt">$0<small> /month</small></div><div class="plan-credits"><span class="cr-pill">25 credits / mo</span><span class="cr-pill alt">1 project</span></div><ul class="tick-list"><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Build freely — up to a limit</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> 1 project</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> 25 AI credits / month</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Manual edits — free &amp; unlimited</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> No publish until you pay</li></ul><p class="price-sub">Coming soon — this only registers interest. No account, no workspace today.</p><a class="btn btn-ghost" data-order="Lab interest — Free ($0/mo)" style="cursor:pointer">Try Free</a></article><article class="price-card lift rv"><h3>Basic<span class="soon-pill">Coming Soon</span></h3><p class="plan-for">For your first project — one workspace, planned step by step.</p><div class="price-amt">$9<small> /month</small></div><div class="plan-credits"><span class="cr-pill">100 credits / mo</span><span class="cr-pill alt">1 project</span></div><ul class="tick-list"><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Full Lab workspace access — when the Lab opens</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Manual edits — free &amp; unlimited</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Starter plan templates</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Live progress on your work</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Export your results when ready</li></ul><p class="price-sub">Coming soon — this only registers interest. No account, no workspace today.</p><a class="btn btn-ghost" data-order="Lab interest — Basic ($9/mo) — Coming Soon" style="cursor:pointer">Register interest in Basic on WhatsApp</a></article>
+              <article class="price-card popular lift rv rv-d1"><span class="pop-chip">Most popular</span><h3>Standard<span class="soon-pill">Coming Soon</span></h3><p class="plan-for">For a growing business — several projects, room to try things.</p><div class="price-amt">$19<small> /month</small></div><div class="plan-credits"><span class="cr-pill">1,500 credits / mo</span><span class="cr-pill alt">5 projects</span></div><ul class="tick-list"><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Everything in Basic</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Full plan template library</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Version history — undo any change</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Preview share links for feedback</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Priority support</li></ul><p class="price-sub">Coming soon — this only registers interest. No account, no workspace today.</p><a class="btn btn-gold" data-order="Lab interest — Standard ($19/mo) — Coming Soon" style="cursor:pointer">Register interest in Standard on WhatsApp</a></article>
+              <article class="price-card lift rv rv-d2"><h3>Premium<span class="soon-pill">Coming Soon</span></h3><p class="plan-for">For heavy workloads — many projects, a deep credit pool.</p><div class="price-amt">$49<small> /month</small></div><div class="plan-credits"><span class="cr-pill">5,000 credits / mo</span><span class="cr-pill alt">20 projects</span></div><ul class="tick-list"><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Everything in Standard</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> 20 active projects at once</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Draft plans before tasks run</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> First access to new Lab tools</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Priority support, faster queue</li></ul><p class="price-sub">Coming soon — this only registers interest. No account, no workspace today.</p><a class="btn btn-ghost" data-order="Lab interest — Premium ($49/mo) — Coming Soon" style="cursor:pointer">Register interest in Premium on WhatsApp</a></article>
               <article class="price-card lift rv rv-d3"><h3>Enterprise<span class="soon-pill">Coming Soon</span></h3><p class="plan-for">For teams and agencies building at a bigger scale.</p><div class="price-amt custom">Custom</div><div class="plan-credits"><span class="cr-pill">Custom credits</span><span class="cr-pill alt">Custom projects</span></div><ul class="tick-list"><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Everything in Premium</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Team workspace for your staff</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Custom limits, set together</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Invoice billing</li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Dedicated priority support</li></ul><p class="price-sub">Coming soon — this only registers interest. No account, no workspace today.</p><a class="btn btn-ghost" data-order="Lab interest — Enterprise (custom) — Coming Soon" style="cursor:pointer">Register interest in Enterprise on WhatsApp</a></article>
             </div>
             <div class="cmp-wrap rv">
               <h3>Lab plans, side by side</h3>
               <p class="cmp-sub">What's planned for when the Lab opens. Same features on every plan — only the amounts change. You can't buy these yet; the buttons above register interest only.</p>
-              <div class="cmp-scroll"><table class="cmp"><thead><tr><th scope="col">Feature</th><th scope="col">Basic</th><th scope="col" class="pop">Standard</th><th scope="col">Premium</th><th scope="col">Enterprise</th></tr></thead><tbody>
-                <tr><td>Price (USD)</td><td data-label="Basic"><b>$19/mo</b></td><td data-label="Standard"><b>$49/mo</b></td><td data-label="Premium"><b>$99/mo</b></td><td data-label="Enterprise">Custom</td></tr>
-                <tr><td>Projects</td><td data-label="Basic"><b>1</b></td><td data-label="Standard"><b>5</b></td><td data-label="Premium"><b>20</b></td><td data-label="Enterprise">Custom</td></tr>
-                <tr><td>AI credits / month</td><td data-label="Basic"><b>500</b></td><td data-label="Standard"><b>1,500</b></td><td data-label="Premium"><b>5,000</b></td><td data-label="Enterprise">Custom pool</td></tr>
-                <tr><td>Manual edits</td><td data-label="Basic">Free, unlimited</td><td data-label="Standard">Free, unlimited</td><td data-label="Premium">Free, unlimited</td><td data-label="Enterprise">Free, unlimited</td></tr>
-                <tr><td>AI cost shown before a run</td><td data-label="Basic">Yes</td><td data-label="Standard">Yes</td><td data-label="Premium">Yes</td><td data-label="Enterprise">Yes</td></tr>
-                <tr><td>Templates &amp; blocks</td><td data-label="Basic">Starter set</td><td data-label="Standard">Full library</td><td data-label="Premium">Full library</td><td data-label="Enterprise">Full library</td></tr>
-                <tr><td>Live preview</td><td data-label="Basic">Yes</td><td data-label="Standard">Yes</td><td data-label="Premium">Yes</td><td data-label="Enterprise">Yes</td></tr>
-                <tr><td>Version history &amp; revert</td><td data-label="Basic">—</td><td data-label="Standard">Yes</td><td data-label="Premium">Yes</td><td data-label="Enterprise">Yes</td></tr>
-                <tr><td>Preview share links</td><td data-label="Basic">—</td><td data-label="Standard">Yes</td><td data-label="Premium">Yes</td><td data-label="Enterprise">Yes</td></tr>
-                <tr><td>Export your site</td><td data-label="Basic">Yes</td><td data-label="Standard">Yes</td><td data-label="Premium">Yes</td><td data-label="Enterprise">Yes</td></tr>
-                <tr><td>Support</td><td data-label="Basic">Standard</td><td data-label="Standard">Priority</td><td data-label="Premium">Priority, faster queue</td><td data-label="Enterprise">Dedicated</td></tr>
+              <div class="cmp-scroll"><table class="cmp"><thead><tr><th scope="col">Feature</th><th scope="col">Free</th><th scope="col">Basic</th><th scope="col" class="pop">Standard</th><th scope="col">Premium</th><th scope="col">Enterprise</th></tr></thead><tbody>
+                <tr><td>Price (USD)</td><td data-label="Free"><b>$0/mo</b></td><td data-label="Basic"><b>$9/mo</b></td><td data-label="Standard"><b>$19/mo</b></td><td data-label="Premium"><b>$49/mo</b></td><td data-label="Enterprise">Custom</td></tr>
+                <tr><td>Projects</td><td data-label="Free"><b>1</b></td><td data-label="Basic"><b>1</b></td><td data-label="Standard"><b>5</b></td><td data-label="Premium"><b>20</b></td><td data-label="Enterprise">Custom</td></tr>
+                <tr><td>AI credits / month</td><td data-label="Free"><b>25</b></td><td data-label="Basic"><b>100</b></td><td data-label="Standard"><b>1,500</b></td><td data-label="Premium"><b>5,000</b></td><td data-label="Enterprise">Custom pool</td></tr>
+                <tr><td>Manual edits</td><td data-label="Free">Free, unlimited</td><td data-label="Basic">Free, unlimited</td><td data-label="Standard">Free, unlimited</td><td data-label="Premium">Free, unlimited</td><td data-label="Enterprise">Free, unlimited</td></tr>
+                <tr><td>AI cost shown before a run</td><td data-label="Free">Yes</td><td data-label="Basic">Yes</td><td data-label="Standard">Yes</td><td data-label="Premium">Yes</td><td data-label="Enterprise">Yes</td></tr>
+                <tr><td>Plan templates</td><td data-label="Free">Starter set</td><td data-label="Basic">Starter set</td><td data-label="Standard">Full library</td><td data-label="Premium">Full library</td><td data-label="Enterprise">Full library</td></tr>
+                <tr><td>Live progress</td><td data-label="Free">Yes</td><td data-label="Basic">Yes</td><td data-label="Standard">Yes</td><td data-label="Premium">Yes</td><td data-label="Enterprise">Yes</td></tr>
+                <tr><td>Version history &amp; revert</td><td data-label="Free">—</td><td data-label="Basic">—</td><td data-label="Standard">Yes</td><td data-label="Premium">Yes</td><td data-label="Enterprise">Yes</td></tr>
+                <tr><td>Preview share links</td><td data-label="Free">—</td><td data-label="Basic">—</td><td data-label="Standard">Yes</td><td data-label="Premium">Yes</td><td data-label="Enterprise">Yes</td></tr>
+                <tr><td>Export your results</td><td data-label="Free">—</td><td data-label="Basic">Yes</td><td data-label="Standard">Yes</td><td data-label="Premium">Yes</td><td data-label="Enterprise">Yes</td></tr>
+                <tr><td>Support</td><td data-label="Free">Standard</td><td data-label="Basic">Standard</td><td data-label="Standard">Priority</td><td data-label="Premium">Priority, faster queue</td><td data-label="Enterprise">Dedicated</td></tr>
               </tbody></table></div>
             </div>
             <p class="price-sub" style="margin-top:16px">When the Lab opens: credits refresh monthly, unused ones don't roll over, and you can cancel any time. Nothing can be subscribed to or paid for today.</p>
@@ -843,7 +843,7 @@
               <a class="btn btn-wa" href="https://wa.me/918761977477?text=Hello%20Yug%20Labs%2C%20I%20want%20to%20know%20more%20about%20your%20services." target="_blank" rel="noopener">Message Suman on WhatsApp</a>
             </div>
             <div style="display:grid;gap:20px">
-              <article class="path-card lift rv"><h3>What we do</h3><p>Business websites. The Lab, for building your own site with AI help. Chatbots for existing websites. Founder Post writing. Every price and limit is listed openly on this site — what you read is what you get.</p></article>
+              <article class="path-card lift rv"><h3>What we do</h3><p>Business websites. The Lab, your workspace for planning work with AI help. Chatbots for existing websites. Founder Post writing. Every price and limit is listed openly on this site — what you read is what you get.</p></article>
               <article class="path-card lift rv rv-d1"><h3>How we work</h3><ul class="tick-list"><li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Scope and total price confirmed on WhatsApp before any payment</li><li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Orders go through WhatsApp — PayPal and UPI checkout come later, they're not live yet</li><li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Revision rounds included in every done-for-you package, as listed</li><li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> We write only from facts you give us — never invented results, reviews or clients</li></ul></article>
               <article class="path-card lift rv rv-d2"><h3>Who we build for</h3><p>Local businesses and startups, anywhere in the world — salons, cafes, restaurants, gyms, shops and services that need a site which loads fast on phones and turns visitors into enquiries, bookings and orders.</p><a class="btn btn-gold" data-route="contact" style="cursor:pointer;align-self:flex-start">Start a conversation</a></article>
             </div>
@@ -904,9 +904,9 @@
                 <label>What do you need?
                   <select id="fNeed">
                     <option>Lab interest — Free ($0/mo) — Coming Soon</option>
-                    <option>Lab interest — Basic ($19/mo) — Coming Soon</option>
-                    <option>Lab interest — Standard ($49/mo) — Coming Soon</option>
-                    <option>Lab interest — Premium ($99/mo) — Coming Soon</option>
+                    <option>Lab interest — Basic ($9/mo) — Coming Soon</option>
+                    <option>Lab interest — Standard ($19/mo) — Coming Soon</option>
+                    <option>Lab interest — Premium ($49/mo) — Coming Soon</option>
                     <option>Lab interest — Enterprise (custom) — Coming Soon</option>
                     <option>Done-for-you website — Starter ($299)</option>
                     <option>Done-for-you website — Business ($449)</option>
@@ -1048,18 +1048,102 @@
 
       <!-- ================= PAGE: LAB ================= -->
       <div class="page" data-page="lab">
-        <div class="wrap page-hero" style="text-align:center;padding:96px 0">
-          <span class="soon-pill" style="font-size:15px;padding:9px 20px">Coming Soon</span>
-          <h1 style="margin-top:24px">The Lab</h1>
-          <p>Your own workspace. Coming soon.</p>
+        <div class="wrap page-hero" style="text-align:center">
+          <span class="kicker">The Lab · Coming Soon</span>
+          <h1 style="margin-top:16px">Plan the work.<br>Approve it. Get it done.</h1>
+          <p>Your own workspace. You describe the goal, the Lab drafts a plan, you approve it — and the work gets done, step by step. Nothing is sent, published or paid without your say.</p>
+          <p style="margin-top:22px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+            <a class="btn btn-gold" data-order="Lab interest — Free ($0/mo)" style="cursor:pointer">Register interest — free</a>
+            <a class="btn btn-ghost" data-route="pricing" style="cursor:pointer">See plans</a>
+          </p>
+          <p class="price-sub" style="margin-top:14px">Coming soon — registering interest is free. No account, no workspace, no payment today.</p>
         </div>
+
+        <section class="sec" style="padding-top:20px">
+          <div class="wrap">
+            <div class="sec-head rv"><span class="kicker">A look inside</span><h2>What will it look like?</h2><p>One workspace. Your goal at the top, the plan under it, and every step waiting for your word.</p></div>
+            <div class="feat-visual rv">
+              <div style="background:#fff;border-radius:16px;padding:18px;box-shadow:0 8px 24px rgba(15,23,42,.08)">
+                <div style="display:flex;align-items:center;gap:8px;padding-bottom:12px;border-bottom:1px solid #e2e8f0"><span style="width:10px;height:10px;border-radius:50%;background:#f87171;display:inline-block"></span><span style="width:10px;height:10px;border-radius:50%;background:#fbbf24;display:inline-block"></span><span style="width:10px;height:10px;border-radius:50%;background:#34d399;display:inline-block"></span><b style="margin-left:6px;font-size:14px">YUGLAB — Plan a website for my shop</b></div>
+                <div style="display:grid;gap:10px;margin-top:14px">
+                  <div style="display:flex;gap:10px;align-items:center;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:12px 14px"><span style="font-size:16px">✓</span><div style="flex:1"><b>Step 1 — Understand the goal</b><br><small style="color:#64748b">Done · What your shop needs, in plain words</small></div><span style="font-size:12px;font-weight:700;color:#15803d">Done</span></div>
+                  <div style="display:flex;gap:10px;align-items:center;background:#eff6ff;border:1px solid #bfdbfe;border-radius:12px;padding:12px 14px"><span style="font-size:16px">◌</span><div style="flex:1"><b>Step 2 — Draft the plan</b><br><small style="color:#64748b">Running · Pages, tasks and costs, before anything runs</small></div><span style="font-size:12px;font-weight:700;color:#1d4ed8">Running</span></div>
+                  <div style="display:flex;gap:10px;align-items:center;background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:12px 14px"><span style="font-size:16px">?</span><div style="flex:1"><b>Step 3 — Build the pages</b><br><small style="color:#64748b">Waiting · Starts only after you approve the plan</small></div><span style="font-size:12px;font-weight:700;color:#b45309">Needs approval</span></div>
+                </div>
+                <div style="margin-top:14px;background:#fef3c7;border:1px solid #fde68a;border-radius:12px;padding:14px">
+                  <b>Waiting for your approval</b>
+                  <p style="margin:4px 0 12px;color:#57534e;font-size:14px">Plan ready: 5 pages, 12 tasks, 45 credits. Nothing runs until you say yes.</p>
+                  <p style="margin:0;display:flex;gap:10px;flex-wrap:wrap"><span class="btn btn-gold" style="opacity:.65;cursor:default">Approve — preview</span><span class="btn btn-ghost" style="opacity:.65;cursor:default">Change — preview</span></p>
+                </div>
+              </div>
+              <p style="margin-top:14px;font-size:14px;color:#475569">Preview — a drawing of how the workspace will look. The Lab isn't open yet, so this is not a screenshot.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="sec sec-alt">
+          <div class="wrap">
+            <div class="sec-head rv"><span class="kicker">How it works</span><h2>How does the Lab work?</h2><p>Four steps. You stay in charge at every one of them.</p></div>
+            <div class="stack">
+              <article class="stack-card"><div class="st-num">01</div><div><h3>Describe your goal</h3><p>Say what you want, in plain words. A website, a plan for the month, research — one goal at a time.</p><div class="st-meta"><span class="st-chip">Plain words</span><span class="st-chip">One goal</span></div></div></article>
+              <article class="stack-card"><div class="st-num">02</div><div><h3>The Lab drafts a plan</h3><p>The AI breaks the goal into steps, with the cost of each step shown before anything runs. No invented steps.</p><div class="st-meta"><span class="st-chip">Steps, not guesses</span><span class="st-chip">Cost shown first</span></div></div></article>
+              <article class="stack-card"><div class="st-num">03</div><div><h3>You approve it</h3><p>Read the plan. Approve it, change it, or drop a step. Nothing runs until you say yes.</p><div class="st-meta"><span class="st-chip">Your approval</span><span class="st-chip">Change anything</span></div></div></article>
+              <article class="stack-card"><div class="st-num">04</div><div><h3>Work runs, you get the result</h3><p>Agents do the steps, you watch the progress, and the finished result lands in your workspace — ready to export.</p><div class="st-meta"><span class="st-chip">Live progress</span><span class="st-chip">Export the result</span></div></div></article>
+            </div>
+          </div>
+        </section>
+
+        <section class="sec">
+          <div class="wrap">
+            <div class="sec-head rv"><span class="kicker">What's inside</span><h2>What's in the workspace?</h2><p>Six parts. Each one does one job.</p></div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px">
+              <div style="background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:18px"><h3 style="margin:0 0 6px;font-size:17px">Projects &amp; files</h3><p style="margin:0;color:#475569">Your projects, your files. Login, projects and file storage are already built — they come with the Lab.</p></div>
+              <div style="background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:18px"><h3 style="margin:0 0 6px;font-size:17px">Planner</h3><p style="margin:0;color:#475569">Turns your goal into a structured plan — steps, costs and risks, before any work starts.</p></div>
+              <div style="background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:18px"><h3 style="margin:0 0 6px;font-size:17px">Task queue</h3><p style="margin:0;color:#475569">Runs the approved steps one by one. Pause, cancel or retry any task, any time.</p></div>
+              <div style="background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:18px"><h3 style="margin:0 0 6px;font-size:17px">Connectors</h3><p style="margin:0;color:#475569">Plug in the tools you already use. GitHub first, then Google Drive. Gmail comes later.</p></div>
+              <div style="background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:18px"><h3 style="margin:0 0 6px;font-size:17px">Credits</h3><p style="margin:0;color:#475569">One small unit of AI work. Doing things by hand is free. The cost shows before every AI run.</p></div>
+              <div style="background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:18px"><h3 style="margin:0 0 6px;font-size:17px">Approvals &amp; safety</h3><p style="margin:0;color:#475569">Nothing is sent, published, shared or paid without your approval. Your workspace is yours alone.</p></div>
+            </div>
+            <div class="soon-banner rv" style="margin-top:28px">
+              <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+              <p><b>What the Lab is not — yet.</b> It is not a website builder on day one. The website Studio comes later. If you need a website today, the Store sells ready websites — or we build one for you. There is no login, no account and no payment today.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="sec sec-alt">
+          <div class="wrap" style="text-align:center">
+            <div class="sec-head rv"><span class="kicker">Plans</span><h2>Simple plans, monthly</h2><p>Free $0 · Basic $9 · Standard $19 · Premium $49. Start free when the Lab opens.</p></div>
+            <p><a class="btn btn-gold" data-route="pricing" style="cursor:pointer">See all plans</a></p>
+          </div>
+        </section>
+
+        <section class="sec" id="lab-faq">
+          <div class="wrap">
+            <div class="sec-head rv"><span class="kicker">Questions</span><h2>Questions about the Lab?</h2><p>Short answers. Nothing hidden.</p></div>
+            <div class="faq-list faq-col">
+              <details class="faq rv" open><summary>When will the Lab open? <span class="pm" aria-hidden="true">+</span></summary><p>No date yet. Register interest and we'll message you on WhatsApp when it opens. Nothing is charged for registering.</p></details>
+              <details class="faq rv"><summary>What does a credit do? <span class="pm" aria-hidden="true">+</span></summary><p>A credit is a small unit of AI work — drafting a plan, running a task, writing a section. Doing things by hand is free, always. The cost shows before every AI run, and a plan draft is usually 10–15 credits.</p></details>
+              <details class="faq rv"><summary>Will it build my website? <span class="pm" aria-hidden="true">+</span></summary><p>Not on day one. The Lab first plans work and gets it done with your approval; the website Studio comes later. If you need a website today, the Store sells ready websites — or we build one for you, for one payment.</p></details>
+              <details class="faq rv"><summary>Is my work private? <span class="pm" aria-hidden="true">+</span></summary><p>Yes. Your workspace is yours alone — your files and plans are never shared with another user. And nothing is sent, published or paid without your approval.</p></details>
+              <details class="faq rv"><summary>What happens when I register interest? <span class="pm" aria-hidden="true">+</span></summary><p>We message you on WhatsApp when the Lab opens. No account is created, no workspace is given, and nothing is charged. It is only a message, when it's ready.</p></details>
+            </div>
+          </div>
+        </section>
+
+        <section class="sec" style="padding-top:10px">
+          <div class="wrap" style="text-align:center">
+            <div class="sec-head rv"><h2>Your workspace is waiting.</h2><p>Register interest today. We'll tell you the day it opens.</p></div>
+            <p><a class="btn btn-gold" data-order="Lab interest — Free ($0/mo)" style="cursor:pointer">Register interest — free</a></p>
+          </div>
+        </section>
       </div>
     </main>
 
     <!-- FOOTER -->
     <footer class="site-foot">
       <div class="wrap" style="text-align:center;padding:48px 0 30px">
-        <a class="brand" data-route="home" style="color:#fff;cursor:pointer;display:inline-flex;align-items:center;gap:10px">
+        <a class="brand" data-route="home" style="color:#111111;cursor:pointer;display:inline-flex;align-items:center;gap:10px">
           <span class="brand-mark" style="background:#16233f" aria-hidden="true"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#f2a33c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v6L4.5 18a2 2 0 0 0 1.8 3h11.4a2 2 0 0 0 1.8-3L14 8V2"/><path d="M8.5 2h7"/><path d="M7 15h10"/></svg></span>
           <span class="brand-name">Yug Labs</span>
         </a>
@@ -1075,7 +1159,7 @@
           <a data-route="terms">Terms of Service</a>
           <a data-route="refund">Refund Policy</a>
         </nav>
-        <div style="margin-top:24px;font-size:13.5px;color:#7e90ad">© <span id="year">2026</span> Yug Labs · All rights reserved</div>
+        <div style="margin-top:24px;font-size:13.5px;color:#5d5d5d">© <span id="year">2026</span> Yug Labs · All rights reserved</div>
         <a class="to-top" data-goto="#top" style="display:inline-block;margin-top:14px">Back to top ↑</a>
       </div>
     </footer>
@@ -1495,9 +1579,9 @@
       function askAgent(t){
         if (/\b(hi|hello|hey|namaste)\b/.test(t) && t.length < 30) return "Hello! I can open pages, answer questions about prices, the Lab, the Store and ordering, and help fill the order form — just type. Type “help” any time to see everything I can do.";
         if (t.indexOf("price") > -1 || t.indexOf("cost") > -1 || t.indexOf("charge") > -1 || t.indexOf("plan") > -1 || t.indexOf("package") > -1 || t.indexOf("kitna") > -1)
-          return "Prices, all in US dollars. The Lab (coming soon — interest only today): Basic $19/mo, Standard $49/mo, Premium $99/mo, Enterprise custom. Built for you, one payment: Starter Website $299, Business Website $449, Website + Chatbot $599. Type “open pricing” for the full comparison.";
+          return "Prices, all in US dollars. The Lab (coming soon — interest only today): Free $0, Basic $9/mo, Standard $19/mo, Premium $49/mo, Enterprise custom. Built for you, one payment: Starter Website $299, Business Website $449, Website + Chatbot $599. Type “open pricing” for the full comparison.";
         if (t.indexOf("lab") > -1)
-          return "The Lab is not open yet — it's coming soon. There is no login, account or workspace today; you can only register interest on WhatsApp, and nothing is charged. When it opens: you build your own site there, manual editing is free, and AI work spends credits. Type “open Lab” to see the Lab page.";
+          return "The Lab is not open yet — it's coming soon. There is no login, account or workspace today; you can only register interest on WhatsApp, and nothing is charged. When it opens: you plan work there, approve each step, and get finished results. Doing things by hand is free, and AI work spends credits. Type “open Lab” to see the Lab page.";
         if (t.indexOf("whatsapp") > -1 && (t.indexOf("number") > -1 || t.indexOf("numbar") > -1 || t.indexOf("contact") > -1))
           return "Our WhatsApp number is +91 87619 77477 — you'll talk directly with Suman Chhetri, the founder. Type “open WhatsApp” and I'll open the chat for you, or tap the green WhatsApp button in the corner.";
         if (t.indexOf("email") > -1 && (t.indexOf("your") > -1 || t.indexOf("yours") > -1 || t.indexOf("id") > -1 || t.indexOf("address") > -1))
