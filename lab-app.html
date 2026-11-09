@@ -16,7 +16,7 @@
   <a class="logo" href="index.html">Yug<span>Lab</span></a>
   <span class="admin-badge">ADMIN CONSOLE</span>
   <div class="top-right">
-    <button class="ai-pill" id="aiPill">🧠 Nemotron 3 Ultra · <b id="aiStatus">Not connected</b></button>
+    <button class="ai-pill" id="aiPill">✦ Yug AI · <b id="aiStatus">…</b></button>
     <span class="credits-pill">Credits: <b id="creditsVal">1000</b> · Studio</span>
     <a class="btn small ghost" href="index.html">View Site</a>
   </div>
@@ -29,16 +29,10 @@
     <div class="side-label">Projects</div>
     <div id="projectList"></div>
 
-    <div class="side-label">AI Engine</div>
+    <div class="side-label">Yug AI</div>
     <div class="ai-box" id="aiBox">
-      <p class="ai-box-text">Connect <b>Nemotron 3 Ultra</b> for live AI chat inside the Lab. Your key stays in <b>your browser only</b> — it is never sent to our server.</p>
-      <input id="aiKeyInput" type="password" placeholder="Paste NVIDIA key (nvapi-…)" autocomplete="off">
-      <div class="row-btns">
-        <button class="btn small" id="aiSaveBtn">Connect</button>
-        <button class="btn small ghost" id="aiTestBtn" style="display:none">Test</button>
-        <button class="btn small ghost" id="aiForgetBtn" style="display:none">Forget</button>
-      </div>
-      <p class="ai-box-text" id="aiMsg"></p>
+      <p class="ai-box-text"><b>✦ Yug AI</b> — the Lab's own intelligence. Built in. No keys, no setup — it just works, behind the scenes.</p>
+      <p class="ai-box-text" id="aiMsg" style="margin-top:8px">Checking Yug AI…</p>
     </div>
 
     <div class="side-note">Audience access opens with subscriptions in the backend phase. This console is yours — admin only, not linked from the public site.</div>
@@ -50,7 +44,7 @@
     <!-- CREATE: type cards -->
     <div id="createView">
       <div class="create-head">
-        <h2>What will you create?</h2>
+        <h2 class="cursor-blink">What will you create?</h2>
         <p>Pick one. Details next — no typing marathons.</p>
       </div>
       <div class="type-grid" id="typeGrid"></div>
@@ -121,13 +115,13 @@
 
       <!-- AI Assistant -->
       <div class="panel" id="assistantPanel">
-        <div class="panel-title">Lab Assistant <span class="cost" id="assistantModel">Nemotron 3 Ultra</span></div>
+        <div class="panel-title">Lab Assistant <span class="cost" id="assistantModel">Yug AI</span></div>
         <div class="chat-log tall" id="aiLog"></div>
         <div class="goal-row">
           <input id="aiInput" type="text" placeholder="Ask anything — ideas, copy, fixes, next steps…">
           <button class="btn" id="aiSendBtn">Ask AI</button>
         </div>
-        <p class="publish-note" id="aiHint">Connect Nemotron from the left panel to switch on live AI answers.</p>
+        <p class="publish-note" id="aiHint">Ask Yug AI anything about your project.</p>
       </div>
     </div>
   </main>

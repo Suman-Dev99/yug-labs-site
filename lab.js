@@ -1,8 +1,8 @@
 /* YugLab — Lab Console v2 (admin)
-   Create (clickable types) -> Details form -> Plan -> Build (real output) -> Preview -> Quick Edit / AI Assistant (Nemotron 3 Ultra) -> Download */
+   Create (clickable types) -> Details form -> Plan -> Build (real output) -> Preview -> Quick Edit / Yug AI -> Download */
 (function(){
 "use strict";
-var LS_KEY="yuglab.lab.v2", LS_OLD="yuglab.lab.v1", KEY_LS="yuglab.nemotron.key";
+var LS_KEY="yuglab.lab.v2", LS_OLD="yuglab.lab.v1";
 var COSTS={"Website":40,"3D Website":60,"Web App":80,"AI Chatbot":70,"AI Agent":90,"Content":20};
 var TYPES=[
  {id:"Website",icon:"🌐",line:"Business sites, portfolios, landing pages",cost:40},
@@ -12,7 +12,7 @@ var TYPES=[
  {id:"AI Agent",icon:"🤖",line:"An agent that runs tasks for you",cost:90},
  {id:"Content",icon:"✍️",line:"Posts, descriptions, captions, ads",cost:20}
 ];
-var COLORS={amber:"#F59E0B",blue:"#3B82F6",green:"#22C55E",red:"#EF4444",purple:"#A855F7",pink:"#EC4899",teal:"#14B8A6",orange:"#F97316"};
+var COLORS={mono:"#EDEDED",violet:"#6366F1",amber:"#F59E0B",blue:"#3B82F6",green:"#22C55E",red:"#EF4444",purple:"#A855F7",pink:"#EC4899",teal:"#14B8A6",orange:"#F97316"};
 var CATS={cafe:"Cafe & Food",gym:"Gym & Fitness",fashion:"Fashion & Clothing",salon:"Salon & Beauty",photo:"Photography",agency:"Agency & Tech",generic:"Other Business"};
 var THEMES={
   cafe:{tag:"Fresh brews, honest food, slow mornings.",feats:[["☕","Craft Coffee","Small-batch beans, brewed with care."],["🥐","Fresh Bakes","Out of the oven, every single morning."],["🪑","Cosy Corner","Your table is waiting. Stay a while."]],about:"A neighbourhood cafe built on good beans and better conversations."},
@@ -37,7 +37,6 @@ function $(id){return document.getElementById(id);}
 function esc(s){return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;");}
 function active(){for(var i=0;i<state.projects.length;i++)if(state.projects[i].id===state.activeId)return state.projects[i];return null;}
 function toast(msg){var t=$("toast");t.textContent=msg;t.classList.add("show");setTimeout(function(){t.classList.remove("show");},2200);}
-function nemotronKey(){try{return localStorage.getItem(KEY_LS)||"";}catch(e){return "";}}
 function setStep(n){document.querySelectorAll("#stepsBar .sb").forEach(function(el){el.classList.toggle("on",+el.getAttribute("data-sb")<=n);});}
 
 /* ---------- create: type cards ---------- */
@@ -48,9 +47,9 @@ function renderTypes(){
   document.querySelectorAll(".type-card").forEach(function(c){c.onclick=function(){startDraft(c.getAttribute("data-type"));};});
 }
 function defaultDetails(type){
-  if(type==="Website"||type==="3D Website")return {name:"",category:"generic",color:"amber",mode:"dark",sections:["Pricing"],instructions:""};
-  if(type==="Web App")return {name:"",purpose:"Booking",features:["Login Screen","Dashboard"],color:"amber",mode:"dark",instructions:""};
-  if(type==="AI Chatbot")return {name:"",business:"",tone:"Friendly",data:"",color:"amber",instructions:""};
+  if(type==="Website"||type==="3D Website")return {name:"",category:"generic",color:"mono",mode:"dark",sections:["Pricing"],instructions:""};
+  if(type==="Web App")return {name:"",purpose:"Booking",features:["Login Screen","Dashboard"],color:"mono",mode:"dark",instructions:""};
+  if(type==="AI Chatbot")return {name:"",business:"",tone:"Friendly",data:"",color:"mono",instructions:""};
   if(type==="AI Agent")return {name:"",job:"Research",tools:["Web Search","Reports"],instructions:""};
   return {name:"",kind:"Blog Post",topic:"",tone:"Premium",length:"Long",instructions:""};
 }
@@ -151,7 +150,7 @@ function detailChips(p){
 /* ---------- generators ---------- */
 function siteFromDetails(p){
   var d=p.details;
-  return {name:d.name||p.name,tagline:"Welcome to "+(d.name||p.name),theme:d.category||"generic",colorName:d.color||"amber",dark:d.mode!=="light",fx3d:p.type==="3D Website",sections:{pricing:(d.sections||[]).indexOf("Pricing")>-1,testimonials:(d.sections||[]).indexOf("Testimonials")>-1,gallery:(d.sections||[]).indexOf("Gallery")>-1}};
+  return {name:d.name||p.name,tagline:"Welcome to "+(d.name||p.name),theme:d.category||"generic",colorName:d.color||"mono",dark:d.mode!=="light",fx3d:p.type==="3D Website",sections:{pricing:(d.sections||[]).indexOf("Pricing")>-1,testimonials:(d.sections||[]).indexOf("Testimonials")>-1,gallery:(d.sections||[]).indexOf("Gallery")>-1}};
 }
 function pageCSS(c,dark,extra){
   var bg=dark?"#0C0E13":"#FAFAF8",panel=dark?"#141821":"#FFFFFF",tx=dark?"#EDF0F5":"#16181D",mut=dark?"#9AA6B5":"#5B6472",line=dark?"#232A38":"#E6E3DC";
@@ -186,7 +185,7 @@ function genWebsite(p){
   +'<footer>© 2026 '+esc(s.name)+' · Made with pride in India</footer></body></html>';
 }
 function genApp(p){
-  var d=p.details, c=COLORS[d.color||"amber"], dark=d.mode!=="light";
+  var d=p.details, c=COLORS[d.color||"mono"], dark=d.mode!=="light";
   var feats=(d.features||[]).map(function(f){return '<div class="acard"><b>'+esc(f)+'</b><span>Active module</span></div>';}).join("");
   var login=(d.features||[]).indexOf("Login Screen")>-1;
   var js='<script>function go(){document.getElementById("login").style.display="none";document.getElementById("dash").style.display="block";}function book(){var b=document.getElementById("bk");b.textContent="✔ Booked — see you soon!";b.style.color="'+c+'";}<\/script>';
@@ -196,7 +195,7 @@ function genApp(p){
   return '<!DOCTYPE html>\n<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>'+esc(d.name||"App")+'</title><style>'+pageCSS(c,dark,css)+'</style></head><body><div class="phone"><div class="logo" style="margin-bottom:18px">'+esc(d.name||"App")+'<span>.</span></div>'+loginHTML+dash+'</div>'+js+'</body></html>';
 }
 function genChatbot(p){
-  var d=p.details, c=COLORS[d.color||"amber"];
+  var d=p.details, c=COLORS[d.color||"mono"];
   var facts=(d.data||"").split("\n").map(function(x){return x.trim();}).filter(Boolean);
   var factsJSON=JSON.stringify(facts), tone=d.tone||"Friendly";
   var greet=tone==="Hinglish Mix"?"Namaste! Main "+(d.name||"Assistant")+" hoon. Kuch bhi puchiye — price, timing, delivery!":(tone==="Professional"?"Good day. I am "+(d.name||"Assistant")+". How may I assist you?":"Hi there! I am "+(d.name||"Assistant")+" — ask me anything about "+(d.business||"us")+"!");
@@ -208,7 +207,7 @@ function genAgent(p){
   var d=p.details, stepsJSON=JSON.stringify(["Reading the task","Planning steps",((d.tools||[]).indexOf("Web Search")>-1?"Searching the web":"Reviewing inputs"),"Drafting the output","Self-checking quality","Final report ready"]);
   var js='<script>var STEPS='+stepsJSON+';var JOB='+JSON.stringify(d.job||"Research")+';function run(){var t=document.getElementById("task").value.trim()||"your task";var log=document.getElementById("log");var res=document.getElementById("res");log.innerHTML="";res.style.display="none";var i=0;function next(){if(i>0)log.children[i-1].innerHTML="✔ "+STEPS[i-1];if(i>=STEPS.length){res.style.display="block";document.getElementById("resText").textContent="Completed: "+t+" — structured output prepared with sources and next actions ("+JOB+" mode).";return;}var d2=document.createElement("div");d2.className="step";d2.textContent="⏳ "+STEPS[i];log.appendChild(d2);i++;setTimeout(next,650);}next();}<\/script>';
   var css=".wrap{max-width:640px;margin:0 auto;padding:34px 16px}.box{background:#11141B;border:1px solid #232A38;border-radius:20px;padding:24px}.step{padding:8px 0;border-bottom:1px dashed #232A38;font-size:14.5px;color:#EDF0F5}.rrow{display:flex;gap:9px}.rrow input{flex:1;background:#0C0E13;border:1px solid #2A3242;border-radius:12px;color:#fff;padding:12px 14px;outline:none}body{background:#0C0E13;color:#EDF0F5}header{display:none}.rescard{margin-top:18px;background:#171208;border:1px solid #3a2c10;border-radius:14px;padding:16px;font-size:14.5px}";
-  return '<!DOCTYPE html>\n<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>'+esc(d.name||"Agent")+'</title><style>'+pageCSS("#F59E0B",true,css)+'</style></head><body><div class="wrap"><div class="box"><h2 style="margin-bottom:4px">🤖 '+esc(d.name||"Agent")+'</h2><p style="opacity:.65;margin-bottom:16px">'+esc(d.job||"Research")+' agent · Tools: '+esc((d.tools||[]).join(", ")||"core")+'</p><div class="rrow"><input id="task" placeholder="Give the agent a task…"><button class="btn" onclick="run()">Run</button></div><div id="log" style="margin-top:14px"></div><div id="res" class="rescard" style="display:none"><b>Result</b><p id="resText" style="margin-top:6px"></p></div></div></div>'+js+'</body></html>';
+  return '<!DOCTYPE html>\n<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>'+esc(d.name||"Agent")+'</title><style>'+pageCSS("#EDEDED",true,css)+'</style></head><body><div class="wrap"><div class="box"><h2 style="margin-bottom:4px">🤖 '+esc(d.name||"Agent")+'</h2><p style="opacity:.65;margin-bottom:16px">'+esc(d.job||"Research")+' agent · Tools: '+esc((d.tools||[]).join(", ")||"core")+'</p><div class="rrow"><input id="task" placeholder="Give the agent a task…"><button class="btn" onclick="run()">Run</button></div><div id="log" style="margin-top:14px"></div><div id="res" class="rescard" style="display:none"><b>Result</b><p id="resText" style="margin-top:6px"></p></div></div></div>'+js+'</body></html>';
 }
 function genContent(p){
   var d=p.details, topic=d.topic||"your product", tone=d.tone||"Premium", kind=d.kind||"Blog Post";
@@ -222,7 +221,7 @@ function genContent(p){
   if(d.instructions)body+="\n\n— Note applied from your instructions: "+d.instructions;
   var text=heads[0]+"\n\n"+body;
   var css=".doc{max-width:720px;margin:0 auto;padding:44px 22px}.doc h1{font-size:32px;letter-spacing:-.01em;margin-bottom:6px}.meta{opacity:.6;font-size:13px;margin-bottom:26px}.doc pre{white-space:pre-wrap;font-family:inherit;font-size:16.5px;line-height:1.75}header{display:none}";
-  return '<!DOCTYPE html>\n<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>'+esc(d.name||kind)+'</title><style>'+pageCSS("#F59E0B",true,css)+'</style></head><body><div class="doc"><h1>'+esc(heads[0])+'</h1><div class="meta">'+esc(kind)+' · '+esc(tone)+' tone · via YugLab</div><pre>'+esc(text)+'</pre></div></body></html>';
+  return '<!DOCTYPE html>\n<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>'+esc(d.name||kind)+'</title><style>'+pageCSS("#EDEDED",true,css)+'</style></head><body><div class="doc"><h1>'+esc(heads[0])+'</h1><div class="meta">'+esc(kind)+' · '+esc(tone)+' tone · via YugLab</div><pre>'+esc(text)+'</pre></div></body></html>';
 }
 function generate(p){
   if(p.type==="Web App")return genApp(p);
@@ -327,45 +326,36 @@ function downloadOut(){
   setTimeout(function(){URL.revokeObjectURL(a.href);},2000);
 }
 
-/* ---------- Nemotron 3 Ultra ---------- */
-function renderAIStatus(){
-  var has=!!nemotronKey();
-  $("aiStatus").textContent=has?"Connected":"Not connected";
-  $("aiKeyInput").style.display=has?"none":"block";
-  $("aiSaveBtn").style.display=has?"none":"inline-flex";
-  $("aiTestBtn").style.display=has?"inline-flex":"none";
-  $("aiForgetBtn").style.display=has?"inline-flex":"none";
-  $("aiHint").textContent=has?"Live AI is ON — answers come from Nemotron 3 Ultra.":"Connect Nemotron from the left panel to switch on live AI answers.";
-}
+/* ---------- Yug AI (backend-powered, no keys in browser) ---------- */
+function renderAIStatus(){}
 function aiSay(who,text){
   var log=$("aiLog"); var d=document.createElement("div");
   d.className="chat-msg "+who; d.innerHTML=text; log.appendChild(d); log.scrollTop=log.scrollHeight; return d;
 }
-function nemotronChat(messages,maxTokens){
-  var key=nemotronKey();
-  return fetch("https://integrate.api.nvidia.com/v1/chat/completions",{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer "+key},body:JSON.stringify({model:"nvidia/nemotron-3-ultra-550b-a55b",messages:messages,temperature:0.6,top_p:0.95,max_tokens:maxTokens||900})})
-  .then(function(r){if(!r.ok)throw new Error("HTTP "+r.status);return r.json();})
-  .then(function(j){var m=j.choices&&j.choices[0]&&j.choices[0].message;return (m&&(m.content||""))||"(empty reply — try again with a shorter question)";});
+var AI_READY=null;
+function checkAI(){
+  fetch("/api/health").then(function(r){return r.json();}).then(function(j){
+    AI_READY=!!j.ai;
+    $("aiStatus").textContent=AI_READY?"Online":"Setup pending";
+    var m=$("aiMsg"); if(m)m.textContent=AI_READY?"Yug AI is live — built into this Lab. No setup, no keys.":"Yug AI is being switched on. One backend step is pending with the admin.";
+    var h=$("aiHint"); if(h)h.textContent=AI_READY?"Ask Yug AI anything — ideas, copy, fixes, next steps.":"Yug AI will start answering here as soon as setup completes.";
+  }).catch(function(){ var s=$("aiStatus"); if(s)s.textContent="…"; });
+}
+function yugChat(messages,maxTokens){
+  return fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:messages,max_tokens:maxTokens||900})})
+  .then(function(r){return r.json().then(function(j){if(!r.ok)throw new Error(j.code||("HTTP "+r.status));return j;});})
+  .then(function(j){return j.content||"(empty reply — try once more)";});
 }
 function aiAsk(){
   var inp=$("aiInput"), q=inp.value.trim(); if(!q)return;
-  if(!nemotronKey()){aiSay("lab","<b>Assistant:</b> Pehle left panel se Nemotron connect karo — NVIDIA ki key (nvapi-…) paste karke Connect dabao.");return;}
   aiSay("user",esc(q)); inp.value="";
+  if(AI_READY===false){aiSay("lab","<b>Yug AI:</b> Main abhi switch-on ho raha hoon — admin ka ek backend step baki hai. Thodi der me yahin live jawab dunga.");return;}
   var p=active();
-  var ctx="You are the Lab Assistant inside YugLab, a creator lab. The user (Suman, founder) is building digital products. Be practical, specific and concise. Current project: "+(p?(p.name+" ("+p.type+", status: "+p.status+")"):"none selected")+".";
-  var wait=aiSay("lab","<b>Assistant:</b> Thinking…");
-  nemotronChat([{role:"system",content:ctx},{role:"user",content:q}],900)
-  .then(function(ans){wait.innerHTML="<b>Assistant (Nemotron):</b> "+esc(ans).replace(/\n/g,"<br>");})
-  .catch(function(e){wait.innerHTML="<b>Assistant:</b> Connection issue ("+esc(e.message)+"). Agar key sahi hai to browser CORS rok raha hoga — mujhe batao, Colab route se jod dunga.";});
-}
-function aiConnect(){
-  var v=$("aiKeyInput").value.trim();
-  if(v.indexOf("nvapi-")!==0){$("aiMsg").textContent="Ye NVIDIA key nahi lagti — nvapi- se shuru honi chahiye.";return;}
-  try{localStorage.setItem(KEY_LS,v);}catch(e){}
-  $("aiMsg").textContent="Key saved in this browser. Testing…"; renderAIStatus();
-  nemotronChat([{role:"user",content:"Reply in one short line: who are you?"}],300)
-  .then(function(ans){$("aiMsg").textContent="✔ Connected. Nemotron says: "+ans.slice(0,120);toast("Nemotron connected ✔");})
-  .catch(function(e){$("aiMsg").textContent="Key saved, but test failed ("+e.message+"). Browser CORS ya key check karo.";});
+  var ctx="You are Yug AI, the built-in intelligence of YugLab (a creator lab). The user is Suman, the founder, building digital products. Be practical, specific and concise. Current project: "+(p?(p.name+" ("+p.type+", status: "+p.status+")"):"none selected")+".";
+  var wait=aiSay("lab","<b>Yug AI:</b> Thinking…");
+  yugChat([{role:"system",content:ctx},{role:"user",content:q}],900)
+  .then(function(ans){wait.innerHTML="<b>Yug AI:</b> "+esc(ans).replace(/\n/g,"<br>");})
+  .catch(function(e){wait.innerHTML="<b>Yug AI:</b> Ek moment — connection me dikkat aayi ("+esc(e.message)+"). Dobara try karo.";});
 }
 
 /* ---------- wiring ---------- */
@@ -381,13 +371,11 @@ $("downloadBtn").onclick=downloadOut;
 $("copyBtn").onclick=function(){var p=active();if(p&&p.html&&navigator.clipboard)navigator.clipboard.writeText(p.html).then(function(){toast("Code copied ✔");});};
 $("openBtn").onclick=function(){var p=active();if(p&&p.html){var b=new Blob([p.html],{type:"text/html"});window.open(URL.createObjectURL(b),"_blank");}};
 $("deleteBtn").onclick=function(){var p=active();if(p&&confirm("Delete project '"+p.name+"'?")){state.projects=state.projects.filter(function(x){return x.id!==p.id;});state.activeId=null;save();renderAll();}};
-$("aiSaveBtn").onclick=aiConnect;
-$("aiForgetBtn").onclick=function(){try{localStorage.removeItem(KEY_LS);}catch(e){}$("aiKeyInput").value="";$("aiMsg").textContent="Key removed from this browser.";renderAIStatus();};
-$("aiTestBtn").onclick=function(){$("aiMsg").textContent="Testing…";nemotronChat([{role:"user",content:"Say OK"}],200).then(function(a){$("aiMsg").textContent="✔ Live: "+a.slice(0,80);}).catch(function(e){$("aiMsg").textContent="Failed: "+e.message;});};
 $("aiPill").onclick=function(){$("aiBox").scrollIntoView({behavior:"smooth",block:"center"});};
 $("aiSendBtn").onclick=aiAsk;
 $("aiInput").addEventListener("keydown",function(e){if(e.key==="Enter")aiAsk();});
 renderTypes();
 renderAll();
+checkAI();
 if(active())aiSay("lab","<b>Assistant:</b> Welcome back. Project khula hai — kuch bhi puchho, ya Quick Edit se badlaav karo.");
 })();

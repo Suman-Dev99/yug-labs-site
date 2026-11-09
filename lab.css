@@ -100,3 +100,56 @@
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .proj-item .del{float:right;color:var(--faint);font-size:13px;padding:0 2px}
 .proj-item .del:hover{color:#ff6b6b}
+
+/* ---- v3: BLACK & WHITE — developer / hacker theme ---- */
+body.lab-body{
+  --bg:#000000; --bg2:#060606; --panel:#0A0A0A; --panel2:#0E0E0E;
+  --line:#222222; --text:#F5F5F5; --muted:#A3A3A3; --faint:#636363;
+  --amber:#FFFFFF; --amber2:#E4E4E4; --amber-dim:rgba(255,255,255,.09);
+  background:#000;
+}
+body.lab-body{font-family:ui-monospace,'SF Mono',SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace}
+body.lab-body .logo,body.lab-body h2,body.lab-body h3,body.lab-body .panel-title,body.lab-body .side-label,body.lab-body .create-head h2{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace}
+body.lab-body .btn{background:#fff;color:#000;border-color:#fff;font-family:ui-monospace,Menlo,Consolas,monospace;letter-spacing:.02em}
+body.lab-body .btn:hover{background:#E4E4E4;border-color:#E4E4E4;box-shadow:0 0 0 1px #fff,0 8px 24px rgba(255,255,255,.12)}
+body.lab-body .btn.ghost{background:transparent;color:#F5F5F5;border-color:#333}
+body.lab-body .btn.ghost:hover{border-color:#fff;color:#fff;box-shadow:none}
+.lab-topbar{background:rgba(0,0,0,.94);border-bottom:1px solid #222}
+.admin-badge{background:#fff;color:#000}
+.credits-pill b{color:#fff}
+.credits-pill{border-color:#2A2A2A;background:#060606}
+.ai-pill{border-color:#2A2A2A;background:#0A0A0A;color:#A3A3A3}
+.ai-pill b{color:#fff}
+body.lab-body .create-head h2{background:linear-gradient(90deg,#FFFFFF,#8A8A8A);-webkit-background-clip:text;background-clip:text;color:transparent}
+body.lab-body .create-head p{color:#A3A3A3}
+body.lab-body .create-head p::before{content:"> ";color:#fff;font-weight:700}
+.type-card{background:linear-gradient(160deg,#0E0E0E,#070707);border-color:#222}
+.type-card::after{background:radial-gradient(300px 140px at 20% -40px,rgba(255,255,255,.10),transparent 70%)}
+.type-card:hover{border-color:#fff;box-shadow:0 0 0 1px #fff,0 18px 40px rgba(0,0,0,.8)}
+.type-card .tcost{color:#fff}
+.type-card p{color:#A3A3A3}
+.steps-bar .sb{border-color:#262626;background:#060606;color:#666}
+.steps-bar .sb.on{color:#000;background:#fff;border-color:#fff}
+body.lab-body .panel{background:#0A0A0A;border-color:#222}
+body.lab-body .cost{color:#fff}
+.pill{background:rgba(255,255,255,.10);color:#fff}
+.pill-dim{background:#101010;color:#A3A3A3}
+.chk.on{color:#000;background:#fff;border-color:#fff}
+.tgl.on{border-color:#fff;background:rgba(255,255,255,.10);color:#fff}
+.sw.on{border-color:#fff}
+body.lab-body .f-field input,body.lab-body .f-field select,body.lab-body .f-field textarea,body.lab-body .goal-row input{background:#000;border-color:#2A2A2A}
+body.lab-body .f-field input:focus,body.lab-body .f-field select:focus,body.lab-body .f-field textarea:focus,body.lab-body .goal-row input:focus{border-color:#fff}
+.proj-item{background:#0A0A0A;border-color:#222}
+.proj-item.active{border-color:#fff}
+.proj-item small{color:#8A8A8A}
+.chat-msg.user{background:rgba(255,255,255,.12)}
+.chat-msg.lab b{color:#fff}
+.build-step.done .st{background:#fff;color:#000;border-color:#fff}
+.build-step.active .st{border-color:#fff;color:#fff}
+.toast{background:#fff;color:#000}
+.ai-box{background:#0A0A0A;border-color:#222}
+body.lab-body .empty-state{background:#060606;border-color:#2A2A2A}
+.lab-side{background:#030303;border-right-color:#1C1C1C}
+body.lab-body .preview-frame{border-color:#2A2A2A}
+.cursor-blink::after{content:"▊";margin-left:6px;color:#fff;animation:blk 1s steps(1) infinite}
+@keyframes blk{50%{opacity:0}}
