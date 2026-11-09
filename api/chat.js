@@ -11,6 +11,7 @@ export default async function handler(req, res) {
   const model = process.env.YUG_AI_MODEL;
   if (!key || !endpoint || !model) return res.status(503).json({ code: "YUG_AI_NOT_CONFIGURED" });
   try {
+    if (typeof req.body === "string" && req.body.length > 100000) return res.status(413).json({ code: "PAYLOAD_TOO_LARGE" });
     const body = typeof req.body === "string" ? JSON.parse(req.body || "{}") : (req.body || {});
     const messages = (Array.isArray(body.messages) ? body.messages : []).slice(-12)
       .filter((m) => m && typeof m === "object")
@@ -19,11 +20,22 @@ export default async function handler(req, res) {
         content: String(m.content || "").slice(0, 8000)
       }));
     if (!messages.length) return res.status(400).json({ code: "NO_MESSAGES" });
-    const upstream = await fetch(endpoint, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", "Authorization": "Bearer " + key },
-      body: JSON.stringify({ model, messages, temperature: 0.6, top_p: 0.95, max_tokens: Math.min(body.max_tokens || 900, 1500) })
-    });
+    const ctl = new AbortController();
+    const timer = setTimeout(() => ctl.abort(), 45000);
+    let upstream;
+    try {
+      upstream = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Authorization": "Bearer " + key },
+        body: JSON.stringify({ model, messages, temperature: 0.6, top_p: 0.95, max_tokens: Math.min(body.max_tokens || 900, 1500) }),
+        signal: ctl.signal
+      });
+    } catch (e) {
+      if (e && e.name === "AbortError") return res.status(504).json({ code: "UPSTREAM_TIMEOUT" });
+      throw e;
+    } finally {
+      clearTimeout(timer);
+    }
     if (!upstream.ok) return res.status(502).json({ code: "UPSTREAM_" + upstream.status });
     const j = await upstream.json();
     const m = j.choices && j.choices[0] && j.choices[0].message;
