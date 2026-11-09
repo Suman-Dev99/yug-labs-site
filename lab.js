@@ -336,7 +336,7 @@ var AI_READY=null;
 function checkAI(){
   fetch("/api/health").then(function(r){return r.json();}).then(function(j){
     AI_READY=!!j.ai;
-    $("aiStatus").textContent=AI_READY?"Online":"Setup pending";
+    $("aiStatus").textContent=AI_READY?"Online":"Setup pending";var _pl=$("aiPill");if(_pl)_pl.classList.toggle("live",AI_READY);
     var m=$("aiMsg"); if(m)m.textContent=AI_READY?"Yug AI is live — built into this Lab. No setup, no keys.":"Yug AI is being switched on. One backend step is pending with the admin.";
     var h=$("aiHint"); if(h)h.textContent=AI_READY?"Ask Yug AI anything — ideas, copy, fixes, next steps.":"Yug AI will start answering here as soon as setup completes.";
   }).catch(function(){ var s=$("aiStatus"); if(s)s.textContent="…"; });
