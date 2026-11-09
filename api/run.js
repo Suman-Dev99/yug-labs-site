@@ -1,10 +1,14 @@
 // YugLab Code Studio — code runner. Code executes on a free public sandbox
 // engine (Judge0 CE) — never on this server. No key needed; nothing stored.
+import { rateLimit, tooMany } from "./_ratelimit.js";
+
 const ENGINE = "https://ce.judge0.com";
 const LANG_IDS = { "python": 71, "javascript": 63, "typescript": 74, "java": 62, "c++": 54, "c": 50, "go": 60, "rust": 73, "php": 68, "ruby": 72, "kotlin": 78, "swift": 83, "csharp": 51, "sql": 82, "bash": 46, "r": 80, "lua": 64 };
 
 export default async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).json({ code: "METHOD_NOT_ALLOWED" });
+  const rl = rateLimit(req, "run", 30, 60000);
+  if (!rl.ok) return tooMany(res, rl.retryAfter);
   try {
     const body = typeof req.body === "string" ? JSON.parse(req.body || "{}") : (req.body || {});
     const lang = String(body.language || "");

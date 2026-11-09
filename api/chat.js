@@ -1,14 +1,23 @@
 // Yug AI — chat endpoint. The provider key lives ONLY in server env vars
 // (YUG_AI_KEY / YUG_AI_ENDPOINT / YUG_AI_MODEL) and never reaches the browser.
+import { rateLimit, tooMany } from "./_ratelimit.js";
+
 export default async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).json({ code: "METHOD_NOT_ALLOWED" });
+  const rl = rateLimit(req, "chat", 20, 60000);
+  if (!rl.ok) return tooMany(res, rl.retryAfter);
   const key = process.env.YUG_AI_KEY;
   const endpoint = process.env.YUG_AI_ENDPOINT;
   const model = process.env.YUG_AI_MODEL;
   if (!key || !endpoint || !model) return res.status(503).json({ code: "YUG_AI_NOT_CONFIGURED" });
   try {
     const body = typeof req.body === "string" ? JSON.parse(req.body || "{}") : (req.body || {});
-    const messages = Array.isArray(body.messages) ? body.messages.slice(-12) : [];
+    const messages = (Array.isArray(body.messages) ? body.messages : []).slice(-12)
+      .filter((m) => m && typeof m === "object")
+      .map((m) => ({
+        role: m.role === "assistant" ? "assistant" : (m.role === "system" ? "system" : "user"),
+        content: String(m.content || "").slice(0, 8000)
+      }));
     if (!messages.length) return res.status(400).json({ code: "NO_MESSAGES" });
     const upstream = await fetch(endpoint, {
       method: "POST",
