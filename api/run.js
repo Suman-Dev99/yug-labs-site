@@ -1,17 +1,7 @@
 // YugLab Code Studio — code runner. Code executes on a free public sandbox
-// engine (never on this server). No key needed; nothing is stored.
-const ENGINE = "https://emkc.org/api/v2/piston";
-const LANGS = ["python", "javascript", "typescript", "java", "c++", "c", "go", "rust"];
-let cache = null;
-
-async function versionFor(lang) {
-  if (!cache) {
-    const r = await fetch(ENGINE + "/runtimes");
-    cache = await r.json();
-  }
-  const hits = cache.filter((x) => x.language === lang);
-  return hits.length ? hits[0].version : null;
-}
+// engine (Judge0 CE) — never on this server. No key needed; nothing stored.
+const ENGINE = "https://ce.judge0.com";
+const LANG_IDS = { "python": 71, "javascript": 63, "typescript": 74, "java": 62, "c++": 54, "c": 50, "go": 60, "rust": 73 };
 
 export default async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).json({ code: "METHOD_NOT_ALLOWED" });
@@ -19,29 +9,27 @@ export default async function handler(req, res) {
     const body = typeof req.body === "string" ? JSON.parse(req.body || "{}") : (req.body || {});
     const lang = String(body.language || "");
     const code = String(body.code || "");
-    if (!LANGS.includes(lang)) return res.status(400).json({ code: "LANG_NOT_SUPPORTED" });
+    if (!(lang in LANG_IDS)) return res.status(400).json({ code: "LANG_NOT_SUPPORTED" });
     if (!code.trim()) return res.status(400).json({ code: "NO_CODE" });
     if (code.length > 20000) return res.status(400).json({ code: "CODE_TOO_LONG" });
-    const version = await versionFor(lang);
-    if (!version) return res.status(502).json({ code: "RUNTIME_UNAVAILABLE" });
     const ctl = new AbortController();
     const t = setTimeout(() => ctl.abort(), 25000);
-    const ex = await fetch(ENGINE + "/execute", {
+    const ex = await fetch(ENGINE + "/submissions?base64_encoded=false&wait=true", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ language: lang, version, files: [{ content: code }], run_timeout: 10000, compile_timeout: 15000 }),
+      body: JSON.stringify({ language_id: LANG_IDS[lang], source_code: code, stdin: "" }),
       signal: ctl.signal
     });
     clearTimeout(t);
     if (!ex.ok) return res.status(502).json({ code: "ENGINE_" + ex.status });
     const j = await ex.json();
-    const run = j.run || {};
-    const compile = j.compile || {};
+    const accepted = j.status && j.status.id === 3;
     return res.status(200).json({
-      version,
-      stdout: run.stdout || "",
-      stderr: (compile.stderr || "") + (run.stderr || ""),
-      exit: run.code != null ? run.code : (compile.code != null ? compile.code : -1)
+      stdout: j.stdout || "",
+      stderr: (j.compile_output || "") + (j.stderr || "") + (j.message || ""),
+      exit: accepted ? 0 : (j.status ? j.status.id : -1),
+      status: j.status ? j.status.description : "",
+      time: j.time || ""
     });
   } catch (e) {
     return res.status(502).json({ code: "RUN_ERROR" });

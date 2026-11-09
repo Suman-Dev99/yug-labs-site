@@ -429,7 +429,7 @@ function csRunCode(){
     if(!x.r.ok)throw new Error(x.j.code||("HTTP "+x.r.status));
     var txt=(x.j.stdout||"");if(x.j.stderr)txt+=(txt?"\n":"")+x.j.stderr;
     out.textContent=txt||"(koi output nahi aaya)";
-    st.textContent=lang+" "+(x.j.version||"")+" · exit "+x.j.exit;
+    st.textContent=lang+" · "+(x.j.status||"")+(x.j.time?" · "+x.j.time+"s":"")+" · exit "+x.j.exit;
   })
   .catch(function(e){out.textContent="// Run fail: "+e.message+"\n// Free runner busy ho sakta hai — thodi der baad fir try karo.";st.textContent="error";});
 }
