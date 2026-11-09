@@ -10,7 +10,6 @@ var TYPES=[
  {id:"Web App",icon:"📱",line:"Booking, dashboards, tools that work",cost:80},
  {id:"AI Chatbot",icon:"💬",line:"Answers from your own business data",cost:70},
  {id:"AI Agent",icon:"🤖",line:"An agent that runs tasks for you",cost:90},
- {id:"Content",icon:"✍️",line:"Posts, descriptions, captions, ads",cost:20}
 ];
 var COLORS={mono:"#EDEDED",violet:"#6366F1",amber:"#F59E0B",blue:"#3B82F6",green:"#22C55E",red:"#EF4444",purple:"#A855F7",pink:"#EC4899",teal:"#14B8A6",orange:"#F97316"};
 var CATS={cafe:"Cafe & Food",gym:"Gym & Fitness",fashion:"Fashion & Clothing",salon:"Salon & Beauty",photo:"Photography",agency:"Agency & Tech",generic:"Other Business"};
@@ -61,6 +60,7 @@ function showView(v){
   $("createView").style.display=v==="create"?"block":"none";
   $("setupView").style.display=v==="setup"?"block":"none";
   $("workspace").style.display=v==="project"?"block":"none";
+  $("codeView").style.display=v==="code"?"block":"none";
 }
 
 /* ---------- setup form ---------- */
@@ -379,3 +379,64 @@ renderAll();
 checkAI();
 if(active())aiSay("lab","<b>Assistant:</b> Welcome back. Project khula hai — kuch bhi puchho, ya Quick Edit se badlaav karo.");
 })();
+
+/* ---------- Code Studio (VS Code-style editor + runner) ---------- */
+var cmEditor=null, csProjectId=null, cmLoading=false;
+var CM_MODES={html:"htmlmixed",python:"python",javascript:"javascript",typescript:"javascript",java:"text/x-java","c++":"text/x-c++src",c:"text/x-csrc",go:"go",rust:"rust"};
+var STARTERS={
+ html:'<!DOCTYPE html>\n<html>\n<head><title>My Page</title><style>body{font-family:system-ui;background:#0B0F14;color:#E8EDF3;display:grid;place-items:center;height:100vh;margin:0}h1{color:#F59E0B}</style></head>\n<body><h1>Hello from YugLab</h1></body>\n</html>',
+ python:'# Python — code likho aur Run dabao\nfor i in range(1, 6):\n    print("YugLab line", i)\nprint("Sum 1..100 =", sum(range(101)))',
+ javascript:'// JavaScript\nconst nums = [3, 7, 2, 9];\nconsole.log("Max:", Math.max(...nums));\nconsole.log("Squares:", nums.map(n => n * n));',
+ typescript:'// TypeScript\nconst greet = (name: string): string => "Hello, " + name;\nconsole.log(greet("Suman"));',
+ java:'public class Main {\n  public static void main(String[] args) {\n    System.out.println("Hello from Java in YugLab");\n  }\n}',
+ "c++":'#include <iostream>\nint main() { std::cout << "Hello from C++ in YugLab" << std::endl; return 0; }',
+ c:'#include <stdio.h>\nint main() { printf("Hello from C in YugLab\\n"); return 0; }',
+ go:'package main\n\nimport "fmt"\n\nfunc main() { fmt.Println("Hello from Go in YugLab") }',
+ rust:'fn main() { println!("Hello from Rust in YugLab"); }'
+};
+function codeGet(){return cmEditor?cmEditor.getValue():$("codeEditor").value;}
+function codeSet(v){if(cmEditor)cmEditor.setValue(v);else $("codeEditor").value=v;}
+var CM_BASE="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/";
+function loadCM(cb){
+  if(window.CodeMirror)return cb();
+  if(cmLoading){setTimeout(function(){loadCM(cb);},350);return;}
+  cmLoading=true;
+  ["codemirror.min.css","theme/material-darker.min.css"].forEach(function(f){var l=document.createElement("link");l.rel="stylesheet";l.href=CM_BASE+f;document.head.appendChild(l);});
+  var files=["codemirror.min.js","mode/xml/xml.min.js","mode/css/css.min.js","mode/javascript/javascript.min.js","mode/htmlmixed/htmlmixed.min.js","mode/python/python.min.js","mode/clike/clike.min.js","mode/go/go.min.js","mode/rust/rust.min.js"];
+  (function next(i){if(i>=files.length){cmLoading=false;return cb();}var s=document.createElement("script");s.src=CM_BASE+files[i];s.onload=function(){next(i+1);};s.onerror=function(){next(i+1);};document.head.appendChild(s);})(0);
+}
+function initCM(){if(cmEditor||!window.CodeMirror)return;cmEditor=CodeMirror.fromTextArea($("codeEditor"),{theme:"material-darker",lineNumbers:true,indentUnit:2,tabSize:2});}
+function openPlayground(){
+  csProjectId=null;$("csSave").classList.add("hidden");$("codeLang").disabled=false;
+  $("csMode").textContent="Playground — language chuno, code likho, Run karo";
+  showView("code");
+  loadCM(function(){initCM();var lang=$("codeLang").value;if(cmEditor){cmEditor.setOption("mode",CM_MODES[lang]);cmEditor.refresh();}if(!codeGet().trim())codeSet(STARTERS[lang]||"");});
+}
+function openProjectCode(){
+  var p=active();if(!p)return;
+  csProjectId=p.id;$("codeLang").value="html";$("codeLang").disabled=true;
+  $("csSave").classList.remove("hidden");$("csMode").textContent=p.name+" — project code";
+  showView("code");
+  loadCM(function(){initCM();if(cmEditor){cmEditor.setOption("mode","htmlmixed");cmEditor.refresh();}codeSet(p.html||"");});
+}
+function csRunCode(){
+  var lang=$("codeLang").value,code=codeGet(),out=$("codeOut"),st=$("csStatus");
+  if(lang==="html"){$("csPreviewWrap").classList.remove("hidden");$("csPreview").srcdoc=code;out.textContent="// HTML preview neeche render ho gaya";st.textContent="rendered · html";return;}
+  $("csPreviewWrap").classList.add("hidden");st.textContent="Running… ("+lang+")";out.textContent="// running…";
+  fetch("/api/run",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({language:lang,code:code})})
+  .then(function(r){return r.json().then(function(j){return {r:r,j:j};});})
+  .then(function(x){
+    if(!x.r.ok)throw new Error(x.j.code||("HTTP "+x.r.status));
+    var txt=(x.j.stdout||"");if(x.j.stderr)txt+=(txt?"\n":"")+x.j.stderr;
+    out.textContent=txt||"(koi output nahi aaya)";
+    st.textContent=lang+" "+(x.j.version||"")+" · exit "+x.j.exit;
+  })
+  .catch(function(e){out.textContent="// Run fail: "+e.message+"\n// Free runner busy ho sakta hai — thodi der baad fir try karo.";st.textContent="error";});
+}
+$("openPlayground").onclick=openPlayground;
+$("codeBtn").onclick=openProjectCode;
+$("csBack").onclick=function(){var p=active();if(csProjectId&&p&&p.id===csProjectId){openWorkspace(p);}else{showView("create");}};
+$("csRun").onclick=csRunCode;
+$("csClear").onclick=function(){$("codeOut").textContent="";$("csStatus").textContent="";};
+$("csSave").onclick=function(){var p=active();if(!p||p.id!==csProjectId)return;p.html=codeGet();save();$("previewFrame").srcdoc=p.html;toast("Code saved — preview updated");};
+$("codeLang").onchange=function(){var lang=this.value;if(cmEditor)cmEditor.setOption("mode",CM_MODES[lang]);if(!csProjectId)codeSet(STARTERS[lang]||"");};

@@ -18,6 +18,7 @@
   <div class="top-right">
     <button class="ai-pill" id="aiPill">✦ Yug AI · <b id="aiStatus">…</b></button>
     <span class="credits-pill">Credits: <b id="creditsVal">1000</b> · Studio</span>
+    <button class="btn small ghost" id="openPlayground">⌨ Code Studio</button>
     <a class="btn small ghost" href="index.html">View Site</a>
   </div>
 </div>
@@ -108,6 +109,7 @@
           <button class="btn" id="downloadBtn">Download</button>
           <button class="btn ghost" id="copyBtn">Copy Code</button>
           <button class="btn ghost" id="openBtn">Full Preview</button>
+          <button class="btn ghost" id="codeBtn">⌨ Code</button>
           <button class="btn ghost" id="deleteBtn">Delete Project</button>
         </div>
         <p class="publish-note">Downloads are real, finished files — host them anywhere. One-click publish to your GitHub / Vercel arrives with the backend phase.</p>
@@ -122,6 +124,38 @@
           <button class="btn" id="aiSendBtn">Ask AI</button>
         </div>
         <p class="publish-note" id="aiHint">Ask Yug AI anything about your project.</p>
+      </div>
+    </div>
+
+    <!-- CODE STUDIO -->
+    <div id="codeView" style="display:none">
+      <div class="cs-head">
+        <button class="btn ghost small" id="csBack">← Lab</button>
+        <h2 style="margin:0">⌨ Code Studio</h2>
+        <span class="cost" id="csMode">Playground</span>
+        <span class="cs-spacer"></span>
+        <select id="codeLang" class="cs-lang" aria-label="Language">
+          <option value="html">HTML / CSS / JS</option>
+          <option value="python">Python</option>
+          <option value="javascript">JavaScript</option>
+          <option value="typescript">TypeScript</option>
+          <option value="java">Java</option>
+          <option value="c++">C++</option>
+          <option value="c">C</option>
+          <option value="go">Go</option>
+          <option value="rust">Rust</option>
+        </select>
+        <button class="btn small hidden" id="csSave">Save to Project</button>
+        <button class="btn small" id="csRun">▶ Run</button>
+      </div>
+      <div class="cs-editorwrap"><textarea id="codeEditor" spellcheck="false"></textarea></div>
+      <div class="cs-outwrap">
+        <div class="cs-outhead"><span>OUTPUT</span><span id="csStatus" class="cs-status"></span><button class="btn ghost small" id="csClear">Clear</button></div>
+        <pre id="codeOut">// Output yahan aayega — code likho, language chuno, ▶ Run dabao.</pre>
+      </div>
+      <div class="cs-outwrap hidden" id="csPreviewWrap">
+        <div class="cs-outhead"><span>PREVIEW</span></div>
+        <iframe id="csPreview" title="HTML preview" sandbox="allow-scripts allow-modals" style="width:100%;height:380px;border:0;background:#fff"></iframe>
       </div>
     </div>
   </main>
