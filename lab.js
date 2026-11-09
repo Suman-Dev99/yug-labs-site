@@ -12,7 +12,7 @@ var TYPES=[
  {id:"AI Agent",icon:"🤖",line:"An agent that runs tasks for you",cost:90},
 ];
 var COLORS={mono:"#EDEDED",violet:"#6366F1",amber:"#F59E0B",blue:"#3B82F6",green:"#22C55E",red:"#EF4444",purple:"#A855F7",pink:"#EC4899",teal:"#14B8A6",orange:"#F97316"};
-var CATS={cafe:"Cafe & Food",gym:"Gym & Fitness",fashion:"Fashion & Clothing",salon:"Salon & Beauty",photo:"Photography",agency:"Agency & Tech",generic:"Other Business"};
+var CATS={cafe:"Cafe",restaurant:"Restaurant",bakery:"Bakery & Sweets",gym:"Gym & Fitness",yoga:"Yoga & Wellness",salon:"Salon & Beauty",spa:"Spa & Massage",fashion:"Fashion & Clothing",jewellery:"Jewellery",photo:"Photography",wedding:"Wedding Planning",events:"Events & Parties",travel:"Travel & Tours",hotel:"Hotel & Stay",realestate:"Real Estate",interior:"Interior Design",school:"School",coaching:"Coaching & Tuition",clinic:"Clinic & Doctor",dental:"Dental Care",pharmacy:"Pharmacy",lawfirm:"Law & Legal",finance:"Finance & Tax (CA)",insurance:"Insurance",agency:"Agency & Marketing",startup:"Startup",saas:"SaaS & Software",store:"Online Store",grocery:"Grocery & Kirana",electronics:"Electronics & Mobiles",auto:"Auto & Garage",pets:"Pets & Vet",construction:"Construction",portfolio:"Portfolio & Freelancer",generic:"Other Business"};
 var THEMES={
   cafe:{tag:"Fresh brews, honest food, slow mornings.",feats:[["☕","Craft Coffee","Small-batch beans, brewed with care."],["🥐","Fresh Bakes","Out of the oven, every single morning."],["🪑","Cosy Corner","Your table is waiting. Stay a while."]],about:"A neighbourhood cafe built on good beans and better conversations."},
   photo:{tag:"Moments, kept forever.",feats:[["📷","Weddings","Your day, told as a story in frames."],["🎞️","Portraits","Honest portraits that look like you."],["🎬","Films","Short films with a photographer's eye."]],about:"A photography studio that believes the best pictures are the true ones."},
@@ -21,6 +21,35 @@ var THEMES={
   salon:{tag:"Look good. Feel better.",feats:[["💇","Hair Studio","Cuts and colour by senior stylists."],["💅","Nails & Care","Detail work, done patiently."],["🌸","Skin Rituals","Facials that reset more than skin."]],about:"A salon where the chair time is the best part of your week."},
   agency:{tag:"We build digital products that grow businesses.",feats:[["💡","Strategy","Positioning before pixels."],["🖥️","Design & Build","Websites and products, end to end."],["📈","Growth","Launch is the starting line."]],about:"A digital agency for ambitious brands — small team, senior hands."},
   generic:{tag:"Quality you can feel, service you can trust.",feats:[["⭐","Quality First","Every detail checked, twice."],["⚡","Fast & Reliable","On time, every time."],["🤝","People Who Care","Real humans, real answers."]],about:"A business built on one simple promise — do it properly, or don't do it."}
+,
+  restaurant:{tag:"Dinner, done properly.",feats:[["🍽️","Signature Menu","Recipes refined over years, plated fresh."],["👨‍🍳","Chef's Table","Seasonal specials straight from the kitchen."],["🚗","Easy Takeaway","Hot, packed, and on time."]],about:"A restaurant where every plate leaves the kitchen like it matters — because it does."},
+  bakery:{tag:"Warm bread. Sweeter days.",feats:[["🥐","Daily Bakes","Out of the oven at sunrise, every day."],["🎂","Custom Cakes","Your design, our craft, zero shortcuts."],["☕","Coffee & More","Pair it right, start it right."]],about:"A bakery built on butter, patience, and mornings done right."},
+  yoga:{tag:"Breathe in. Begin again.",feats:[["🧘","Daily Practice","Flows for every level, every body."],["🌅","Sunrise Batches","Start the day the calm way."],["🕊️","Meditation","Stillness, taught gently."]],about:"A yoga studio where the mat is the easiest place to be yourself."},
+  spa:{tag:"Switch off. Sink in.",feats:[["💆","Signature Rituals","Therapies that unwind more than muscles."],["🌿","Natural Oils","Clean ingredients, honest care."],["🕯️","Quiet Rooms","Silence you can feel."]],about:"A spa designed as an exhale — walk in tired, walk out new."},
+  jewellery:{tag:"Crafted to be kept.",feats:[["💍","Fine Craft","Hand-finished by master karigars."],["✨","Certified Purity","Every stone and gram, verified."],["🎁","Heirloom Design","Made today, treasured for generations."]],about:"A jewellery house where craft is the family business."},
+  wedding:{tag:"Your day, directed beautifully.",feats:[["💐","Full Planning","One team for the whole celebration."],["📋","Vendor Network","Trusted partners, negotiated for you."],["🎉","Zero-Stress Day","You celebrate. We run the show."]],about:"Wedding planners who treat your day like the production it deserves to be."},
+  events:{tag:"Events people remember.",feats:[["🎤","Full Production","Stage, sound, lights — handled."],["🎈","Any Scale","Fifty guests or five thousand."],["📅","End-to-End","From invite to goodbye."]],about:"An events team that sweats every detail so your guests only feel the magic."},
+  travel:{tag:"Trips that plan themselves.",feats:[["✈️","Custom Itineraries","Built around you, not templates."],["🏝️","Handpicked Stays","Places we would book ourselves."],["🧭","On-Trip Support","Real help, whenever you need it."]],about:"A travel studio crafting journeys, not just bookings."},
+  hotel:{tag:"Stay somewhere worth writing home about.",feats:[["🛏️","Rooms With Soul","Comfort in every small detail."],["🍳","Breakfast, Properly","Hot, fresh, and unhurried."],["🛎️","Hosts, Not Staff","Hospitality the old way."]],about:"A hotel that treats every stay like the first."},
+  realestate:{tag:"Homes, honestly sold.",feats:[["🏠","Verified Listings","Every property visited and checked."],["📑","Paperwork Handled","Loans, legal, registration — guided."],["🔑","Move-In Ready","Keys without the chaos."]],about:"A real-estate team that sells homes, not pressure."},
+  interior:{tag:"Rooms that feel like you.",feats:[["🛋️","Full Interiors","Design to handover, one team."],["🎨","Material Library","Finishes you can touch before you choose."],["📐","3D Previews","See it before we build it."]],about:"An interior studio designing spaces around the people who live in them."},
+  school:{tag:"Where bright futures begin.",feats:[["📚","Strong Foundations","Concepts first, marks follow."],["👩‍🏫","Teachers Who Care","Small classes, real attention."],["🏆","Beyond Books","Sports, arts, and confidence."]],about:"A school building curious minds and kind humans."},
+  coaching:{tag:"Concepts clear. Ranks follow.",feats:[["🎯","Exam Strategy","Plans built around the paper pattern."],["📝","Weekly Tests","Progress you can measure."],["👨‍🏫","Mentor Access","Doubts cleared the same day."]],about:"A coaching institute obsessed with one thing — your result."},
+  clinic:{tag:"Care that listens first.",feats:[["🩺","Honest Consultation","Time to explain, time to hear."],["📅","Easy Appointments","Book in seconds, wait in minutes."],["🧾","Transparent Pricing","Know the cost before the cure."]],about:"A clinic where medicine starts with listening."},
+  dental:{tag:"Smiles, engineered gently.",feats:[["🦷","Painless First","Gentle techniques, zero dread."],["✨","Smile Design","Braces, aligners, and makeovers."],["🛡️","Sterile Always","Hospital-grade hygiene, visibly."]],about:"A dental studio making great smiles without the fear."},
+  pharmacy:{tag:"Medicines, minus the worry.",feats:[["💊","Genuine Stock","Sourced only from authorised channels."],["🚀","Fast Delivery","At your door in under an hour."],["👨‍⚕️","Pharmacist Advice","Real guidance with every order."]],about:"A pharmacy that treats your health like its own reputation."},
+  lawfirm:{tag:"Counsel you can stand on.",feats:[["⚖️","Senior Advocates","Decades in court, on your side."],["📄","Clear Agreements","Contracts in plain language."],["🤝","First Consult Free","Understand your position, free."]],about:"A law practice built on preparation, honesty, and results."},
+  finance:{tag:"Money, made simple.",feats:[["📊","Tax & Filing","Accurate, on time, every time."],["💼","Business Advisory","CFO brains for growing companies."],["🔒","Fully Compliant","Zero notices, zero surprises."]],about:"A finance firm that keeps your books clean and your plans clear."},
+  insurance:{tag:"Cover that actually covers.",feats:[["🛡️","Right Policy","Fitted to your life, not targets."],["⚡","Claims Support","We fight the paperwork for you."],["👨‍👩‍👧","Family First","Health, life, and everything between."]],about:"Insurance advisors paid in trust, not commissions."},
+  startup:{tag:"Built to ship. Born to scale.",feats:[["🚀","MVP Fast","From idea to launch in weeks."],["🧠","Product Thinking","Features users actually need."],["📈","Fundraise Ready","Decks and demos that land."]],about:"A startup studio turning sharp ideas into running products."},
+  saas:{tag:"Software your team will love.",feats:[["⚙️","Automate Work","Kill the repetitive tasks."],["📊","Live Dashboards","Numbers that update themselves."],["🔗","Integrations","Plays well with your stack."]],about:"A SaaS product built for teams who would rather be doing real work."},
+  store:{tag:"Everything you love, one store.",feats:[["🛍️","Curated Range","Handpicked, quality-checked stock."],["🚚","Fast Dispatch","Packed with care, shipped same day."],["↩️","Easy Returns","Changed your mind? No drama."]],about:"An online store run like a neighbourhood shop — personal, honest, quick."},
+  grocery:{tag:"Fresh to your doorstep.",feats:[["🥦","Farm Fresh","Picked this morning, at your door by noon."],["🧺","Daily Essentials","Everything on the list, every time."],["💰","Honest Prices","Market rates, no surprises."]],about:"A grocery service that shops like family."},
+  electronics:{tag:"Tech, explained honestly.",feats:[["📱","Latest Range","All major brands, genuine billing."],["🔧","Service Backed","Repairs by certified hands."],["💳","Easy EMI","Take it home today."]],about:"An electronics store where advice comes before sales."},
+  auto:{tag:"Your vehicle, expert hands.",feats:[["🔧","Full Service","Diagnostics to detailing, one roof."],["🛠️","Genuine Parts","Warranty on parts and labour."],["⏱️","Same-Day Delivery","Most jobs done before dinner."]],about:"A garage that treats your car like its own."},
+  pets:{tag:"Because they are family.",feats:[["🐾","Vet Care","Gentle hands, honest advice."],["✂️","Grooming","Baths, cuts, and happy tails."],["🛒","Food & Toys","Nutrition and fun, curated."]],about:"A pet studio for the ones who love you unconditionally."},
+  construction:{tag:"Built right. Built to last.",feats:[["🏗️","Turnkey Projects","Land to keys, single contract."],["📐","Engineered Plans","Structure first, shortcuts never."],["🧱","Quality Materials","Brands specified, bills shown."]],about:"A construction firm whose buildings are its visiting card."},
+  portfolio:{tag:"Work that speaks first.",feats:[["🎨","Selected Work","Only the pieces that matter."],["🧑‍🎨","My Process","Brief to delivery, transparently."],["🤝","Open for Projects","One slot a month, done properly."]],about:"A portfolio of work made slowly, carefully, and on purpose."}
 };
 
 /* ---------- state ---------- */
@@ -38,6 +67,12 @@ function active(){for(var i=0;i<state.projects.length;i++)if(state.projects[i].i
 function toast(msg){var t=$("toast");t.textContent=msg;t.classList.add("show");setTimeout(function(){t.classList.remove("show");},2200);}
 function setStep(n){document.querySelectorAll("#stepsBar .sb").forEach(function(el){el.classList.toggle("on",+el.getAttribute("data-sb")<=n);});}
 
+
+/* ---------- preview lock: guard + blob (iframe kabhi parent ko load nahi karega) ---------- */
+var PREVIEW_GUARD='<script>(function(){document.addEventListener("click",function(e){var a=e.target&&e.target.closest?e.target.closest("a"):null;if(a){var h=a.getAttribute("href")||"";if(h.charAt(0)!=="#"){e.preventDefault();e.stopPropagation();}}},true);document.addEventListener("submit",function(e){e.preventDefault();},true);window.open=function(){return null;};})();<\/script>';
+function previewHTML(html){if(!html)return html;if(html.indexOf("<head>")>-1)return html.replace("<head>","<head>"+PREVIEW_GUARD);return PREVIEW_GUARD+html;}
+function blobInto(frame,html){if(!frame)return;if(frame._u)URL.revokeObjectURL(frame._u);frame._u=URL.createObjectURL(new Blob([previewHTML(html)],{type:"text/html"}));frame.src=frame._u;}
+
 /* ---------- create: type cards ---------- */
 function renderTypes(){
   $("typeGrid").innerHTML=TYPES.map(function(t){
@@ -46,7 +81,7 @@ function renderTypes(){
   document.querySelectorAll(".type-card").forEach(function(c){c.onclick=function(){startDraft(c.getAttribute("data-type"));};});
 }
 function defaultDetails(type){
-  if(type==="Website"||type==="3D Website")return {name:"",category:"generic",color:"mono",mode:"dark",sections:["Pricing"],instructions:""};
+  if(type==="Website"||type==="3D Website")return {name:"",category:"generic",color:"mono",colorHex:"",mode:"dark",sections:["Pricing"],instructions:""};
   if(type==="Web App")return {name:"",purpose:"Booking",features:["Login Screen","Dashboard"],color:"mono",mode:"dark",instructions:""};
   if(type==="AI Chatbot")return {name:"",business:"",tone:"Friendly",data:"",color:"mono",instructions:""};
   if(type==="AI Agent")return {name:"",job:"Research",tools:["Web Search","Reports"],instructions:""};
@@ -66,6 +101,18 @@ function showView(v){
 /* ---------- setup form ---------- */
 function field(label,inner){return '<div class="f-field"><label>'+label+'</label>'+inner+'</div>';}
 function swatchHTML(sel){return '<div class="swatches">'+Object.keys(COLORS).map(function(k){return '<button class="sw'+(k===sel?" on":"")+'" data-color="'+k+'" style="background:'+COLORS[k]+'" title="'+k+'"></button>';}).join("")+'</div>';}
+function hexToHsv(hex){hex=String(hex||"").replace("#","");if(hex.length===3)hex=hex.split("").map(function(x){return x+x;}).join("");if(!/^[0-9a-fA-F]{6}$/.test(hex))hex="F59E0B";var r=parseInt(hex.slice(0,2),16)/255,g=parseInt(hex.slice(2,4),16)/255,b=parseInt(hex.slice(4,6),16)/255;var mx=Math.max(r,g,b),mn=Math.min(r,g,b),df=mx-mn,h=0;if(df){if(mx===r)h=((g-b)/df)%6;else if(mx===g)h=(b-r)/df+2;else h=(r-g)/df+4;h*=60;if(h<0)h+=360;}return {h:h,s:mx?df/mx:0,v:mx};}
+function hsvToHex(h,s,v){var c=v*s,x=c*(1-Math.abs(((h/60)%2)-1)),m=v-c,r=0,g=0,b=0;if(h<60){r=c;g=x;}else if(h<120){r=x;g=c;}else if(h<180){g=c;b=x;}else if(h<240){g=x;b=c;}else if(h<300){r=x;b=c;}else{r=c;b=x;}function H(n){return ("0"+Math.round((n+m)*255).toString(16)).slice(-2).toUpperCase();}return "#"+H(r)+H(g)+H(b);}
+var PRESET_HEX=["#F59E0B","#EDEDED","#22D3EE","#A78BFA","#F472B6","#34D399","#60A5FA","#EF4444","#F97316","#84CC16","#14B8A6","#111111"];
+function pickerHTML(d){var cur=(d.colorHex||COLORS[d.color]||"#F59E0B").toUpperCase();return '<div class="cpick" id="cpick"><div class="cp-board" id="cpBoard"><div class="cp-dot" id="cpDot"></div></div><input type="range" class="cp-hue" id="cpHue" min="0" max="360" step="1"><div class="cp-row"><span class="cp-chip" id="cpChip"></span><input type="text" class="cp-hex" id="cpHex" value="'+cur+'" spellcheck="false"><span class="cp-rgb" id="cpRgb"></span></div><div class="cp-pal">'+PRESET_HEX.map(function(hx){return '<button class="cp-p" data-hex="'+hx+'" style="background:'+hx+'" title="'+hx+'"></button>';}).join("")+'</div><p class="cp-note">Drag on the board, slide the hue, or type a HEX code — any colour in the world.</p></div>';}
+function initPicker(){var board=$("cpBoard");if(!board||!draft)return;var d=draft.details;var hsv=hexToHsv(d.colorHex||COLORS[d.color]||"#F59E0B");var hue=$("cpHue"),hexIn=$("cpHex"),dot=$("cpDot"),chip=$("cpChip"),rgb=$("cpRgb");hue.value=Math.round(hsv.h);
+function paint(){var hex=hsvToHex(hsv.h,hsv.s,hsv.v);board.style.background="linear-gradient(to top,#000,rgba(0,0,0,0)),linear-gradient(to right,#fff,rgba(255,255,255,0)),hsl("+Math.round(hsv.h)+",100%,50%)";dot.style.left=(hsv.s*100)+"%";dot.style.top=((1-hsv.v)*100)+"%";chip.style.background=hex;if(document.activeElement!==hexIn)hexIn.value=hex;rgb.textContent="RGB "+parseInt(hex.slice(1,3),16)+" · "+parseInt(hex.slice(3,5),16)+" · "+parseInt(hex.slice(5,7),16);d.colorHex=hex;}
+function fromEvent(e){var r=board.getBoundingClientRect();var x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;hsv.s=Math.min(1,Math.max(0,x));hsv.v=1-Math.min(1,Math.max(0,y));paint();}
+board.addEventListener("pointerdown",function(e){try{board.setPointerCapture(e.pointerId);}catch(err){}fromEvent(e);function mv(ev){fromEvent(ev);}function up(){board.removeEventListener("pointermove",mv);board.removeEventListener("pointerup",up);}board.addEventListener("pointermove",mv);board.addEventListener("pointerup",up);});
+hue.addEventListener("input",function(){hsv.h=+hue.value;paint();});
+hexIn.addEventListener("change",function(){var v=hexIn.value.trim();if(/^#?[0-9a-fA-F]{6}$/.test(v)){hsv=hexToHsv(v);hue.value=Math.round(hsv.h);}paint();});
+document.querySelectorAll(".cp-p").forEach(function(b){b.onclick=function(){hsv=hexToHsv(b.getAttribute("data-hex"));hue.value=Math.round(hsv.h);paint();};});
+paint();}
 function checksHTML(options,selected){return '<div class="checks">'+options.map(function(o){return '<button class="chk'+(selected.indexOf(o)>-1?" on":"")+'" data-chk="'+o+'">'+o+'</button>';}).join("")+'</div>';}
 function toggleHTML(a,b,sel){return '<div class="toggle-row"><button class="tgl'+(sel===a?" on":"")+'" data-tgl="'+a+'">'+a+'</button><button class="tgl'+(sel===b?" on":"")+'" data-tgl="'+b+'">'+b+'</button></div>';}
 function renderForm(){
@@ -74,7 +121,7 @@ function renderForm(){
   if(t==="Website"||t==="3D Website"){
     H+=field("Business / Site Name",'<input type="text" id="f_name" placeholder="e.g. Sharma Cafe" value="'+esc(d.name)+'">');
     H+=field("Category",'<select id="f_category">'+Object.keys(CATS).map(function(k){return '<option value="'+k+'"'+(d.category===k?" selected":"")+'>'+CATS[k]+'</option>';}).join("")+'</select>');
-    H+=field("Accent Colour",swatchHTML(d.color));
+    H+=field("Colour",pickerHTML(d));
     H+=field("Theme",toggleHTML("dark","light",d.mode));
     H+=field("Sections",checksHTML(["Pricing","Testimonials","Gallery"],d.sections));
   }else if(t==="Web App"){
@@ -106,6 +153,7 @@ function renderForm(){
   document.querySelectorAll(".sw").forEach(function(b){b.onclick=function(){draft.details.color=b.getAttribute("data-color");renderFormKeep();};});
   document.querySelectorAll(".chk").forEach(function(b){b.onclick=function(){var key=(draft.type==="Website"||draft.type==="3D Website")?"sections":(draft.type==="Web App"?"features":"tools");var arr=draft.details[key];var v=b.getAttribute("data-chk");var i=arr.indexOf(v);if(i>-1)arr.splice(i,1);else arr.push(v);b.classList.toggle("on");};});
   document.querySelectorAll(".tgl").forEach(function(b){b.onclick=function(){var v=b.getAttribute("data-tgl");if(draft.type==="Content")draft.details.length=v;else draft.details.mode=v;renderFormKeep();};});
+  initPicker();
   function renderFormKeep(){collectForm();renderForm();}
   window.__collectForm=collectForm;
 }
@@ -114,6 +162,7 @@ function collectForm(){
   function v(id){var el=$(id);return el?el.value.trim():"";}
   if($("f_name"))d.name=v("f_name");
   if($("f_category"))d.category=$("f_category").value;
+  if($("cpHex")){var hv=$("cpHex").value.trim();if(/^#?[0-9a-fA-F]{6}$/.test(hv))d.colorHex=("#"+hv.replace("#","")).toUpperCase();}
   if($("f_purpose"))d.purpose=$("f_purpose").value;
   if($("f_business"))d.business=v("f_business");
   if($("f_tone"))d.tone=$("f_tone").value;
@@ -131,14 +180,14 @@ function planFor(p){
   else if(p.type==="AI Agent")base=["Agent role: "+(d.job||"Research"),"Tools attached: "+((d.tools||[]).join(", ")||"core only"),"Task workflow + step log","Guardrails: agent shows work before finishing","Final agent package"];
   else if(p.type==="Web App")base=["App shell: "+(d.purpose||"App")+" layout","Features: "+((d.features||[]).join(", ")||"core"),"Screens wired + working buttons","Mobile-first QA checks","Final app package"];
   else if(p.type==="Content")base=["Angle: "+(d.kind||"Content")+" on "+(d.topic||"your topic"),"Tone pass: "+(d.tone||"Premium"),"Full draft ("+(d.length||"Long")+")","Polish + headline options","Final content package"];
-  else base=["Structure: Home, Features, About, Contact","Design: "+(d.color||"amber")+" accent, "+(d.mode||"dark")+" theme","Sections: "+(((d.sections||[]).join(", "))||"core only"),"Mobile + speed QA checks","Final website package"];
+  else base=["Structure: Home, Features, About, Contact","Design: "+(d.colorHex||d.color||"mono")+" accent, "+(d.mode||"dark")+" theme","Sections: "+(((d.sections||[]).join(", "))||"core only"),"Mobile + speed QA checks","Final website package"];
   if(d.instructions)base.push("Your instructions applied: "+(d.instructions.length>60?d.instructions.slice(0,60)+"…":d.instructions));
   return base;
 }
 function detailChips(p){
   var d=p.details||{}, chips=[];
   function chip(k,v){if(v)chips.push("<span>"+k+": <b>"+esc(v)+"</b></span>");}
-  if(p.type==="Website"||p.type==="3D Website"){chip("Category",CATS[d.category]||"");chip("Colour",d.color);chip("Theme",d.mode);chip("Sections",(d.sections||[]).join(", "));}
+  if(p.type==="Website"||p.type==="3D Website"){chip("Category",CATS[d.category]||"");chip("Colour",d.colorHex||d.color);chip("Theme",d.mode);chip("Sections",(d.sections||[]).join(", "));}
   else if(p.type==="Web App"){chip("Purpose",d.purpose);chip("Features",(d.features||[]).join(", "));chip("Colour",d.color);chip("Theme",d.mode);}
   else if(p.type==="AI Chatbot"){chip("Business",d.business);chip("Tone",d.tone);chip("Facts",(d.data||"").split("\n").filter(Boolean).length+" lines");}
   else if(p.type==="AI Agent"){chip("Job",d.job);chip("Tools",(d.tools||[]).join(", "));}
@@ -150,7 +199,7 @@ function detailChips(p){
 /* ---------- generators ---------- */
 function siteFromDetails(p){
   var d=p.details;
-  return {name:d.name||p.name,tagline:"Welcome to "+(d.name||p.name),theme:d.category||"generic",colorName:d.color||"mono",dark:d.mode!=="light",fx3d:p.type==="3D Website",sections:{pricing:(d.sections||[]).indexOf("Pricing")>-1,testimonials:(d.sections||[]).indexOf("Testimonials")>-1,gallery:(d.sections||[]).indexOf("Gallery")>-1}};
+  return {name:d.name||p.name,tagline:"Welcome to "+(d.name||p.name),theme:d.category||"generic",colorName:d.color||"mono",colorHex:(d.colorHex||""),dark:d.mode!=="light",fx3d:p.type==="3D Website",sections:{pricing:(d.sections||[]).indexOf("Pricing")>-1,testimonials:(d.sections||[]).indexOf("Testimonials")>-1,gallery:(d.sections||[]).indexOf("Gallery")>-1}};
 }
 function pageCSS(c,dark,extra){
   var bg=dark?"#0C0E13":"#FAFAF8",panel=dark?"#141821":"#FFFFFF",tx=dark?"#EDF0F5":"#16181D",mut=dark?"#9AA6B5":"#5B6472",line=dark?"#232A38":"#E6E3DC";
@@ -168,29 +217,62 @@ function pageCSS(c,dark,extra){
   +".about p{color:"+mut+";max-width:640px;margin:0 auto;text-align:center;font-size:16.5px}"
   +"footer{border-top:1px solid "+line+";text-align:center;color:"+mut+";padding:28px;font-size:13.5px}"+(extra||"");
 }
+function gen3D(p){
+  var s=p.site, th=THEMES[s.theme]||THEMES.generic, c=s.colorHex||COLORS[s.colorName]||COLORS.amber, cInt=c.replace("#","");
+  var feats=th.feats.map(function(f){return '<div class="card"><div class="ic">'+f[0]+'</div><h3>'+f[1]+'</h3><p>'+f[2]+'</p></div>';}).join("");
+  var pricing=s.sections.pricing?'<section id="pricing"><h2>Pricing</h2><div class="grid"><div class="card"><h3>Essential</h3><div class="pr">₹999</div><p>Everything you need to start.</p></div><div class="card pop"><h3>Signature</h3><div class="pr">₹2,499</div><p>The full experience, most loved.</p></div><div class="card"><h3>Premium</h3><div class="pr">₹4,999</div><p>Top tier, no compromises.</p></div></div></section>':"";
+  var testi=s.sections.testimonials?'<section id="love"><h2>Loved by customers</h2><div class="grid"><div class="card"><p>"Exactly what I hoped for — and then some."</p><b>— Priya S.</b></div><div class="card"><p>"Quality, honesty, and it just feels premium."</p><b>— Rahul M.</b></div><div class="card"><p>"Booked in minutes, delighted for weeks."</p><b>— Anita D.</b></div></div></section>':"";
+  var gallery=s.sections.gallery?'<section id="gallery"><h2>Gallery</h2><div class="grid"><div class="card tile">🌟</div><div class="card tile">🎨</div><div class="card tile">📸</div><div class="card tile">✨</div><div class="card tile">🏆</div><div class="card tile">💎</div></div></section>':"";
+  var css="*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}body{font-family:'Manrope',system-ui,sans-serif;background:#05060A;color:#EDF0F5;line-height:1.6;overflow-x:hidden}"
+  +"#gl{position:fixed;inset:0;width:100%;height:100%;z-index:0}"
+  +".orb{position:fixed;border-radius:50%;filter:blur(70px);z-index:0;opacity:.5;animation:fl 11s ease-in-out infinite}.orb.a{width:340px;height:340px;background:"+c+";top:-90px;right:-70px}.orb.b{width:260px;height:260px;background:"+c+";bottom:-80px;left:-60px;animation-delay:-5s;opacity:.32}@keyframes fl{50%{transform:translateY(36px) scale(1.07)}}"
+  +"header{position:sticky;top:0;z-index:5;display:flex;justify-content:space-between;align-items:center;padding:16px 26px;background:rgba(5,6,10,.55);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.08)}"
+  +".logo{font-weight:800;font-size:20px}.logo span{color:"+c+"}nav a{color:#9AA6B5;text-decoration:none;margin-left:20px;font-size:14.5px}nav a:hover{color:#fff}"
+  +"main{position:relative;z-index:1}.hero{min-height:82vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:70px 24px}"
+  +".hero .kick{font-size:12px;letter-spacing:.34em;text-transform:uppercase;color:"+c+";border:1px solid "+c+"66;padding:7px 14px;border-radius:999px;background:rgba(255,255,255,.03)}"
+  +".hero h1{font-family:'Fraunces',Georgia,serif;font-size:clamp(38px,7vw,68px);line-height:1.06;letter-spacing:-.01em;margin:22px 0 8px;text-shadow:0 24px 60px rgba(0,0,0,.6)}.hero h1 em{font-style:normal;color:"+c+"}"
+  +".hero p{color:#AAB4C4;font-size:17.5px;max-width:560px;margin:10px auto 30px}"
+  +".btn{display:inline-block;background:"+c+";color:#14100a;font-weight:800;padding:14px 30px;border-radius:999px;text-decoration:none;font-size:15px;box-shadow:0 14px 34px "+c+"44}.btn.g{background:rgba(255,255,255,.05);color:#EDF0F5;border:1px solid rgba(255,255,255,.16);margin-left:10px;box-shadow:none;backdrop-filter:blur(8px)}"
+  +"section{max-width:1060px;margin:0 auto;padding:64px 24px}section h2{font-family:'Fraunces',Georgia,serif;text-align:center;font-size:32px;margin-bottom:30px}"
+  +".grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}@media(max-width:760px){.grid{grid-template-columns:1fr}}"
+  +".card{background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.09);border-radius:18px;padding:26px;backdrop-filter:blur(12px);transition:.3s}.card:hover{transform:translateY(-6px);border-color:"+c+"88}.card .ic{font-size:27px;margin-bottom:10px}.card p{color:#9AA6B5;font-size:14.5px}.card.pop{border-color:"+c+"}.pr{font-size:30px;font-weight:800;margin:6px 0}.tile{font-size:44px;text-align:center;padding:30px 10px}"
+  +".about p{color:#AAB4C4;max-width:640px;margin:0 auto;text-align:center;font-size:16.5px}"
+  +"footer{position:relative;z-index:1;border-top:1px solid rgba(255,255,255,.08);text-align:center;color:#8A94A6;padding:28px;font-size:13.5px}";
+  var three='<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script><script>try{if(window.THREE){var cv=document.getElementById("gl");var rn=new THREE.WebGLRenderer({canvas:cv,alpha:true,antialias:true});var sc=new THREE.Scene();var cm=new THREE.PerspectiveCamera(55,innerWidth/innerHeight,.1,100);cm.position.z=8;var AC=0x'+cInt+';var knot=new THREE.Mesh(new THREE.TorusKnotGeometry(1.7,.52,180,26),new THREE.MeshStandardMaterial({color:AC,metalness:.85,roughness:.25}));knot.position.x=2.6;sc.add(knot);var pg=new THREE.BufferGeometry();var N=420,pos=new Float32Array(N*3);for(var i=0;i<N*3;i++)pos[i]=(Math.random()-.5)*26;pg.setAttribute("position",new THREE.BufferAttribute(pos,3));var pts=new THREE.Points(pg,new THREE.PointsMaterial({color:AC,size:.045,transparent:true,opacity:.85}));sc.add(pts);sc.add(new THREE.AmbientLight(0xffffff,.55));var pl=new THREE.PointLight(AC,1.6,60);pl.position.set(-4,3,6);sc.add(pl);var mx=0,my=0;addEventListener("pointermove",function(e){mx=(e.clientX/innerWidth-.5);my=(e.clientY/innerHeight-.5);});function rs(){rn.setSize(innerWidth,innerHeight);cm.aspect=innerWidth/innerHeight;cm.updateProjectionMatrix();}addEventListener("resize",rs);rs();var orbs=document.querySelectorAll(".orb");orbs.forEach(function(o){o.style.opacity=".18";});(function an(){requestAnimationFrame(an);knot.rotation.x+=.004;knot.rotation.y+=.006;pts.rotation.y+=.0006;cm.position.x+=((mx*1.6)-cm.position.x)*.04;cm.position.y+=((-my*1.1)-cm.position.y)*.04;cm.lookAt(1,0,0);rn.render(sc,cm);})();}}catch(e){}</script>';
+  return '<!DOCTYPE html>\n<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>'+esc(s.name)+' — 3D</title><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet"><style>'+css+'</style></head><body>'
+  +'<canvas id="gl"></canvas><div class="orb a"></div><div class="orb b"></div>'
+  +'<header><div class="logo">'+esc(s.name)+'<span>.</span></div><nav><a href="#features">Features</a><a href="#about">About</a>'+(s.sections.pricing?'<a href="#pricing">Pricing</a>':"")+'<a href="#contact">Contact</a></nav></header>'
+  +'<main><div class="hero"><span class="kick">Immersive · 3D</span><h1>'+esc(s.name)+'<br><em>'+esc(th.tag)+'</em></h1><p>'+esc(th.about)+'</p><div><a class="btn" href="#contact">Get Started</a><a class="btn g" href="#features">Explore</a></div></div>'
+  +'<section id="features"><h2>What we do</h2><div class="grid">'+feats+'</div></section>'
+  +pricing+gallery+testi
+  +'<section class="about" id="about"><h2>About</h2><p>'+esc(th.about)+'</p></section>'
+  +'<section id="contact" style="text-align:center"><h2>Visit us</h2><p style="color:#AAB4C4">Walk in, call, or message — we reply fast.</p><div style="margin-top:20px"><a class="btn" href="#contact">Contact Now</a></div></section></main>'
+  +'<footer>© 2026 '+esc(s.name)+' · 3D experience by YugLab</footer>'+three+'</body></html>';
+}
 function genWebsite(p){
-  var s=p.site, th=THEMES[s.theme]||THEMES.generic, c=COLORS[s.colorName]||COLORS.amber;
-  var fx=s.fx3d?".hero h1{transform:perspective(600px) rotateX(4deg);text-shadow:0 18px 40px rgba(0,0,0,.45)}.card{transition:.25s}.card:hover{transform:translateY(-6px) perspective(500px) rotateX(3deg)}":"";
+  var s=p.site, th=THEMES[s.theme]||THEMES.generic, c=s.colorHex||COLORS[s.colorName]||COLORS.amber;
+  var fx="body{font-family:'Manrope',system-ui,sans-serif}h1,h2{font-family:'Fraunces',Georgia,serif}"+(s.fx3d?".hero h1{transform:perspective(600px) rotateX(4deg);text-shadow:0 18px 40px rgba(0,0,0,.45)}.card{transition:.25s}.card:hover{transform:translateY(-6px) perspective(500px) rotateX(3deg)}":"");
   var feats=th.feats.map(function(f){return '<div class="card"><div class="ic">'+f[0]+'</div><h3>'+f[1]+'</h3><p>'+f[2]+'</p></div>';}).join("");
   var pricing=s.sections.pricing?'<section id="pricing"><h2>Pricing</h2><div class="grid"><div class="card"><h3>Essential</h3><div class="pr">₹999</div><p>Everything you need to start.</p></div><div class="card pop"><h3>Signature</h3><div class="pr">₹2,499</div><p>The full experience, most loved.</p></div><div class="card"><h3>Premium</h3><div class="pr">₹4,999</div><p>Top tier, no compromises.</p></div></div></section>':"";
   var testi=s.sections.testimonials?'<section id="love"><h2>Loved by customers</h2><div class="grid"><div class="card"><p>"Exactly what I hoped for — and then some. I keep coming back."</p><b>— Priya S.</b></div><div class="card"><p>"Quality, honesty, and it just feels premium. Rare combination."</p><b>— Rahul M.</b></div><div class="card"><p>"Booked in minutes, delighted for weeks. Highly recommended."</p><b>— Anita D.</b></div></div></section>':"";
   var gallery=s.sections.gallery?'<section id="gallery"><h2>Gallery</h2><div class="grid"><div class="card tile">🌟</div><div class="card tile">🎨</div><div class="card tile">📸</div><div class="card tile">✨</div><div class="card tile">🏆</div><div class="card tile">💎</div></div></section>':"";
-  return '<!DOCTYPE html>\n<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>'+esc(s.name)+'</title><style>'+pageCSS(c,s.dark,fx)+'</style></head><body>'
+  return '<!DOCTYPE html>\n<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>'+esc(s.name)+'</title><link href=\"https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Manrope:wght@400;600;800&display=swap\" rel=\"stylesheet\"><style>'+pageCSS(c,s.dark,fx)+'</style></head><body>'
   +'<header><div class="logo">'+esc(s.name)+'<span>.</span></div><nav><a href="#features">Features</a><a href="#about">About</a>'+(s.sections.pricing?'<a href="#pricing">Pricing</a>':"")+'<a href="#contact">Contact</a></nav></header>'
   +'<div class="hero"><h1>'+esc(s.name)+'<br><em>'+esc(s.tagline)+'</em></h1><p>'+esc(th.tag)+'</p><a class="btn" href="#contact">Get Started</a><a class="btn g" href="#features">Explore</a></div>'
   +'<section id="features"><h2>What we do</h2><div class="grid">'+feats+'</div></section>'
   +pricing+gallery+testi
   +'<section class="about" id="about"><h2>About</h2><p>'+esc(th.about)+'</p></section>'
   +'<section id="contact" style="text-align:center"><h2>Visit us</h2><p style="color:inherit;opacity:.75">Walk in, call, or message — we reply fast.</p><div style="margin-top:20px"><a class="btn" href="#contact">Contact Now</a></div></section>'
-  +'<footer>© 2026 '+esc(s.name)+' · Made with pride in India</footer></body></html>';
+  +'<footer>© 2026 '+esc(s.name)+' · Made with pride in India</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script><script>try{if(window.gsap&&window.ScrollTrigger){gsap.registerPlugin(ScrollTrigger);gsap.utils.toArray("section,.hero h1,.hero p").forEach(function(el){gsap.from(el,{y:26,opacity:0,duration:.8,ease:"power2.out",scrollTrigger:{trigger:el,start:"top 88%"}});});}}catch(e){}</script></body></html>';
 }
 function genApp(p){
   var d=p.details, c=COLORS[d.color||"mono"], dark=d.mode!=="light";
   var feats=(d.features||[]).map(function(f){return '<div class="acard"><b>'+esc(f)+'</b><span>Active module</span></div>';}).join("");
   var login=(d.features||[]).indexOf("Login Screen")>-1;
   var js='<script>function go(){document.getElementById("login").style.display="none";document.getElementById("dash").style.display="block";}function book(){var b=document.getElementById("bk");b.textContent="✔ Booked — see you soon!";b.style.color="'+c+'";}<\/script>';
+  js+='<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"><\/script><script>try{if(window.Chart){var x=document.getElementById("ch");if(x)new Chart(x,{type:"line",data:{labels:["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],datasets:[{data:[12,19,15,25,22,30,28],borderColor:"'+c+'",backgroundColor:"'+c+'33",fill:true,tension:.42,pointRadius:0}]},options:{plugins:{legend:{display:false}},scales:{x:{display:false},y:{display:false}},responsive:true}});}}catch(e){}<\/script>';
   var loginHTML=login?'<div id="login" class="screen"><h2>Welcome back</h2><p class="mut">Login to '+(esc(d.name||"App"))+'</p><input placeholder="Email or phone"><input type="password" placeholder="Password"><button class="btn" style="width:100%" onclick="go()">Login</button></div>':"";
-  var dash='<div id="dash" class="screen"'+(login?' style="display:none"':"")+'><h2>'+(d.purpose||"App")+' Dashboard</h2><div class="stats"><div class="stat"><b>128</b><span>Today</span></div><div class="stat"><b>96%</b><span>On time</span></div><div class="stat"><b>4.9★</b><span>Rating</span></div></div><div class="alist">'+feats+'</div><button class="btn" style="width:100%;margin-top:14px" onclick="book()">Book Now</button><p id="bk" class="mut" style="text-align:center;margin-top:10px"></p></div>';
+  var dash='<div id="dash" class="screen"'+(login?' style="display:none"':"")+'><h2>'+(d.purpose||"App")+' Dashboard</h2><canvas id="ch" height="110" style="width:100%;margin:6px 0 4px"></canvas><div class="stats"><div class="stat"><b>128</b><span>Today</span></div><div class="stat"><b>96%</b><span>On time</span></div><div class="stat"><b>4.9★</b><span>Rating</span></div></div><div class="alist">'+feats+'</div><button class="btn" style="width:100%;margin-top:14px" onclick="book()">Book Now</button><p id="bk" class="mut" style="text-align:center;margin-top:10px"></p></div>';
   var css="body{display:flex;justify-content:center;padding:26px 14px}.phone{width:380px;max-width:100%;background:"+(dark?"#11141B":"#fff")+";border:1px solid "+(dark?"#232A38":"#E6E3DC")+";border-radius:28px;padding:24px;box-shadow:0 30px 60px rgba(0,0,0,.35)}.screen h2{font-size:22px;margin-bottom:6px}.mut{opacity:.65;font-size:14px}.phone input{width:100%;padding:12px;border-radius:10px;border:1px solid "+(dark?"#232A38":"#E6E3DC")+";background:transparent;color:inherit;margin:8px 0;font-size:14.5px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0}.stat{background:"+(dark?"#171B25":"#F4F2ED")+";border-radius:12px;padding:12px;text-align:center}.stat b{display:block;font-size:19px;color:"+c+"}.stat span{font-size:11.5px;opacity:.65}.acard{display:flex;justify-content:space-between;border:1px solid "+(dark?"#232A38":"#E6E3DC")+";border-radius:12px;padding:12px 14px;margin-bottom:9px;font-size:14px}.acard span{opacity:.6;font-size:12.5px}header{display:none}";
   return '<!DOCTYPE html>\n<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>'+esc(d.name||"App")+'</title><style>'+pageCSS(c,dark,css)+'</style></head><body><div class="phone"><div class="logo" style="margin-bottom:18px">'+esc(d.name||"App")+'<span>.</span></div>'+loginHTML+dash+'</div>'+js+'</body></html>';
 }
@@ -228,7 +310,7 @@ function generate(p){
   if(p.type==="AI Chatbot")return genChatbot(p);
   if(p.type==="AI Agent")return genAgent(p);
   if(p.type==="Content")return genContent(p);
-  p.site=siteFromDetails(p); return genWebsite(p);
+  p.site=siteFromDetails(p); return p.type==="3D Website"?gen3D(p):genWebsite(p);
 }
 
 /* ---------- projects sidebar ---------- */
@@ -257,7 +339,7 @@ function renderAll(){
   $("planPanel").style.display=showPlan?"block":"none";
   $("resultPanel").style.display=showResult?"block":"none";
   if(showPlan){$("planCost").textContent="Cost: "+COSTS[p.type]+" credits";$("detailSummary").innerHTML=detailChips(p);$("planList").innerHTML=p.plan.map(function(s){return "<li>"+esc(s)+"</li>";}).join("");}
-  if(showResult)$("previewFrame").srcdoc=p.html;
+  if(showResult)blobInto($("previewFrame"),p.html);
   setStep(p.html?5:(p.plan?3:2));
 }
 function toPlan(){
@@ -300,10 +382,11 @@ function applyEdit(){
   if(state.credits<2){editSay("lab","<b>Lab:</b> 2 credits chahiye is edit ke liye.");return;}
   var t=text.toLowerCase(), done=[];
   if(p.site){
-    var s=p.site, colorHit=null;
+    var s=p.site, colorHit=null, hexHit=text.match(/#([0-9a-fA-F]{6})\b/);
     for(var k in COLORS)if(t.indexOf(k)>-1)colorHit=k;
-    if(/title|name/.test(t)&&/to\s+/.test(t)){var m=text.split(/to\s+/i)[1];if(m){s.name=m.trim().replace(/[".]/g,"");p.name=s.name;done.push("title → <b>"+esc(s.name)+"</b>");}}
-    else if(colorHit){s.colorName=colorHit;done.push("colour → <b>"+colorHit+"</b>");}
+    if(hexHit){s.colorHex="#"+hexHit[1].toUpperCase();done.push("colour → <b>#"+hexHit[1].toUpperCase()+"</b>");}
+    else if(/title|name/.test(t)&&/to\s+/.test(t)){var m=text.split(/to\s+/i)[1];if(m){s.name=m.trim().replace(/[".]/g,"");p.name=s.name;done.push("title → <b>"+esc(s.name)+"</b>");}}
+    else if(colorHit){s.colorName=colorHit;s.colorHex="";done.push("colour → <b>"+colorHit+"</b>");}
     else if(/light mode|light theme/.test(t)){s.dark=false;done.push("<b>light mode</b> on");}
     else if(/dark mode|dark theme/.test(t)){s.dark=true;done.push("<b>dark mode</b> on");}
     else if(/add.*pricing/.test(t)){s.sections.pricing=true;done.push("<b>pricing</b> added");}
@@ -313,8 +396,8 @@ function applyEdit(){
     else if(/add.*gallery/.test(t)){s.sections.gallery=true;done.push("<b>gallery</b> added");}
     else if(/remove.*gallery/.test(t)){s.sections.gallery=false;done.push("gallery removed");}
   }
-  if(!done.length){editSay("lab","<b>Lab:</b> Quick edits abhi website projects par chalte hain (colour, title, sections, light/dark). Bigger changes ke liye neeche <b>Lab Assistant</b> se puchho, ya Edit Details se rebuild karo.");return;}
-  state.credits-=2; p.html=genWebsite(p); p.status="Edited"; save(); renderAll();
+  if(!done.length){editSay("lab","<b>Lab:</b> Quick edits work on website projects — colour (name or #hex), title, sections, light/dark. For bigger changes, ask the Lab Assistant below or rebuild via Edit Details.");return;}
+  state.credits-=2; p.html=(p.type==="3D Website"?gen3D(p):genWebsite(p)); p.status="Edited"; save(); renderAll();
   editSay("lab","<b>Lab:</b> Done — "+done.join(", ")+". Preview updated. (2 credits)");
 }
 
@@ -378,7 +461,6 @@ renderTypes();
 renderAll();
 checkAI();
 if(active())aiSay("lab","<b>Assistant:</b> Welcome back. Project khula hai — kuch bhi puchho, ya Quick Edit se badlaav karo.");
-})();
 
 /* ---------- Code Studio — multi-file, extension = language ---------- */
 var cmEditor=null, cmLoading=false, csProjectId=null;
@@ -481,7 +563,7 @@ function csRunCode(){
   csSyncEditor();
   var name=csActive,e=extOf(name),out=$("codeOut"),st=$("csStatus");
   var code=codeGet();
-  if(e==="html"||e==="htm"){$("csPreviewWrap").classList.remove("hidden");$("csPreview").srcdoc=code;out.textContent="// Rendered below.";st.textContent="HTML · Preview";return;}
+  if(e==="html"||e==="htm"){$("csPreviewWrap").classList.remove("hidden");blobInto($("csPreview"),code);out.textContent="// Rendered below.";st.textContent="HTML · Preview";return;}
   $("csPreviewWrap").classList.add("hidden");
   var rl=RUN_LANGS[e];
   if(!rl){out.textContent="// "+langLabel(name)+" files do not run. Press Run on a code file (Python, JavaScript, Java, C, C++, Go, Rust, ...).";st.textContent=langLabel(name)+" · View only";return;}
@@ -508,5 +590,6 @@ $("csSave").onclick=function(){
   csSyncEditor();
   var others=[];
   csFiles.forEach(function(f){if(f.name==="index.html")p.html=f.content;else others.push(f);});
-  p.files=others;save();$("previewFrame").srcdoc=p.html;toast("Saved.");
+  p.files=others;save();blobInto($("previewFrame"),p.html);toast("Saved.");
 };
+})();
