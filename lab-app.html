@@ -130,32 +130,32 @@
     <!-- CODE STUDIO -->
     <div id="codeView" style="display:none">
       <div class="cs-head">
-        <button class="btn ghost small" id="csBack">← Lab</button>
-        <h2 style="margin:0">⌨ Code Studio</h2>
+        <button class="btn ghost small" id="csBack">← Back</button>
+        <h2 style="margin:0">Code</h2>
         <span class="cost" id="csMode">Playground</span>
         <span class="cs-spacer"></span>
-        <select id="codeLang" class="cs-lang" aria-label="Language">
-          <option value="html">HTML / CSS / JS</option>
-          <option value="python">Python</option>
-          <option value="javascript">JavaScript</option>
-          <option value="typescript">TypeScript</option>
-          <option value="java">Java</option>
-          <option value="c++">C++</option>
-          <option value="c">C</option>
-          <option value="go">Go</option>
-          <option value="rust">Rust</option>
-        </select>
-        <button class="btn small hidden" id="csSave">Save to Project</button>
+        <button class="btn small hidden" id="csSave">Save</button>
         <button class="btn small" id="csRun">▶ Run</button>
       </div>
-      <div class="cs-editorwrap"><textarea id="codeEditor" spellcheck="false"></textarea></div>
+      <div class="cs-body">
+        <aside class="cs-files">
+          <div class="cs-files-head"><span>Files</span><button class="btn ghost small" id="csNewFile">+ New</button></div>
+          <div id="fileList"></div>
+        </aside>
+        <div class="cs-main">
+          <div class="cs-tabbar"><span class="cs-tab on" id="csTabName">main.py</span><span class="cs-langbadge" id="csLangBadge">Python</span></div>
+          <div class="cs-editorwrap"><textarea id="codeEditor" spellcheck="false"></textarea></div>
+        </div>
+      </div>
       <div class="cs-outwrap">
-        <div class="cs-outhead"><span>OUTPUT</span><span id="csStatus" class="cs-status"></span><button class="btn ghost small" id="csClear">Clear</button></div>
-        <pre id="codeOut">// Output yahan aayega — code likho, language chuno, ▶ Run dabao.</pre>
+        <div class="cs-outhead"><span>Input</span></div>
+        <textarea id="codeStdin" class="cs-stdin" rows="2" placeholder="Program input — only if your code asks for it (input(), scanf, ...)" spellcheck="false"></textarea>
+        <div class="cs-outhead"><span>Output</span><span id="csStatus" class="cs-status"></span><button class="btn ghost small" id="csClear">Clear</button></div>
+        <pre id="codeOut">// Output appears here.</pre>
       </div>
       <div class="cs-outwrap hidden" id="csPreviewWrap">
-        <div class="cs-outhead"><span>PREVIEW</span></div>
-        <iframe id="csPreview" title="HTML preview" sandbox="allow-scripts allow-modals" style="width:100%;height:380px;border:0;background:#fff"></iframe>
+        <div class="cs-outhead"><span>Preview</span></div>
+        <iframe id="csPreview" title="HTML preview" sandbox="allow-scripts allow-modals" style="width:100%;height:420px;border:0;background:#fff"></iframe>
       </div>
     </div>
   </main>

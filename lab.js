@@ -349,13 +349,13 @@ function yugChat(messages,maxTokens){
 function aiAsk(){
   var inp=$("aiInput"), q=inp.value.trim(); if(!q)return;
   aiSay("user",esc(q)); inp.value="";
-  if(AI_READY===false){aiSay("lab","<b>Yug AI:</b> Main abhi switch-on ho raha hoon — admin ka ek backend step baki hai. Thodi der me yahin live jawab dunga.");return;}
+  if(AI_READY===false){aiSay("lab","<b>Yug AI:</b> Switching on — one admin step is pending. Live answers here soon.");return;}
   var p=active();
   var ctx="You are Yug AI, the built-in intelligence of YugLab (a creator lab). The user is Suman, the founder, building digital products. Be practical, specific and concise. Current project: "+(p?(p.name+" ("+p.type+", status: "+p.status+")"):"none selected")+".";
   var wait=aiSay("lab","<b>Yug AI:</b> Thinking…");
   yugChat([{role:"system",content:ctx},{role:"user",content:q}],900)
   .then(function(ans){wait.innerHTML="<b>Yug AI:</b> "+esc(ans).replace(/\n/g,"<br>");})
-  .catch(function(e){wait.innerHTML="<b>Yug AI:</b> Ek moment — connection me dikkat aayi ("+esc(e.message)+"). Dobara try karo.";});
+  .catch(function(e){wait.innerHTML="<b>Yug AI:</b> Connection issue ("+esc(e.message)+"). Try again.";});
 }
 
 /* ---------- wiring ---------- */
@@ -380,63 +380,133 @@ checkAI();
 if(active())aiSay("lab","<b>Assistant:</b> Welcome back. Project khula hai — kuch bhi puchho, ya Quick Edit se badlaav karo.");
 })();
 
-/* ---------- Code Studio (VS Code-style editor + runner) ---------- */
-var cmEditor=null, csProjectId=null, cmLoading=false;
-var CM_MODES={html:"htmlmixed",python:"python",javascript:"javascript",typescript:"javascript",java:"text/x-java","c++":"text/x-c++src",c:"text/x-csrc",go:"go",rust:"rust"};
-var STARTERS={
- html:'<!DOCTYPE html>\n<html>\n<head><title>My Page</title><style>body{font-family:system-ui;background:#0B0F14;color:#E8EDF3;display:grid;place-items:center;height:100vh;margin:0}h1{color:#F59E0B}</style></head>\n<body><h1>Hello from YugLab</h1></body>\n</html>',
- python:'# Python — code likho aur Run dabao\nfor i in range(1, 6):\n    print("YugLab line", i)\nprint("Sum 1..100 =", sum(range(101)))',
- javascript:'// JavaScript\nconst nums = [3, 7, 2, 9];\nconsole.log("Max:", Math.max(...nums));\nconsole.log("Squares:", nums.map(n => n * n));',
- typescript:'// TypeScript\nconst greet = (name: string): string => "Hello, " + name;\nconsole.log(greet("Suman"));',
- java:'public class Main {\n  public static void main(String[] args) {\n    System.out.println("Hello from Java in YugLab");\n  }\n}',
- "c++":'#include <iostream>\nint main() { std::cout << "Hello from C++ in YugLab" << std::endl; return 0; }',
- c:'#include <stdio.h>\nint main() { printf("Hello from C in YugLab\\n"); return 0; }',
- go:'package main\n\nimport "fmt"\n\nfunc main() { fmt.Println("Hello from Go in YugLab") }',
- rust:'fn main() { println!("Hello from Rust in YugLab"); }'
-};
+/* ---------- Code Studio — multi-file, extension = language ---------- */
+var cmEditor=null, cmLoading=false, csProjectId=null;
+var csFiles=[], csActive="";
+var RUN_LANGS={py:{lang:"python",label:"Python"},js:{lang:"javascript",label:"JavaScript"},ts:{lang:"typescript",label:"TypeScript"},java:{lang:"java",label:"Java"},c:{lang:"c",label:"C"},cpp:{lang:"c++",label:"C++"},cc:{lang:"c++",label:"C++"},go:{lang:"go",label:"Go"},rs:{lang:"rust",label:"Rust"},php:{lang:"php",label:"PHP"},rb:{lang:"ruby",label:"Ruby"},kt:{lang:"kotlin",label:"Kotlin"},swift:{lang:"swift",label:"Swift"},cs:{lang:"csharp",label:"C#"},sql:{lang:"sql",label:"SQL"},sh:{lang:"bash",label:"Bash"},r:{lang:"r",label:"R"},lua:{lang:"lua",label:"Lua"}};
+var CM_MAP={html:{mode:"htmlmixed",file:"htmlmixed/htmlmixed.min.js",label:"HTML"},css:{mode:"css",file:"css/css.min.js",label:"CSS"},js:{mode:"javascript",file:"javascript/javascript.min.js",label:"JavaScript"},ts:{mode:"javascript",file:"javascript/javascript.min.js",label:"TypeScript"},json:{mode:"application/json",file:"javascript/javascript.min.js",label:"JSON"},py:{mode:"python",file:"python/python.min.js",label:"Python"},java:{mode:"text/x-java",file:"clike/clike.min.js",label:"Java"},c:{mode:"text/x-csrc",file:"clike/clike.min.js",label:"C"},cpp:{mode:"text/x-c++src",file:"clike/clike.min.js",label:"C++"},cc:{mode:"text/x-c++src",file:"clike/clike.min.js",label:"C++"},cs:{mode:"text/x-csharp",file:"clike/clike.min.js",label:"C#"},go:{mode:"go",file:"go/go.min.js",label:"Go"},rs:{mode:"rust",file:"rust/rust.min.js",label:"Rust"},php:{mode:"php",file:"php/php.min.js",label:"PHP"},rb:{mode:"ruby",file:"ruby/ruby.min.js",label:"Ruby"},sql:{mode:"text/x-sql",file:"sql/sql.min.js",label:"SQL"},sh:{mode:"shell",file:"shell/shell.min.js",label:"Shell"},md:{mode:"markdown",file:"markdown/markdown.min.js",label:"Markdown"},xml:{mode:"xml",file:"xml/xml.min.js",label:"XML"},svg:{mode:"xml",file:"xml/xml.min.js",label:"SVG"},yaml:{mode:"yaml",file:"yaml/yaml.min.js",label:"YAML"},yml:{mode:"yaml",file:"yaml/yaml.min.js",label:"YAML"}};
+var EXT_DOT={py:"#4FC3F7",js:"#F7DF1E",ts:"#42A5F5",html:"#FF7043",css:"#42A5F5",java:"#EF5350",cpp:"#9575CD",c:"#90A4AE",go:"#4DD0E1",rs:"#FF8A65",php:"#9575CD",rb:"#E57373",json:"#FFD54F",md:"#B0BEC5",sql:"#FFD54F",sh:"#81C784"};
+function extOf(name){var p=name.lastIndexOf(".");return p>0?name.slice(p+1).toLowerCase():"";}
+function langLabel(name){var e=extOf(name);if(CM_MAP[e])return CM_MAP[e].label;if(RUN_LANGS[e])return RUN_LANGS[e].label;return "Text";}
+function starterFor(name){
+  var e=extOf(name);
+  var S={
+   py:'# Python — press Run\nname = input("Your name: ")\nprint("Hello,", name)\nfor i in range(1, 4):\n    print("Line", i)',
+   js:'// JavaScript — press Run\nconst nums = [3, 7, 2, 9];\nconsole.log("Squares:", nums.map(n => n * n));',
+   html:'<!DOCTYPE html>\n<html>\n<head><title>Page</title><link rel="stylesheet" href="style.css"></head>\n<body><h1>Hello from YugLab</h1><script src="app.js"></script></body>\n</html>',
+   css:'body { font-family: system-ui; background: #0B0F14; color: #E8EDF3; }\nh1 { color: #F59E0B; }',
+   java:'public class Main {\n  public static void main(String[] args) {\n    System.out.println("Hello from Java");\n  }\n}',
+   cpp:'#include <iostream>\nint main() { std::cout << "Hello from C++" << std::endl; return 0; }',
+   c:'#include <stdio.h>\nint main() { printf("Hello from C\\n"); return 0; }',
+   go:'package main\n\nimport "fmt"\n\nfunc main() { fmt.Println("Hello from Go") }',
+   rs:'fn main() { println!("Hello from Rust"); }',
+   php:'<?php echo "Hello from PHP"; ?>',
+   rb:'puts "Hello from Ruby"',
+   sql:'SELECT "Hello from SQL" AS greeting;',
+   sh:'echo "Hello from Bash"',
+   md:'# Notes\n\nWrite here.'
+  };
+  return S[e]!==undefined?S[e]:"";
+}
+var CS_LS="yuglab_cs_v1";
+function csPersist(){if(csProjectId)return;try{localStorage.setItem(CS_LS,JSON.stringify({files:csFiles,active:csActive}));}catch(e){}}
+function csLoad(){
+  try{var s=JSON.parse(localStorage.getItem(CS_LS));if(s&&s.files&&s.files.length){csFiles=s.files;csActive=s.active||s.files[0].name;return;}}catch(e){}
+  csFiles=[{name:"main.py",content:starterFor("main.py")},{name:"index.html",content:starterFor("index.html")},{name:"style.css",content:starterFor("style.css")},{name:"app.js",content:starterFor("app.js")}];
+  csActive="main.py";
+}
 function codeGet(){return cmEditor?cmEditor.getValue():$("codeEditor").value;}
 function codeSet(v){if(cmEditor)cmEditor.setValue(v);else $("codeEditor").value=v;}
+function csSyncEditor(){for(var i=0;i<csFiles.length;i++)if(csFiles[i].name===csActive)csFiles[i].content=codeGet();}
 var CM_BASE="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/";
+var cmModesLoaded={};
+function loadScriptOnce(src){return new Promise(function(res){var s=document.createElement("script");s.src=src;s.onload=res;s.onerror=res;document.head.appendChild(s);});}
 function loadCM(cb){
   if(window.CodeMirror)return cb();
   if(cmLoading){setTimeout(function(){loadCM(cb);},350);return;}
   cmLoading=true;
   ["codemirror.min.css","theme/material-darker.min.css"].forEach(function(f){var l=document.createElement("link");l.rel="stylesheet";l.href=CM_BASE+f;document.head.appendChild(l);});
-  var files=["codemirror.min.js","mode/xml/xml.min.js","mode/css/css.min.js","mode/javascript/javascript.min.js","mode/htmlmixed/htmlmixed.min.js","mode/python/python.min.js","mode/clike/clike.min.js","mode/go/go.min.js","mode/rust/rust.min.js"];
+  var files=["codemirror.min.js","mode/xml/xml.min.js","mode/css/css.min.js","mode/javascript/javascript.min.js","mode/htmlmixed/htmlmixed.min.js"];
   (function next(i){if(i>=files.length){cmLoading=false;return cb();}var s=document.createElement("script");s.src=CM_BASE+files[i];s.onload=function(){next(i+1);};s.onerror=function(){next(i+1);};document.head.appendChild(s);})(0);
 }
-function initCM(){if(cmEditor||!window.CodeMirror)return;cmEditor=CodeMirror.fromTextArea($("codeEditor"),{theme:"material-darker",lineNumbers:true,indentUnit:2,tabSize:2});}
-function openPlayground(){
-  csProjectId=null;$("csSave").classList.add("hidden");$("codeLang").disabled=false;
-  $("csMode").textContent="Playground — language chuno, code likho, Run karo";
-  showView("code");
-  loadCM(function(){initCM();var lang=$("codeLang").value;if(cmEditor){cmEditor.setOption("mode",CM_MODES[lang]);cmEditor.refresh();}if(!codeGet().trim())codeSet(STARTERS[lang]||"");});
+function ensureMode(name){
+  var e=extOf(name),m=CM_MAP[e];
+  if(!cmEditor||!m)return Promise.resolve();
+  if(cmModesLoaded[m.file]){cmEditor.setOption("mode",m.mode);return Promise.resolve();}
+  return loadScriptOnce(CM_BASE+"mode/"+m.file).then(function(){cmModesLoaded[m.file]=1;if(cmEditor)cmEditor.setOption("mode",m.mode);});
 }
+function initCM(){if(cmEditor||!window.CodeMirror)return;cmEditor=CodeMirror.fromTextArea($("codeEditor"),{theme:"material-darker",lineNumbers:true,indentUnit:2,tabSize:2});}
+function renderFileList(){
+  $("fileList").innerHTML=csFiles.map(function(f){
+    return '<button class="cs-file'+(f.name===csActive?" on":"")+'" data-file="'+esc(f.name)+'"><span class="cs-dot" style="background:'+(EXT_DOT[extOf(f.name)]||"#9E9E9E")+'"></span><span class="cs-fname">'+esc(f.name)+'</span><span class="cs-del" data-del="'+esc(f.name)+'" title="Delete">✕</span></button>';
+  }).join("");
+  document.querySelectorAll(".cs-file").forEach(function(b){b.onclick=function(ev){if(ev.target.getAttribute("data-del"))return;switchFile(b.getAttribute("data-file"));};});
+  document.querySelectorAll(".cs-del").forEach(function(x){x.onclick=function(ev){ev.stopPropagation();deleteFile(x.getAttribute("data-del"));};});
+}
+function switchFile(name){
+  csSyncEditor();csActive=name;
+  var f=null;for(var i=0;i<csFiles.length;i++)if(csFiles[i].name===name)f=csFiles[i];
+  $("csTabName").textContent=name;$("csLangBadge").textContent=langLabel(name);
+  renderFileList();codeSet(f?f.content:"");
+  ensureMode(name).then(function(){if(cmEditor)cmEditor.refresh();});
+  csPersist();
+}
+function openCodeStudio(files,active,projectId){
+  csProjectId=projectId||null;csFiles=files;csActive=active;
+  $("csSave").classList.toggle("hidden",!csProjectId);
+  $("csMode").textContent=csProjectId?"Project":"Playground";
+  showView("code");
+  loadCM(function(){initCM();renderFileList();switchFile(csActive);if(cmEditor)cmEditor.refresh();});
+}
+function openPlayground(){csLoad();openCodeStudio(csFiles,csActive,null);}
 function openProjectCode(){
   var p=active();if(!p)return;
-  csProjectId=p.id;$("codeLang").value="html";$("codeLang").disabled=true;
-  $("csSave").classList.remove("hidden");$("csMode").textContent=p.name+" — project code";
-  showView("code");
-  loadCM(function(){initCM();if(cmEditor){cmEditor.setOption("mode","htmlmixed");cmEditor.refresh();}codeSet(p.html||"");});
+  var files=[{name:"index.html",content:p.html||""}].concat(p.files||[]);
+  openCodeStudio(files,"index.html",p.id);
+}
+function newFile(){
+  var name=prompt("File name — extension decides the language (e.g. script.py, page.html, Main.java):");
+  if(!name)return;name=name.trim();if(!name)return;
+  for(var i=0;i<csFiles.length;i++)if(csFiles[i].name===name){switchFile(name);return;}
+  csSyncEditor();csFiles.push({name:name,content:starterFor(name)});switchFile(name);csPersist();
+}
+function deleteFile(name){
+  if(csFiles.length<=1){toast("At least one file must stay.");return;}
+  if(!confirm("Delete "+name+"?"))return;
+  csFiles=csFiles.filter(function(f){return f.name!==name;});
+  if(csActive===name)csActive=csFiles[0].name;
+  switchFile(csActive);csPersist();
 }
 function csRunCode(){
-  var lang=$("codeLang").value,code=codeGet(),out=$("codeOut"),st=$("csStatus");
-  if(lang==="html"){$("csPreviewWrap").classList.remove("hidden");$("csPreview").srcdoc=code;out.textContent="// HTML preview neeche render ho gaya";st.textContent="rendered · html";return;}
-  $("csPreviewWrap").classList.add("hidden");st.textContent="Running… ("+lang+")";out.textContent="// running…";
-  fetch("/api/run",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({language:lang,code:code})})
+  csSyncEditor();
+  var name=csActive,e=extOf(name),out=$("codeOut"),st=$("csStatus");
+  var code=codeGet();
+  if(e==="html"||e==="htm"){$("csPreviewWrap").classList.remove("hidden");$("csPreview").srcdoc=code;out.textContent="// Rendered below.";st.textContent="HTML · Preview";return;}
+  $("csPreviewWrap").classList.add("hidden");
+  var rl=RUN_LANGS[e];
+  if(!rl){out.textContent="// "+langLabel(name)+" files do not run. Press Run on a code file (Python, JavaScript, Java, C, C++, Go, Rust, ...).";st.textContent=langLabel(name)+" · View only";return;}
+  st.textContent="Running…";out.textContent="// running…";
+  fetch("/api/run",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({language:rl.lang,code:code,stdin:$("codeStdin").value})})
   .then(function(r){return r.json().then(function(j){return {r:r,j:j};});})
   .then(function(x){
     if(!x.r.ok)throw new Error(x.j.code||("HTTP "+x.r.status));
     var txt=(x.j.stdout||"");if(x.j.stderr)txt+=(txt?"\n":"")+x.j.stderr;
-    out.textContent=txt||"(koi output nahi aaya)";
-    st.textContent=lang+" · "+(x.j.status||"")+(x.j.time?" · "+x.j.time+"s":"")+" · exit "+x.j.exit;
+    out.textContent=txt||"(no output)";
+    st.textContent=rl.label+" · "+(x.j.status||"")+(x.j.time?" · "+x.j.time+"s":"")+" · exit "+x.j.exit;
+    csPersist();
   })
-  .catch(function(e){out.textContent="// Run fail: "+e.message+"\n// Free runner busy ho sakta hai — thodi der baad fir try karo.";st.textContent="error";});
+  .catch(function(err){out.textContent="// Run failed: "+err.message+"\n// The free runner may be busy — try again in a moment.";st.textContent="Error";});
 }
 $("openPlayground").onclick=openPlayground;
 $("codeBtn").onclick=openProjectCode;
-$("csBack").onclick=function(){var p=active();if(csProjectId&&p&&p.id===csProjectId){openWorkspace(p);}else{showView("create");}};
+$("csNewFile").onclick=newFile;
+$("csBack").onclick=function(){csSyncEditor();csPersist();var p=active();if(csProjectId&&p&&p.id===csProjectId){openWorkspace(p);}else{showView("create");}};
 $("csRun").onclick=csRunCode;
 $("csClear").onclick=function(){$("codeOut").textContent="";$("csStatus").textContent="";};
-$("csSave").onclick=function(){var p=active();if(!p||p.id!==csProjectId)return;p.html=codeGet();save();$("previewFrame").srcdoc=p.html;toast("Code saved — preview updated");};
-$("codeLang").onchange=function(){var lang=this.value;if(cmEditor)cmEditor.setOption("mode",CM_MODES[lang]);if(!csProjectId)codeSet(STARTERS[lang]||"");};
+$("csSave").onclick=function(){
+  var p=active();if(!p||p.id!==csProjectId)return;
+  csSyncEditor();
+  var others=[];
+  csFiles.forEach(function(f){if(f.name==="index.html")p.html=f.content;else others.push(f);});
+  p.files=others;save();$("previewFrame").srcdoc=p.html;toast("Saved.");
+};

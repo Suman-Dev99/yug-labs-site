@@ -1,7 +1,7 @@
 // YugLab Code Studio — code runner. Code executes on a free public sandbox
 // engine (Judge0 CE) — never on this server. No key needed; nothing stored.
 const ENGINE = "https://ce.judge0.com";
-const LANG_IDS = { "python": 71, "javascript": 63, "typescript": 74, "java": 62, "c++": 54, "c": 50, "go": 60, "rust": 73 };
+const LANG_IDS = { "python": 71, "javascript": 63, "typescript": 74, "java": 62, "c++": 54, "c": 50, "go": 60, "rust": 73, "php": 68, "ruby": 72, "kotlin": 78, "swift": 83, "csharp": 51, "sql": 82, "bash": 46, "r": 80, "lua": 64 };
 
 export default async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).json({ code: "METHOD_NOT_ALLOWED" });
@@ -17,7 +17,7 @@ export default async function handler(req, res) {
     const ex = await fetch(ENGINE + "/submissions?base64_encoded=false&wait=true", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ language_id: LANG_IDS[lang], source_code: code, stdin: "" }),
+      body: JSON.stringify({ language_id: LANG_IDS[lang], source_code: code, stdin: String(body.stdin || "").slice(0, 4000) }),
       signal: ctl.signal
     });
     clearTimeout(t);
