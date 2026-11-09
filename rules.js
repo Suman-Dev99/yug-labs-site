@@ -6,7 +6,7 @@
    flow ke kaaran ye JS-data file hai (JSON ka exact mirror; harness ise
    seedha load karke test karta hai). */
 window.YUG_RULES = {
-  version: "1.5.0",
+  version: "1.5.1",
   universal: {
     forbiddenText: ["lorem ipsum", "your text here", "coming soon", "todo:", "placeholder text", "[object", "undefined"],
     noProviderNames: true,
@@ -19,14 +19,14 @@ window.YUG_RULES = {
       id: "website", label: "Premium Website", lane: "website",
       required: ["<header", "<nav", "<h1", "hero", "<footer", "fonts.googleapis.com"],
       forbidden: ["three.min.js", "new Chart(", "getElementById(\"msgs\")", "sidebar"],
-      gates: { minBytes: 3000, h1ExactlyOne: true, forms: false },
-      acceptance: ["Spine order: header, hero, core, showcase, about, faq, contact, footer", "Picked colour tokens only", "All links in-page (#)", "GSAP reveal + fonts loaded"]
+      gates: { minBytes: 3000, h1ExactlyOne: true, forms: false, contrast: true },
+      acceptance: ["Spine order: header, hero, core, showcase, about, faq, contact, footer", "Picked colour tokens only", "All links in-page (#)", "GSAP reveal + fonts loaded", "Body + button contrast >= 4.5:1"]
     },
     "3D Website": {
       id: "threed", label: "3D Website", lane: "threed",
       required: ["<header", "<h1", "hero", "THREE", "<canvas", "<footer"],
       forbidden: ["new Chart(", "getElementById(\"msgs\")", "sidebar"],
-      gates: { minBytes: 4000, h1ExactlyOne: true, forms: false, fallbackRequired: true },
+      gates: { minBytes: 4000, h1ExactlyOne: true, forms: false, fallbackRequired: true, contrast: true },
       acceptance: ["Real Three.js scene + WebGL fallback present", "Content readable without the scene", "Glass HUD cards", "Picked colour tints the scene"]
     },
     "Web App": {

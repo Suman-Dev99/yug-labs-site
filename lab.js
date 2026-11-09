@@ -209,7 +209,7 @@ function pageCSS(c,dark,extra){
   +".hero{text-align:center;padding:88px 24px 64px;background:radial-gradient(560px 280px at 50% -40px,"+c+"26,transparent 70%)}"
   +".hero h1{font-size:clamp(32px,5.5vw,52px);letter-spacing:-.02em;line-height:1.12}.hero h1 em{font-style:normal;color:"+c+"}"
   +".hero p{color:"+mut+";font-size:17.5px;max-width:540px;margin:16px auto 28px}"
-  +".btn{display:inline-block;background:"+c+";color:#14100a;font-weight:700;padding:13px 26px;border-radius:999px;text-decoration:none;border:0;cursor:pointer;font-size:15px}.btn.g{background:transparent;color:"+tx+";border:1px solid "+line+";margin-left:10px}"
+  +".btn{display:inline-block;background:"+c+";color:"+bestOnAccent(c)+";font-weight:700;padding:13px 26px;border-radius:999px;text-decoration:none;border:0;cursor:pointer;font-size:15px}.btn.g{background:transparent;color:"+tx+";border:1px solid "+line+";margin-left:10px}"
   +"section{max-width:1040px;margin:0 auto;padding:56px 24px}section h2{text-align:center;font-size:30px;margin-bottom:30px}"
   +".grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}@media(max-width:760px){.grid{grid-template-columns:1fr}}"
   +".card{background:"+panel+";border:1px solid "+line+";border-radius:16px;padding:24px}.card .ic{font-size:26px;margin-bottom:10px}.card h3{margin-bottom:5px}.card p{color:"+mut+";font-size:14.5px}"
@@ -313,6 +313,22 @@ function generate(p){
   p.site=siteFromDetails(p); return p.type==="3D Website"?gen3D(p):genWebsite(p);
 }
 
+/* ---------- contrast helpers (v1.5 Phase 3.5) — WCAG relative luminance ---------- */
+function relLum(hex){
+  var h=String(hex||"").replace("#",""); if(h.length===3)h=h.split("").map(function(x){return x+x;}).join("");
+  if(h.length!==6||/[^0-9a-fA-F]/.test(h))return null;
+  var f=function(v){v/=255;return v<=0.03928?v/12.92:Math.pow((v+0.055)/1.055,2.4);};
+  return 0.2126*f(parseInt(h.substr(0,2),16))+0.7152*f(parseInt(h.substr(2,2),16))+0.0722*f(parseInt(h.substr(4,2),16));
+}
+function contrastRatio(a,b){
+  var x=relLum(a),y=relLum(b); if(x===null||y===null)return null;
+  return (Math.max(x,y)+0.05)/(Math.min(x,y)+0.05);
+}
+function bestOnAccent(hex){
+  var d=contrastRatio("#14100A",hex),w=contrastRatio("#FFFFFF",hex);
+  return (w!==null&&d!==null&&w>d)?"#FFFFFF":"#14100A";
+}
+
 /* ---------- validator core (v1.5 Phase 3.4) — rules.js (YUG_RULES) se chalta hai ---------- */
 function validateBuild(p, html){
   var out=String(html||""), errs=[];
@@ -339,7 +355,22 @@ function validateBuild(p, html){
     if(bad.length)errs.push("external links not allowed: "+bad.slice(0,3).join(", "));
   }
   if(S.gates.forms===false&&/<form[\s>]/i.test(out))errs.push("form element not allowed for this type");
-  return {ok:errs.length===0,errors:errs};
+  var warns=[];
+  if(S.gates.contrast){
+    var bm=out.match(/body\{[^}]*background:(#[0-9a-fA-F]{3,6})[^}]*color:(#[0-9a-fA-F]{3,6})/);
+    if(bm){
+      var bodyRatio=contrastRatio(bm[2],bm[1]);
+      if(bodyRatio!==null&&bodyRatio<4.5)errs.push("body text contrast "+bodyRatio.toFixed(2)+":1 (< 4.5)");
+      var tm=out.match(/\.btn\{[^}]*background:(#[0-9a-fA-F]{3,6});color:(#[0-9a-fA-F]{3,6})/);
+      if(tm){
+        var btnRatio=contrastRatio(tm[2],tm[1]);
+        if(btnRatio!==null&&btnRatio<4.5)errs.push("button text contrast "+btnRatio.toFixed(2)+":1 (< 4.5)");
+        var accRatio=contrastRatio(tm[1],bm[1]);
+        if(accRatio!==null&&accRatio<3)warns.push("accent as text on background is "+accRatio.toFixed(2)+":1 (< 3) — Phase 5.1 token system will auto-adjust");
+      }
+    }
+  }
+  return {ok:errs.length===0,errors:errs,warnings:warns};
 }
 
 /* ---------- build state machine (v1.5 Phase 3.3) ---------- */
@@ -410,7 +441,7 @@ function runBuild(){
       try{p.html=generate(p);}catch(e){setState(p,"FailedBuild");p.status="Failed";bp.style.display="none";save();renderAll();toast("Build failed — please try again");return;}
       setState(p,"Checking");
       var v=validateBuild(p,p.html);
-      p.checks={ok:v.ok,errors:v.errors,at:Date.now(),rules:(window.YUG_RULES||{}).version||"?"};
+      p.checks={ok:v.ok,errors:v.errors,warnings:v.warnings||[],at:Date.now(),rules:(window.YUG_RULES||{}).version||"?"};
       if(!v.ok){setState(p,"FailedValidation");p.status="Failed";bp.style.display="none";save();renderAll();toast("Build failed checks: "+(v.errors[0]||"unknown"));return;}
       setState(p,"Preview"); setState(p,"Packaged");
       p.status="Built — ready"; bp.style.display="none"; save(); renderAll();
