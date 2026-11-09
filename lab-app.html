@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lab Console — YugLab</title>
+<meta name="description" content="YugLab Lab Console — admin workspace. Goal, plan, build, preview, edit, publish.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23F59E0B'/%3E%3Cpath d='M18 16l14 20 14-20h-9l-5 8-5-8z' fill='%2314100a'/%3E%3Crect x='29' y='38' width='6' height='12' fill='%2314100a'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="lab.css">
+</head>
+<body class="lab-body">
+
+<div class="lab-topbar">
+  <a class="logo" href="index.html">Yug<span>Lab</span></a>
+  <span class="admin-badge">ADMIN CONSOLE</span>
+  <div class="top-right">
+    <span class="credits-pill">Credits: <b id="creditsVal">1000</b> · Studio</span>
+    <a class="btn small ghost" href="index.html">View Site</a>
+  </div>
+</div>
+
+<div class="lab-shell">
+  <!-- Sidebar: projects -->
+  <aside class="lab-side">
+    <button class="btn" id="newProjectBtn" style="width:100%;justify-content:center">＋ New Project</button>
+    <div class="side-label">Projects</div>
+    <div id="projectList"></div>
+    <div class="side-note">Audience access opens with subscriptions in the backend phase. This console is yours — admin only, not linked from the public site.</div>
+  </aside>
+
+  <!-- Main workspace -->
+  <main class="lab-main">
+    <div id="emptyState" class="empty-state">
+      <h2>Welcome to your Lab, Suman.</h2>
+      <p>Create a project, state the goal — the Lab plans, builds and previews it here.</p>
+      <button class="btn" id="emptyNewBtn">Start a Project</button>
+    </div>
+
+    <div id="workspace" style="display:none">
+      <div class="ws-head">
+        <h2 id="wsTitle">Project</h2>
+        <span class="pill" id="wsType">Website</span>
+        <span class="pill pill-dim" id="wsStatus">Draft</span>
+      </div>
+
+      <!-- Goal -->
+      <div class="panel">
+        <div class="panel-title">1 · Goal</div>
+        <div class="goal-row">
+          <input id="goalInput" type="text" placeholder='Example: A premium website for my coffee shop, dark theme, blue accent'>
+          <button class="btn" id="planBtn">Make Plan</button>
+        </div>
+        <div class="quick-goals">
+          <button class="chip" data-goal="A premium website for my coffee shop, dark theme">☕ Coffee Shop Website</button>
+          <button class="chip" data-goal="A portfolio website for a photographer, minimal and dark">📸 Portfolio</button>
+          <button class="chip" data-goal="A landing page for my fitness gym, bold and energetic">🏋️ Gym Landing Page</button>
+          <button class="chip" data-goal="A website for my clothing brand, premium fashion look">👕 Fashion Brand</button>
+        </div>
+      </div>
+
+      <!-- Plan -->
+      <div class="panel" id="planPanel" style="display:none">
+        <div class="panel-title">2 · Plan <span class="cost" id="planCost"></span></div>
+        <ol class="plan-list" id="planList"></ol>
+        <div class="row-btns">
+          <button class="btn" id="approveBtn">Approve — Build It</button>
+          <button class="btn ghost" id="replanBtn">Replan</button>
+        </div>
+      </div>
+
+      <!-- Build -->
+      <div class="panel" id="buildPanel" style="display:none">
+        <div class="panel-title">3 · Build</div>
+        <div id="buildSteps"></div>
+      </div>
+
+      <!-- Preview + Edit + Publish -->
+      <div class="panel" id="resultPanel" style="display:none">
+        <div class="panel-title">4 · Preview</div>
+        <div class="preview-frame"><iframe id="previewFrame" title="preview" sandbox="allow-scripts"></iframe></div>
+        <div class="panel-title" style="margin-top:22px">Chat Edit <span class="cost">2 credits per edit</span></div>
+        <div class="chat-log" id="chatLog"></div>
+        <div class="goal-row">
+          <input id="chatInput" type="text" placeholder='Try: "make it blue" · "change title to Sharma Cafe" · "add pricing section" · "light mode"'>
+          <button class="btn" id="chatSendBtn">Apply</button>
+        </div>
+        <div class="panel-title" style="margin-top:22px">5 · Publish</div>
+        <div class="row-btns">
+          <button class="btn" id="downloadBtn">Download Website</button>
+          <button class="btn ghost" id="copyBtn">Copy Code</button>
+          <button class="btn ghost" id="openBtn">Open Full Preview</button>
+        </div>
+        <p class="publish-note">Downloads are real, finished files — host them anywhere. One-click publish to your GitHub / Vercel arrives with the backend phase.</p>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="lab.js"></script>
+</body>
+</html>
