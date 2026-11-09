@@ -356,6 +356,22 @@ function validateBuild(p, html){
   }
   if(S.gates.forms===false&&/<form[\s>]/i.test(out))errs.push("form element not allowed for this type");
   var warns=[];
+  if(R.universal.domChecks){
+    var idSeen={}, idDups=[], idRe=/id="([^"]+)"/g, im;
+    while((im=idRe.exec(out))){ if(idSeen[im[1]]&&idDups.indexOf(im[1])===-1)idDups.push(im[1]); idSeen[im[1]]=1; }
+    idDups.forEach(function(id){errs.push("duplicate id: "+id);});
+    ["div","section","header","footer","main","nav","button"].forEach(function(tag){
+      var open=(out.match(new RegExp("<"+tag+"[\\s>]","g"))||[]).length;
+      var close=(out.match(new RegExp("</"+tag+">","g"))||[]).length;
+      if(open!==close)errs.push("unbalanced <"+tag+"> (open "+open+", close "+close+")");
+    });
+    if(!/name="viewport"/.test(out))errs.push("viewport meta missing");
+    var imgRe=/<img\b[^>]*>/gi, ig;
+    while((ig=imgRe.exec(out))){ if(!/alt=/.test(ig[0]))errs.push("img without alt attribute"); }
+    if(out.indexOf("100vw")>-1)warns.push("100vw used — horizontal overflow risk on scrollbars");
+    var fw=out.match(/(?<!max-)(?<!min-)width:\s*([5-9]\d\d|\d{4,})px/g);
+    if(fw)warns.push("fixed pixel widths >480px found ("+fw.length+") — check mobile overflow");
+  }
   if(S.gates.contrast){
     var bm=out.match(/body\{[^}]*background:(#[0-9a-fA-F]{3,6})[^}]*color:(#[0-9a-fA-F]{3,6})/);
     if(bm){
