@@ -313,6 +313,16 @@ function generate(p){
   p.site=siteFromDetails(p); return p.type==="3D Website"?gen3D(p):genWebsite(p);
 }
 
+/* ---------- build state machine (v1.5 Phase 3.3) ---------- */
+var BSTATES=["Draft","Validating","Planning","Building","Checking","Preview","Packaged"];
+var BFAIL=["NeedsInput","FailedValidation","FailedBuild"];
+function setState(p,s){
+  if(!p)return;
+  p.state=s; p.stateLog=p.stateLog||[];
+  p.stateLog.push({s:s,t:Date.now()});
+  if(p.stateLog.length>40)p.stateLog=p.stateLog.slice(-40);
+}
+
 /* ---------- projects sidebar ---------- */
 function renderProjects(){
   var el=$("projectList"); el.innerHTML="";
@@ -349,13 +359,16 @@ function toPlan(){
   if(draft.projectId){p=state.projects.filter(function(x){return x.id===draft.projectId;})[0];}
   if(!p){p={id:"p"+Date.now(),name:d.name,type:draft.type,status:"Plan ready",details:d,plan:null,html:"",site:null};state.projects.push(p);state.activeId=p.id;}
   else{p.name=d.name;p.details=d;p.type=draft.type;p.html="";p.status="Plan ready";}
-  p.plan=planFor(p); draft=null; save(); renderAll(); toast("Plan ready — approve to build");
+  if(!p.state)setState(p,"Draft");
+  setState(p,"Validating");
+  p.plan=planFor(p); setState(p,"Planning");
+  draft=null; save(); renderAll(); toast("Plan ready — approve to build");
 }
 function runBuild(){
   var p=active(); if(!p||!p.plan)return;
   var cost=COSTS[p.type];
   if(state.credits<cost){toast("Not enough credits");return;}
-  state.credits-=cost; p.status="Building"; save();
+  state.credits-=cost; p.status="Building"; setState(p,"Building"); save();
   $("creditsVal").textContent=state.credits; $("wsStatus").textContent="Building";
   $("planPanel").style.display="none"; setStep(4);
   var bp=$("buildPanel"); bp.style.display="block";
@@ -365,7 +378,11 @@ function runBuild(){
   (function next(){
     if(i>0){var prev=$("bs"+(i-1));prev.classList.remove("active");prev.classList.add("done");prev.querySelector(".st").textContent="✓";}
     if(i>=steps.length){
-      p.html=generate(p); p.status="Built — ready"; bp.style.display="none"; save(); renderAll();
+      try{p.html=generate(p);}catch(e){setState(p,"FailedBuild");p.status="Failed";bp.style.display="none";save();renderAll();toast("Build failed — please try again");return;}
+      setState(p,"Checking");
+      if(!p.html||p.html.length<500){setState(p,"FailedValidation");p.status="Failed";bp.style.display="none";save();renderAll();toast("Build failed checks — please try again");return;}
+      setState(p,"Preview"); setState(p,"Packaged");
+      p.status="Built — ready"; bp.style.display="none"; save(); renderAll();
       editSay("lab","<b>Lab:</b> Build complete. Preview is live — quick-edit below, download when happy.");
       toast("Build complete ✔"); return;
     }
