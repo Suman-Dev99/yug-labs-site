@@ -3,3 +3,5 @@
 export default function handler(req, res) {
   res.status(200).json({ ok: true, ai: !!process.env.YUG_AI_KEY });
 }
+
+// redeploy trigger: pick up new env vars (2026-11-09)
