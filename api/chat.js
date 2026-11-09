@@ -1,15 +1,17 @@
 // Yug AI — chat endpoint. The provider key lives ONLY in server env vars
 // (YUG_AI_KEY / YUG_AI_ENDPOINT / YUG_AI_MODEL) and never reaches the browser.
 import { rateLimit, tooMany } from "./_ratelimit.js";
+import { logEvent } from "./_log.js";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).json({ code: "METHOD_NOT_ALLOWED" });
+  const t0 = Date.now();
   const rl = rateLimit(req, "chat", 20, 60000);
-  if (!rl.ok) return tooMany(res, rl.retryAfter);
+  if (!rl.ok) { logEvent("chat", "RATE_LIMITED"); return tooMany(res, rl.retryAfter); }
   const key = process.env.YUG_AI_KEY;
   const endpoint = process.env.YUG_AI_ENDPOINT;
   const model = process.env.YUG_AI_MODEL;
-  if (!key || !endpoint || !model) return res.status(503).json({ code: "YUG_AI_NOT_CONFIGURED" });
+  if (!key || !endpoint || !model) { logEvent("chat", "NOT_CONFIGURED"); return res.status(503).json({ code: "YUG_AI_NOT_CONFIGURED" }); }
   try {
     if (typeof req.body === "string" && req.body.length > 100000) return res.status(413).json({ code: "PAYLOAD_TOO_LARGE" });
     let body;
@@ -33,14 +35,15 @@ export default async function handler(req, res) {
         signal: ctl.signal
       });
     } catch (e) {
-      if (e && e.name === "AbortError") return res.status(504).json({ code: "UPSTREAM_TIMEOUT" });
+      if (e && e.name === "AbortError") { logEvent("chat", "UPSTREAM_TIMEOUT", { ms: Date.now() - t0 }); return res.status(504).json({ code: "UPSTREAM_TIMEOUT" }); }
       throw e;
     } finally {
       clearTimeout(timer);
     }
-    if (!upstream.ok) return res.status(502).json({ code: "UPSTREAM_ERROR" });
+    if (!upstream.ok) { logEvent("chat", "UPSTREAM_ERROR", { ms: Date.now() - t0 }); return res.status(502).json({ code: "UPSTREAM_ERROR" }); }
     const j = await upstream.json();
     const m = j.choices && j.choices[0] && j.choices[0].message;
+    logEvent("chat", "OK", { ms: Date.now() - t0 });
     return res.status(200).json({ content: (m && m.content) || "" });
   } catch (e) {
     return res.status(502).json({ code: "UPSTREAM_ERROR" });
