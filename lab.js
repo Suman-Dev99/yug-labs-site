@@ -313,6 +313,35 @@ function generate(p){
   p.site=siteFromDetails(p); return p.type==="3D Website"?gen3D(p):genWebsite(p);
 }
 
+/* ---------- validator core (v1.5 Phase 3.4) — rules.js (YUG_RULES) se chalta hai ---------- */
+function validateBuild(p, html){
+  var out=String(html||""), errs=[];
+  var R=(typeof window!=="undefined"&&window.YUG_RULES)||null;
+  var S=R&&p?R.types[p.type]:null;
+  if(!S){ /* legacy/unknown type: sirf basic sanity, hard fail nahi */
+    if(out.length<500)errs.push("output too small: "+out.length);
+    return {ok:errs.length===0,errors:errs,legacy:true};
+  }
+  if(out.length<(S.gates.minBytes||0))errs.push("output too small: "+out.length+" < "+S.gates.minBytes);
+  S.required.forEach(function(m){if(out.indexOf(m)===-1)errs.push("missing required: "+m);});
+  S.forbidden.forEach(function(m){if(out.indexOf(m)>-1)errs.push("forbidden present: "+m);});
+  var low=out.toLowerCase();
+  (R.universal.forbiddenText||[]).forEach(function(m){if(low.indexOf(m)>-1)errs.push("forbidden text: "+m);});
+  if(S.gates.h1ExactlyOne){
+    var h1=(out.match(/<h1[\s>]/g)||[]).length;
+    if(h1!==1)errs.push("h1 count "+h1+" (exactly 1 required)");
+    var ih=out.indexOf("<header"),ihero=out.indexOf('class="hero'),ift=out.indexOf("<footer");
+    if(ih>-1&&ihero>-1&&ift>-1&&!(ih<ihero&&ihero<ift))errs.push("section order broken (header < hero < footer)");
+  }
+  if(R.universal.externalLinksAllowed===false){
+    var bad=[];var re=/<a\s[^>]*href="([^"]*)"/gi,m;
+    while((m=re.exec(out))){if(m[1].charAt(0)!=="#")bad.push(m[1]);}
+    if(bad.length)errs.push("external links not allowed: "+bad.slice(0,3).join(", "));
+  }
+  if(S.gates.forms===false&&/<form[\s>]/i.test(out))errs.push("form element not allowed for this type");
+  return {ok:errs.length===0,errors:errs};
+}
+
 /* ---------- build state machine (v1.5 Phase 3.3) ---------- */
 var BSTATES=["Draft","Validating","Planning","Building","Checking","Preview","Packaged"];
 var BFAIL=["NeedsInput","FailedValidation","FailedBuild"];
@@ -380,7 +409,9 @@ function runBuild(){
     if(i>=steps.length){
       try{p.html=generate(p);}catch(e){setState(p,"FailedBuild");p.status="Failed";bp.style.display="none";save();renderAll();toast("Build failed — please try again");return;}
       setState(p,"Checking");
-      if(!p.html||p.html.length<500){setState(p,"FailedValidation");p.status="Failed";bp.style.display="none";save();renderAll();toast("Build failed checks — please try again");return;}
+      var v=validateBuild(p,p.html);
+      p.checks={ok:v.ok,errors:v.errors,at:Date.now(),rules:(window.YUG_RULES||{}).version||"?"};
+      if(!v.ok){setState(p,"FailedValidation");p.status="Failed";bp.style.display="none";save();renderAll();toast("Build failed checks: "+(v.errors[0]||"unknown"));return;}
       setState(p,"Preview"); setState(p,"Packaged");
       p.status="Built — ready"; bp.style.display="none"; save(); renderAll();
       editSay("lab","<b>Lab:</b> Build complete. Preview is live — quick-edit below, download when happy.");
