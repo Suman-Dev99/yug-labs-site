@@ -12,7 +12,9 @@ export default async function handler(req, res) {
   if (!key || !endpoint || !model) return res.status(503).json({ code: "YUG_AI_NOT_CONFIGURED" });
   try {
     if (typeof req.body === "string" && req.body.length > 100000) return res.status(413).json({ code: "PAYLOAD_TOO_LARGE" });
-    const body = typeof req.body === "string" ? JSON.parse(req.body || "{}") : (req.body || {});
+    let body;
+    try { body = typeof req.body === "string" ? JSON.parse(req.body || "{}") : (req.body || {}); }
+    catch (e) { return res.status(400).json({ code: "INVALID_JSON" }); }
     const messages = (Array.isArray(body.messages) ? body.messages : []).slice(-12)
       .filter((m) => m && typeof m === "object")
       .map((m) => ({
@@ -36,7 +38,7 @@ export default async function handler(req, res) {
     } finally {
       clearTimeout(timer);
     }
-    if (!upstream.ok) return res.status(502).json({ code: "UPSTREAM_" + upstream.status });
+    if (!upstream.ok) return res.status(502).json({ code: "UPSTREAM_ERROR" });
     const j = await upstream.json();
     const m = j.choices && j.choices[0] && j.choices[0].message;
     return res.status(200).json({ content: (m && m.content) || "" });

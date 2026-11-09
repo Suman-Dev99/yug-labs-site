@@ -25,7 +25,7 @@ export default async function handler(req, res) {
       signal: ctl.signal
     });
     clearTimeout(t);
-    if (!ex.ok) return res.status(502).json({ code: "ENGINE_" + ex.status });
+    if (!ex.ok) return res.status(502).json({ code: "ENGINE_ERROR" });
     const j = await ex.json();
     const accepted = j.status && j.status.id === 3;
     return res.status(200).json({
