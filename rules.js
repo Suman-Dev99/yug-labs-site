@@ -6,7 +6,7 @@
    flow ke kaaran ye JS-data file hai (JSON ka exact mirror; harness ise
    seedha load karke test karta hai). */
 window.YUG_RULES = {
-  version: "1.5.15",
+  version: "1.5.17",
   universal: {
     forbiddenText: ["lorem ipsum", "your text here", "coming soon", "todo:", "placeholder text", "[object", "undefined"],
     noProviderNames: true,
@@ -55,14 +55,14 @@ window.YUG_RULES = {
       id: "chatbot", label: "AI Chatbot", lane: "chatbot",
       required: ["msgs", "inp"],
       forbidden: ["three.min.js", "new Chart(", "<canvas"],
-      gates: { minBytes: 2000, maxBytes: 12000, maxExternal: 2, forms: false },
+      gates: { bot: true, minBytes: 2000, maxBytes: 12000, maxExternal: 2, forms: false },
       acceptance: ["Answers only from supplied business data", "Fixed fallback for out-of-data questions", "Starter questions from the data", "No provider names anywhere"]
     },
     "AI Agent": {
       id: "agent", label: "AI Agent", lane: "agent",
       required: ["STEPS", "resText"],
       forbidden: ["three.min.js", "new Chart(", "getElementById(\"msgs\")"],
-      gates: { minBytes: 2500, maxBytes: 16000, maxExternal: 2, forms: false },
+      gates: { agent: true, minBytes: 2500, maxBytes: 16000, maxExternal: 2, forms: false },
       acceptance: ["Numbered plan before run", "Step log with status per step", "Structured result summary", "No silent steps"]
     }
   }
