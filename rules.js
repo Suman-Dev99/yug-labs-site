@@ -6,7 +6,7 @@
    flow ke kaaran ye JS-data file hai (JSON ka exact mirror; harness ise
    seedha load karke test karta hai). */
 window.YUG_RULES = {
-  version: "1.5.13",
+  version: "1.5.15",
   universal: {
     forbiddenText: ["lorem ipsum", "your text here", "coming soon", "todo:", "placeholder text", "[object", "undefined"],
     noProviderNames: true,
@@ -41,14 +41,14 @@ window.YUG_RULES = {
       id: "threed", label: "3D Website", lane: "threed",
       required: ["<header", "<h1", "hero", "THREE", "<canvas", "<footer"],
       forbidden: ["new Chart(", "getElementById(\"msgs\")", "sidebar"],
-      gates: { minBytes: 4000, maxBytes: 28000, maxExternal: 4, h1ExactlyOne: true, forms: false, fallbackRequired: true, contrast: true, typography: true, layout: true, motion: true, seo: true, a11y: true },
+      gates: { scene: true, minBytes: 4000, maxBytes: 28000, maxExternal: 4, h1ExactlyOne: true, forms: false, fallbackRequired: true, contrast: true, typography: true, layout: true, motion: true, seo: true, a11y: true },
       acceptance: ["Real Three.js scene + WebGL fallback present", "Content readable without the scene", "Glass HUD cards", "Picked colour tints the scene"]
     },
     "Web App": {
       id: "webapp", label: "Web App", lane: "webapp",
       required: ["login", "Chart", "<canvas"],
       forbidden: ["three.min.js", "getElementById(\"msgs\")"],
-      gates: { minBytes: 3000, maxBytes: 16000, maxExternal: 3, forms: false },
+      gates: { app: true, minBytes: 3000, maxBytes: 16000, maxExternal: 3, forms: false },
       acceptance: ["Demo-labelled login", "Dashboard with live Chart.js chart", "Working modules with real state", "No marketing hero/testimonials"]
     },
     "AI Chatbot": {
