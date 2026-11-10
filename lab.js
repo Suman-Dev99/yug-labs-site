@@ -456,6 +456,14 @@ function validateBuild(p, html){
     });
   }
   var warns=[];
+  if(S.gates.maxBytes){
+    if(out.length>S.gates.maxBytes)errs.push("page weight "+out.length+" bytes exceeds budget "+S.gates.maxBytes);
+    else if(out.length>=S.gates.maxBytes*0.8)warns.push("page weight "+out.length+" near budget "+S.gates.maxBytes);
+  }
+  if(S.gates.maxExternal!=null){
+    var extN=((out.match(/<script[^>]+src="https?:/g)||[]).length)+((out.match(/<link[^>]+href="https?:/g)||[]).length);
+    if(extN>S.gates.maxExternal)errs.push("external requests "+extN+" exceed budget "+S.gates.maxExternal);
+  }
   if(p&&p.details&&p.details.name&&p.details.name.length>60)warns.push("business name is long ("+p.details.name.length+" chars) — shorter names read better");
   if(R.universal.domChecks){
     var idSeen={}, idDups=[], idRe=/id="([^"]+)"/g, im;
