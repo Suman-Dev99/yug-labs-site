@@ -81,7 +81,7 @@ function renderTypes(){
   document.querySelectorAll(".type-card").forEach(function(c){c.onclick=function(){startDraft(c.getAttribute("data-type"));};});
 }
 function defaultDetails(type){
-  if(type==="Website"||type==="3D Website")return {name:"",category:"generic",color:"mono",colorHex:"",mode:"dark",sections:["Pricing"],instructions:""};
+  if(type==="Website"||type==="3D Website")return {name:"",category:"generic",color:"mono",colorHex:"",mode:"dark",sections:["Pricing"],reviews:"",instructions:""};
   if(type==="Web App")return {name:"",purpose:"Booking",features:["Login Screen","Dashboard"],color:"mono",mode:"dark",instructions:""};
   if(type==="AI Chatbot")return {name:"",business:"",tone:"Friendly",data:"",color:"mono",instructions:""};
   if(type==="AI Agent")return {name:"",job:"Research",tools:["Web Search","Reports"],instructions:""};
@@ -124,6 +124,7 @@ function renderForm(){
     H+=field("Colour",pickerHTML(d));
     H+=field("Theme",toggleHTML("dark","light",d.mode));
     H+=field("Sections",checksHTML(["Pricing","Testimonials","Gallery"],d.sections));
+    H+=field("Your Customer Reviews — real ones only, one per line (Review — Name)",'<textarea id="f_reviews" placeholder="e.g. Best cafe in our area, loved the cold coffee — Priya S.">'+esc(d.reviews||"")+'</textarea>');
   }else if(t==="Web App"){
     H+=field("App Name",'<input type="text" id="f_name" placeholder="e.g. FitBook" value="'+esc(d.name)+'">');
     H+=field("Purpose",'<select id="f_purpose">'+["Booking","Dashboard","Online Store","Task Tracker","Other"].map(function(o){return '<option'+(d.purpose===o?" selected":"")+'>'+o+'</option>';}).join("")+'</select>');
@@ -162,6 +163,7 @@ function collectForm(){
   function v(id){var el=$(id);return el?el.value.trim():"";}
   if($("f_name"))d.name=v("f_name");
   if($("f_category"))d.category=$("f_category").value;
+  if($("f_reviews"))d.reviews=$("f_reviews").value;
   if($("cpHex")){var hv=$("cpHex").value.trim();if(/^#?[0-9a-fA-F]{6}$/.test(hv))d.colorHex=("#"+hv.replace("#","")).toUpperCase();}
   if($("f_purpose"))d.purpose=$("f_purpose").value;
   if($("f_business"))d.business=v("f_business");
@@ -199,7 +201,9 @@ function detailChips(p){
 /* ---------- generators ---------- */
 function siteFromDetails(p){
   var d=p.details;
-  return {name:d.name||p.name,tagline:"Welcome to "+(d.name||p.name),theme:d.category||"generic",colorName:d.color||"mono",colorHex:(d.colorHex||""),dark:d.mode!=="light",fx3d:p.type==="3D Website",sections:{pricing:(d.sections||[]).indexOf("Pricing")>-1,testimonials:(d.sections||[]).indexOf("Testimonials")>-1,gallery:(d.sections||[]).indexOf("Gallery")>-1}};
+  var revs=[];
+  if(d.reviews){String(d.reviews).split(/\n+/).forEach(function(line){line=line.trim();if(!line)return;var parts=line.split(/\s+[—–-]\s+/);var nm=parts.length>1?parts.pop().trim():"Customer";var tx=parts.join(" — ").trim();if(tx)revs.push({text:tx.slice(0,200),name:(nm||"Customer").slice(0,40)});});revs=revs.slice(0,3);}
+  return {name:d.name||p.name,tagline:"Welcome to "+(d.name||p.name),theme:d.category||"generic",colorName:d.color||"mono",colorHex:(d.colorHex||""),dark:d.mode!=="light",fx3d:p.type==="3D Website",sections:{pricing:(d.sections||[]).indexOf("Pricing")>-1,testimonials:(d.sections||[]).indexOf("Testimonials")>-1,gallery:(d.sections||[]).indexOf("Gallery")>-1},reviews:revs};
 }
 function pageCSS(c,dark,extra){
   var bg=dark?"#0C0E13":"#FAFAF8",panel=dark?"#141821":"#FFFFFF",tx=dark?"#EDF0F5":"#16181D",mut=dark?"#9AA6B5":"#5B6472",line=dark?"#232A38":"#E6E3DC";
@@ -222,7 +226,7 @@ function gen3D(p){
   var bpCta=blueprintFor(s.theme).cta;
   var feats=th.feats.map(function(f){return '<div class="card"><div class="ic">'+f[0]+'</div><h3>'+f[1]+'</h3><p>'+f[2]+'</p></div>';}).join("");
   var pricing=s.sections.pricing?'<section id="pricing"><h2>Pricing</h2><div class="grid"><div class="card"><h3>Essential</h3><div class="pr">₹999</div><p>Everything you need to start.</p></div><div class="card pop"><h3>Signature</h3><div class="pr">₹2,499</div><p>The full experience, most loved.</p></div><div class="card"><h3>Premium</h3><div class="pr">₹4,999</div><p>Top tier, no compromises.</p></div></div></section>':"";
-  var testi=s.sections.testimonials?'<section id="love"><h2>Loved by customers</h2><div class="grid"><div class="card"><p>"Exactly what I hoped for — and then some."</p><b>— Priya S.</b></div><div class="card"><p>"Quality, honesty, and it just feels premium."</p><b>— Rahul M.</b></div><div class="card"><p>"Booked in minutes, delighted for weeks."</p><b>— Anita D.</b></div></div></section>':"";
+  var testi=(s.sections.testimonials&&s.reviews&&s.reviews.length)?'<section id="love"><h2>Loved by customers</h2><div class="grid">'+s.reviews.map(function(r){return '<div class="card"><p>"'+esc(r.text)+'"</p><b>— '+esc(r.name)+'</b></div>';}).join("")+'</div></section>':"";
   var gallery=s.sections.gallery?'<section id="gallery"><h2>Gallery</h2><div class="grid"><div class="card tile">🌟</div><div class="card tile">🎨</div><div class="card tile">📸</div><div class="card tile">✨</div><div class="card tile">🏆</div><div class="card tile">💎</div></div></section>':"";
   var trust='<section id="trust" style="padding-top:34px"><div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">'+["Transparent pricing","Personal attention","Quality checked twice","Easy to reach"].map(function(t){return '<span style="border:1px solid '+c+'66;border-radius:999px;padding:8px 16px;font-size:13.5px;font-weight:600">✓ '+t+'</span>';}).join("")+'</div></section>';
   var process='<section id="process"><h2>How it works</h2><div class="grid"><div class="card"><div class="ic">1</div><h3>Reach out</h3><p>Tell us what you need — walk in, call, or message.</p></div><div class="card"><div class="ic">2</div><h3>We plan it together</h3><p>You approve the plan and the full price before we start.</p></div><div class="card"><div class="ic">3</div><h3>Delivered with care</h3><p>Checked twice before it reaches you. That is the habit.</p></div></div></section>';
@@ -262,7 +266,7 @@ function genWebsite(p){
   var fx="body{font-family:'Manrope',system-ui,sans-serif}h1,h2{font-family:'Fraunces',Georgia,serif}"+(s.fx3d?".hero h1{transform:perspective(600px) rotateX(4deg);text-shadow:0 18px 40px rgba(0,0,0,.45)}.card{transition:.25s}.card:hover{transform:translateY(-6px) perspective(500px) rotateX(3deg)}":"");
   var feats=th.feats.map(function(f){return '<div class="card"><div class="ic">'+f[0]+'</div><h3>'+f[1]+'</h3><p>'+f[2]+'</p></div>';}).join("");
   var pricing=s.sections.pricing?'<section id="pricing"><h2>Pricing</h2><div class="grid"><div class="card"><h3>Essential</h3><div class="pr">₹999</div><p>Everything you need to start.</p></div><div class="card pop"><h3>Signature</h3><div class="pr">₹2,499</div><p>The full experience, most loved.</p></div><div class="card"><h3>Premium</h3><div class="pr">₹4,999</div><p>Top tier, no compromises.</p></div></div></section>':"";
-  var testi=s.sections.testimonials?'<section id="love"><h2>Loved by customers</h2><div class="grid"><div class="card"><p>"Exactly what I hoped for — and then some. I keep coming back."</p><b>— Priya S.</b></div><div class="card"><p>"Quality, honesty, and it just feels premium. Rare combination."</p><b>— Rahul M.</b></div><div class="card"><p>"Booked in minutes, delighted for weeks. Highly recommended."</p><b>— Anita D.</b></div></div></section>':"";
+  var testi=(s.sections.testimonials&&s.reviews&&s.reviews.length)?'<section id="love"><h2>Loved by customers</h2><div class="grid">'+s.reviews.map(function(r){return '<div class="card"><p>"'+esc(r.text)+'"</p><b>— '+esc(r.name)+'</b></div>';}).join("")+'</div></section>':"";
   var gallery=s.sections.gallery?'<section id="gallery"><h2>Gallery</h2><div class="grid"><div class="card tile">🌟</div><div class="card tile">🎨</div><div class="card tile">📸</div><div class="card tile">✨</div><div class="card tile">🏆</div><div class="card tile">💎</div></div></section>':"";
   var trust='<section id="trust" style="padding-top:34px"><div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">'+["Transparent pricing","Personal attention","Quality checked twice","Easy to reach"].map(function(t){return '<span style="border:1px solid '+c+'66;border-radius:999px;padding:8px 16px;font-size:13.5px;font-weight:600">✓ '+t+'</span>';}).join("")+'</div></section>';
   var process='<section id="process"><h2>How it works</h2><div class="grid"><div class="card"><div class="ic">1</div><h3>Reach out</h3><p>Tell us what you need — walk in, call, or message.</p></div><div class="card"><div class="ic">2</div><h3>We plan it together</h3><p>You approve the plan and the full price before we start.</p></div><div class="card"><div class="ic">3</div><h3>Delivered with care</h3><p>Checked twice before it reaches you. That is the habit.</p></div></div></section>';
@@ -382,6 +386,11 @@ function validateBuild(p, html){
   var _bp=R.blueprints&&p&&p.details?R.blueprints[p.details.category]:null;
   var _dm=_bp?(_bp.disclaimerMarker||(_bp.requiresDisclaimer?"not medical advice":null)):null;
   if(_dm&&out.indexOf(_dm)===-1)errs.push("disclaimer missing: "+_dm);
+  var userText="";
+  if(p&&p.details){for(var _k in p.details){var _v=p.details[_k];if(typeof _v==="string")userText+="\n"+_v;else if(Array.isArray(_v))_v.forEach(function(x){if(typeof x==="string")userText+="\n"+x;});}}
+  var visText=out.replace(/<script[\s\S]*?<\/script>/g," ").replace(/<style[\s\S]*?<\/style>/g," ").replace(/<[^>]+>/g," ");
+  var CLAIMRULES=[[/((?<![\d,])\d{2,}\+?\s*(happy\s+)?(customers|clients|students|patients|members|projects|users))\b/i,"invented count claim"],[/\b(no\.?\s*1|#1|best in (the )?(city|india|world)|award[- ]winning|top[- ]rated)\b/i,"invented superlative claim"],[/\b\d+(\.\d+)?\s*stars?\b|\brated\s+\d+(\.\d+)?/i,"invented rating claim"],[/\bguaranteed\s+(results?|success|placement|selection|returns?)\b/i,"invented guarantee claim"],[/\bsince\s+(19|20)\d{2}\b/i,"invented founding-year claim"]];
+  CLAIMRULES.forEach(function(cr){var re=new RegExp(cr[0].source,"gi");var m;while((m=re.exec(visText))){if(userText.indexOf(m[0])===-1){errs.push(cr[1]+": "+m[0]);break;}}});
   if(S.spine){
     var lastIdx=-1;
     S.spine.forEach(function(sec){
@@ -392,6 +401,7 @@ function validateBuild(p, html){
     });
   }
   var warns=[];
+  if(p&&p.details&&p.details.name&&p.details.name.length>60)warns.push("business name is long ("+p.details.name.length+" chars) — shorter names read better");
   if(R.universal.domChecks){
     var idSeen={}, idDups=[], idRe=/id="([^"]+)"/g, im;
     while((im=idRe.exec(out))){ if(idSeen[im[1]]&&idDups.indexOf(im[1])===-1)idDups.push(im[1]); idSeen[im[1]]=1; }
