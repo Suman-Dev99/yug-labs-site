@@ -393,6 +393,43 @@ function validateBuild(p, html){
   return {ok:errs.length===0,errors:errs,warnings:warns};
 }
 
+/* ---------- auto-fix loop (v1.5 Phase 3.8) — sirf deterministic safe fixes, max 3 rounds ---------- */
+function autoFix(html, errors){
+  var out=String(html||""), applied=[];
+  errors.forEach(function(e){
+    if(e==="img without alt attribute"&&applied.indexOf("img-alt")===-1){
+      out=out.replace(/<img\b(?![^>]*alt=)[^>]*>/gi,function(t){return t.replace(/<img/i,'<img alt=""');});
+      applied.push("img-alt");
+    }else if(e==="viewport meta missing"&&applied.indexOf("viewport")===-1){
+      out=out.replace(/<head>/i,'<head>\n<meta name="viewport" content="width=device-width, initial-scale=1.0">');
+      applied.push("viewport");
+    }else if(e.indexOf("duplicate id: ")===0){
+      var id=e.slice("duplicate id: ".length), n=0;
+      out=out.replace(new RegExp('id="'+id.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")+'"',"g"),function(){ n++; return n===1?('id="'+id+'"'):('id="'+id+'-'+n+'"'); });
+      if(n>1)applied.push("dup-id:"+id);
+    }else if(e.indexOf("unbalanced <")===0){
+      var m=e.match(/unbalanced <(\w+)> \(open (\d+), close (\d+)\)/);
+      if(m&&+m[2]>+m[3]){
+        var closers=""; for(var i=0;i<(+m[2]-+m[3]);i++)closers+="</"+m[1]+">";
+        out=out.replace(/<\/body>/i,closers+"</body>"); if(!/<\/body>/i.test(out))out+=closers;
+        applied.push("balance:"+m[1]);
+      }
+    }
+  });
+  return {html:out,applied:applied};
+}
+function validateWithFix(p, html){
+  var v=validateBuild(p,html), rounds=0, fixes=[];
+  while(!v.ok&&rounds<3){
+    var f=autoFix(html,v.errors);
+    if(!f.applied.length)break;
+    html=f.html; fixes=fixes.concat(f.applied); rounds++;
+    v=validateBuild(p,html);
+  }
+  v.rounds=rounds; v.fixes=fixes; v.html=html;
+  return v;
+}
+
 /* ---------- build state machine (v1.5 Phase 3.3) ---------- */
 var BSTATES=["Draft","Validating","Planning","Building","Checking","Preview","Packaged"];
 var BFAIL=["NeedsInput","FailedValidation","FailedBuild"];
@@ -460,8 +497,9 @@ function runBuild(){
     if(i>=steps.length){
       try{p.html=generate(p);}catch(e){setState(p,"FailedBuild");p.status="Failed";bp.style.display="none";save();renderAll();toast("Build failed — please try again");return;}
       setState(p,"Checking");
-      var v=validateBuild(p,p.html);
-      p.checks={ok:v.ok,errors:v.errors,warnings:v.warnings||[],at:Date.now(),rules:(window.YUG_RULES||{}).version||"?"};
+      var v=validateWithFix(p,p.html);
+      if(v.fixes&&v.fixes.length)p.html=v.html;
+      p.checks={ok:v.ok,errors:v.errors,warnings:v.warnings||[],rounds:v.rounds||0,fixes:v.fixes||[],at:Date.now(),rules:(window.YUG_RULES||{}).version||"?"};
       if(!v.ok){setState(p,"FailedValidation");p.status="Failed";bp.style.display="none";save();renderAll();toast("Build failed checks: "+(v.errors[0]||"unknown"));return;}
       setState(p,"Preview"); setState(p,"Packaged");
       p.status="Built — ready"; bp.style.display="none"; save(); renderAll();
