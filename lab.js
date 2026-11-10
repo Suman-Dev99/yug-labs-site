@@ -219,6 +219,7 @@ function pageCSS(c,dark,extra){
 }
 function gen3D(p){
   var s=p.site, th=THEMES[s.theme]||THEMES.generic, c=s.colorHex||COLORS[s.colorName]||COLORS.amber, cInt=c.replace("#","");
+  var bpCta=blueprintFor(s.theme).cta;
   var feats=th.feats.map(function(f){return '<div class="card"><div class="ic">'+f[0]+'</div><h3>'+f[1]+'</h3><p>'+f[2]+'</p></div>';}).join("");
   var pricing=s.sections.pricing?'<section id="pricing"><h2>Pricing</h2><div class="grid"><div class="card"><h3>Essential</h3><div class="pr">₹999</div><p>Everything you need to start.</p></div><div class="card pop"><h3>Signature</h3><div class="pr">₹2,499</div><p>The full experience, most loved.</p></div><div class="card"><h3>Premium</h3><div class="pr">₹4,999</div><p>Top tier, no compromises.</p></div></div></section>':"";
   var testi=s.sections.testimonials?'<section id="love"><h2>Loved by customers</h2><div class="grid"><div class="card"><p>"Exactly what I hoped for — and then some."</p><b>— Priya S.</b></div><div class="card"><p>"Quality, honesty, and it just feels premium."</p><b>— Rahul M.</b></div><div class="card"><p>"Booked in minutes, delighted for weeks."</p><b>— Anita D.</b></div></div></section>':"";
@@ -245,7 +246,7 @@ function gen3D(p){
   return '<!DOCTYPE html>\n<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>'+esc(s.name)+' — 3D</title><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet"><style>'+css+'</style></head><body>'
   +'<canvas id="gl"></canvas><div class="orb a"></div><div class="orb b"></div>'
   +'<header><div class="logo">'+esc(s.name)+'<span>.</span></div><nav><a href="#features">Features</a><a href="#about">About</a>'+(s.sections.pricing?'<a href="#pricing">Pricing</a>':"")+'<a href="#contact">Contact</a></nav></header>'
-  +'<main><div class="hero"><span class="kick">Immersive · 3D</span><h1>'+esc(s.name)+'<br><em>'+esc(th.tag)+'</em></h1><p>'+esc(th.about)+'</p><div><a class="btn" href="#contact">Get Started</a><a class="btn g" href="#features">Explore</a></div></div>'
+  +'<main><div class="hero"><span class="kick">Immersive · 3D</span><h1>'+esc(s.name)+'<br><em>'+esc(th.tag)+'</em></h1><p>'+esc(th.about)+'</p><div><a class="btn" href="#contact">'+esc(bpCta)+'</a><a class="btn g" href="#features">Explore</a></div></div>'
   +trust
   +'<section id="features"><h2>What we do</h2><div class="grid">'+feats+'</div></section>'
   +process+pricing+gallery
@@ -256,6 +257,7 @@ function gen3D(p){
 }
 function genWebsite(p){
   var s=p.site, th=THEMES[s.theme]||THEMES.generic, c=s.colorHex||COLORS[s.colorName]||COLORS.amber;
+  var bpCta=blueprintFor(s.theme).cta;
   var fx="body{font-family:'Manrope',system-ui,sans-serif}h1,h2{font-family:'Fraunces',Georgia,serif}"+(s.fx3d?".hero h1{transform:perspective(600px) rotateX(4deg);text-shadow:0 18px 40px rgba(0,0,0,.45)}.card{transition:.25s}.card:hover{transform:translateY(-6px) perspective(500px) rotateX(3deg)}":"");
   var feats=th.feats.map(function(f){return '<div class="card"><div class="ic">'+f[0]+'</div><h3>'+f[1]+'</h3><p>'+f[2]+'</p></div>';}).join("");
   var pricing=s.sections.pricing?'<section id="pricing"><h2>Pricing</h2><div class="grid"><div class="card"><h3>Essential</h3><div class="pr">₹999</div><p>Everything you need to start.</p></div><div class="card pop"><h3>Signature</h3><div class="pr">₹2,499</div><p>The full experience, most loved.</p></div><div class="card"><h3>Premium</h3><div class="pr">₹4,999</div><p>Top tier, no compromises.</p></div></div></section>':"";
@@ -266,7 +268,7 @@ function genWebsite(p){
   var faq='<section id="faq"><h2>Questions</h2><div style="max-width:720px;margin:0 auto;text-align:left"><details style="margin-bottom:10px"><summary style="font-weight:700;cursor:pointer">How do I book or order?</summary><p style="opacity:.8;margin-top:6px">Use the contact section below — we reply fast and confirm everything before we begin.</p></details><details style="margin-bottom:10px"><summary style="font-weight:700;cursor:pointer">How does pricing work?</summary><p style="opacity:.8;margin-top:6px">Pricing depends on what you choose. You always see and approve the full price first — no hidden charges.</p></details><details><summary style="font-weight:700;cursor:pointer">Can I request something custom?</summary><p style="opacity:.8;margin-top:6px">Yes — tell us what you have in mind and we will plan it with you.</p></details></div></section>';
   return '<!DOCTYPE html>\n<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>'+esc(s.name)+'</title><link href=\"https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Manrope:wght@400;600;800&display=swap\" rel=\"stylesheet\"><style>'+pageCSS(c,s.dark,fx)+'</style></head><body>'
   +'<header><div class="logo">'+esc(s.name)+'<span>.</span></div><nav><a href="#features">Features</a><a href="#about">About</a>'+(s.sections.pricing?'<a href="#pricing">Pricing</a>':"")+'<a href="#contact">Contact</a></nav></header>'
-  +'<div class="hero"><h1>'+esc(s.name)+'<br><em>'+esc(s.tagline)+'</em></h1><p>'+esc(th.tag)+'</p><a class="btn" href="#contact">Get Started</a><a class="btn g" href="#features">Explore</a></div>'
+  +'<div class="hero"><h1>'+esc(s.name)+'<br><em>'+esc(s.tagline)+'</em></h1><p>'+esc(th.tag)+'</p><a class="btn" href="#contact">'+esc(bpCta)+'</a><a class="btn g" href="#features">Explore</a></div>'
   +trust
   +'<section id="features"><h2>What we do</h2><div class="grid">'+feats+'</div></section>'
   +process+pricing+gallery
@@ -337,6 +339,12 @@ function contrastRatio(a,b){
 function bestOnAccent(hex){
   var d=contrastRatio("#14100A",hex),w=contrastRatio("#FFFFFF",hex);
   return (w!==null&&d!==null&&w>d)?"#FFFFFF":"#14100A";
+}
+
+function blueprintFor(cat){
+  var R=(typeof window!=="undefined"&&window.YUG_RULES)||null;
+  var bp=R&&R.blueprints?R.blueprints[cat]:null;
+  return bp||{archetype:"other",intent:"",cta:"Get Started",modules:[],noInvent:[]};
 }
 
 /* ---------- validator core (v1.5 Phase 3.4) — rules.js (YUG_RULES) se chalta hai ---------- */
