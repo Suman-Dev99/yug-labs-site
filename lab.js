@@ -118,6 +118,7 @@ function toggleHTML(a,b,sel){return '<div class="toggle-row"><button class="tgl'
 function renderForm(){
   var d=draft.details, t=draft.type, H="";
   $("setupTitle").textContent="Create — "+t;
+  H+=field("Goal — ek line me batao, kya banana hai?",'<textarea id="f_goal" placeholder="e.g. Pune me ek premium salon ki website, online booking ke saath"></textarea><button type="button" class="btn ghost" id="aiFillBtn" style="margin-top:8px">Yug AI se form bharo</button>');
   if(t==="Website"||t==="3D Website"){
     H+=field("Business / Site Name",'<input type="text" id="f_name" placeholder="e.g. Sharma Cafe" value="'+esc(d.name)+'">');
     H+=field("Category",'<select id="f_category">'+Object.keys(CATS).map(function(k){return '<option value="'+k+'"'+(d.category===k?" selected":"")+'>'+CATS[k]+'</option>';}).join("")+'</select>');
@@ -151,6 +152,7 @@ function renderForm(){
   H+=field("Instructions (anything specific — offers, style, must-include points)",'<textarea id="f_instructions" placeholder="e.g. Mention the 20% weekday offer. Keep it premium, no slang.">'+esc(d.instructions)+'</textarea>');
   $("formFields").innerHTML=H;
   /* wire dynamic controls */
+  var _af=$("aiFillBtn"); if(_af)_af.onclick=aiFillFromGoal;
   document.querySelectorAll(".sw").forEach(function(b){b.onclick=function(){draft.details.color=b.getAttribute("data-color");renderFormKeep();};});
   document.querySelectorAll(".chk").forEach(function(b){b.onclick=function(){var key=(draft.type==="Website"||draft.type==="3D Website")?"sections":(draft.type==="Web App"?"features":"tools");var arr=draft.details[key];var v=b.getAttribute("data-chk");var i=arr.indexOf(v);if(i>-1)arr.splice(i,1);else arr.push(v);b.classList.toggle("on");};});
   document.querySelectorAll(".tgl").forEach(function(b){b.onclick=function(){var v=b.getAttribute("data-tgl");if(draft.type==="Content")draft.details.length=v;else draft.details.mode=v;renderFormKeep();};});
@@ -916,6 +918,95 @@ function applyEdit(){
 }
 
 /* ---------- publish ---------- */
+/* ---------- Phase 8: structured build spec (8.1/8.3/8.5) ---------- */
+function buildSpec(p){
+  var spec={v:1,type:p.type,archetype:null,tokens:null,details:{},sections:null,state:p.state||"Draft"};
+  var base=defaultDetails(p.type);
+  Object.keys(base).forEach(function(k){ spec.details[k]=(p.details||{})[k]; });
+  if(p.type==="Website"||p.type==="3D Website"){
+    var s=siteFromDetails(p);
+    spec.archetype=blueprintFor(s.theme).archetype;
+    spec.tokens=deriveTokens(s.colorHex||"#F59E0B", s.dark);
+    spec.sections=s.sections;
+  }
+  return spec;
+}
+function validateSpec(spec){
+  var errs=[];
+  if(!spec||typeof spec!=="object")return {ok:false,errors:["spec missing"]};
+  if(spec.v!==1)errs.push("spec version invalid");
+  if(!YUG_RULES.types[spec.type])errs.push("spec type invalid");
+  var d=spec.details||{};
+  var caps={name:60,business:120,category:40,color:30,colorHex:7,mode:10,purpose:60,tone:30,job:40,kind:40,topic:200,data:4000,instructions:1000,reviews:2000};
+  Object.keys(caps).forEach(function(k){ if(d[k]!=null&&String(d[k]).length>caps[k])errs.push("spec field too long: "+k); });
+  if(d.colorHex&&!/^#[0-9A-Fa-f]{6}$/.test(d.colorHex))errs.push("spec colorHex invalid");
+  if(d.category&&spec.type!=="Content"&&!CATS[d.category])errs.push("spec category invalid");
+  ["features","tools","sections"].forEach(function(k){ if(d[k]!=null&&(!Array.isArray(d[k])||d[k].length>8))errs.push("spec array invalid: "+k); });
+  return {ok:!errs.length,errors:errs};
+}
+function specToProject(spec){
+  var d=defaultDetails(spec.type), sd=spec.details||{};
+  Object.keys(sd).forEach(function(k){ if(k in d)d[k]=sd[k]; });
+  var p={type:spec.type,name:d.name,details:d,site:null,html:"",state:"Draft",stateLog:[]};
+  var r=validateWithFix(p, generate(p));
+  p.html=r.html;
+  return {project:p,html:r.html,report:r};
+}
+function aiFillFromGoal(){
+  if(!draft)return;
+  var g=($("f_goal")?$("f_goal").value.trim():"");
+  if(!g){toast("Pehle goal likho — ek line me kya banana hai");return;}
+  var btn=$("aiFillBtn"); if(btn){btn.disabled=true;btn.textContent="Yug AI soch raha hai…";}
+  fetch("/api/build",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({goal:g,type:draft.type})})
+  .then(function(r){return r.json().then(function(j){if(!r.ok)throw new Error(j.code||("HTTP "+r.status));return j;});})
+  .then(function(j){
+    var v=validateSpec(j.spec);
+    if(!v.ok)throw new Error("SPEC_INVALID");
+    collectForm();
+    var dd=draft.details, sd=j.spec.details||{};
+    Object.keys(sd).forEach(function(k){ if(k in dd)dd[k]=sd[k]; });
+    renderForm();
+    toast("Form bhar gaya — check karke Plan banao ✓");
+  })
+  .catch(function(e){ toast("AI build nahi ho paya ("+e.message+") — form waise ka waisa hai, haath se bhar sakte ho"); var b=$("aiFillBtn"); if(b){b.disabled=false;b.textContent="Yug AI se form bharo";} });
+}
+
+/* ---------- Phase 8.10: ZIP export (store-method, koi library nahi) ---------- */
+var CRC_TABLE=null;
+function crc32(bytes){
+  if(!CRC_TABLE){CRC_TABLE=[];for(var n=0;n<256;n++){var c=n;for(var k=0;k<8;k++)c=c&1?(0xEDB88320^(c>>>1)):c>>>1;CRC_TABLE[n]=c>>>0;}}
+  var crc=0xFFFFFFFF; for(var i=0;i<bytes.length;i++)crc=CRC_TABLE[(crc^bytes[i])&0xFF]^(crc>>>8);
+  return (crc^0xFFFFFFFF)>>>0;
+}
+function zipBytes(files){
+  var enc=new TextEncoder(), chunks=[], central=[], offset=0;
+  function u16(n){return [n&255,(n>>8)&255];}
+  function u32(n){return [n&255,(n>>8)&255,(n>>16)&255,(n>>24)&255];}
+  files.forEach(function(f){
+    var name=enc.encode(f.name), data=enc.encode(f.text), crc=crc32(data);
+    var local=[].concat(u32(0x04034b50),u16(20),u16(0x0800),u16(0),u16(0),u16(0),u32(crc),u32(data.length),u32(data.length),u16(name.length),u16(0));
+    chunks.push(new Uint8Array(local),name,data);
+    var cen=[].concat(u32(0x02014b50),u16(20),u16(20),u16(0x0800),u16(0),u16(0),u16(0),u32(crc),u32(data.length),u32(data.length),u16(name.length),u16(0),u16(0),u16(0),u16(0),u32(0),u32(offset));
+    central.push(new Uint8Array(cen),name);
+    offset+=local.length+name.length+data.length;
+  });
+  var cenSize=central.reduce(function(s2,c2){return s2+c2.length;},0);
+  var end=new Uint8Array([].concat(u32(0x06054b50),u16(0),u16(0),u16(files.length),u16(files.length),u32(cenSize),u32(offset),u16(0)));
+  var all=chunks.concat(central,[end]), total=all.reduce(function(s2,c2){return s2+c2.length;},0);
+  var out=new Uint8Array(total), pos=0;
+  all.forEach(function(c2){out.set(c2,pos);pos+=c2.length;});
+  return out;
+}
+function downloadZip(){
+  var p=active(); if(!p||!p.html)return;
+  var files=[{name:"index.html",text:p.html}].concat((p.files||[]).map(function(f){return {name:f.name,text:f.text!=null?f.text:(f.content||"")};}));
+  var readme="Built with YugLab — "+p.name+" ("+p.type+")\n\nFiles:\n"+files.map(function(f){return "- "+f.name;}).join("\n")+"\n\nHost index.html on any static host to publish.\n";
+  files.push({name:"README.txt",text:readme});
+  var blob=new Blob([zipBytes(files)],{type:"application/zip"}); var a=document.createElement("a");
+  a.href=URL.createObjectURL(blob); a.download=p.name.replace(/\s+/g,"-").toLowerCase()+".zip"; a.click();
+  setTimeout(function(){URL.revokeObjectURL(a.href);},2000);
+}
+
 function downloadOut(){
   var p=active(); if(!p||!p.html)return;
   var blob=new Blob([p.html],{type:"text/html"}); var a=document.createElement("a");
@@ -965,6 +1056,7 @@ $("editDetailsBtn").onclick=function(){var p=active();if(!p)return;draft={type:p
 $("editSendBtn").onclick=applyEdit;
 $("editInput").addEventListener("keydown",function(e){if(e.key==="Enter")applyEdit();});
 $("downloadBtn").onclick=downloadOut;
+var _zb=$("zipBtn"); if(_zb)_zb.onclick=downloadZip;
 $("copyBtn").onclick=function(){var p=active();if(p&&p.html&&navigator.clipboard)navigator.clipboard.writeText(p.html).then(function(){toast("Code copied ✔");});};
 $("openBtn").onclick=function(){var p=active();if(p&&p.html){var b=new Blob([p.html],{type:"text/html"});window.open(URL.createObjectURL(b),"_blank");}};
 $("deleteBtn").onclick=function(){var p=active();if(p&&confirm("Delete project '"+p.name+"'?")){state.projects=state.projects.filter(function(x){return x.id!==p.id;});state.activeId=null;save();renderAll();}};
@@ -1102,6 +1194,8 @@ $("csClear").onclick=function(){$("codeOut").textContent="";$("csStatus").textCo
 $("csSave").onclick=function(){
   var p=active();if(!p||p.id!==csProjectId)return;
   csSyncEditor();
+  var cand=""; csFiles.forEach(function(f){if(f.name==="index.html")cand=f.content;});
+  if(cand){ var vv=validateBuild(p,cand); if(!vv.ok){ toast("Save roka gaya — pehle ye theek karo: "+vv.errors[0]); return; } }
   var others=[];
   csFiles.forEach(function(f){if(f.name==="index.html")p.html=f.content;else others.push(f);});
   p.files=others;save();blobInto($("previewFrame"),p.html);toast("Saved.");
