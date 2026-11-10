@@ -249,6 +249,7 @@ function gen3D(p){
   +'<main><div class="hero"><span class="kick">Immersive · 3D</span><h1>'+esc(s.name)+'<br><em>'+esc(th.tag)+'</em></h1><p>'+esc(th.about)+'</p><div><a class="btn" href="#contact">'+esc(bpCta)+'</a><a class="btn g" href="#features">Explore</a></div></div>'
   +trust
   +'<section id="features"><h2>What we do</h2><div class="grid">'+feats+'</div></section>'
+  +signatureModule(s.theme)
   +process+pricing+gallery
   +'<section class="about" id="about"><h2>About</h2><p>'+esc(th.about)+'</p></section>'
   +testi+faq
@@ -271,6 +272,7 @@ function genWebsite(p){
   +'<div class="hero"><h1>'+esc(s.name)+'<br><em>'+esc(s.tagline)+'</em></h1><p>'+esc(th.tag)+'</p><a class="btn" href="#contact">'+esc(bpCta)+'</a><a class="btn g" href="#features">Explore</a></div>'
   +trust
   +'<section id="features"><h2>What we do</h2><div class="grid">'+feats+'</div></section>'
+  +signatureModule(s.theme)
   +process+pricing+gallery
   +'<section class="about" id="about"><h2>About</h2><p>'+esc(th.about)+'</p></section>'
   +testi+faq
@@ -455,6 +457,49 @@ function validateWithFix(p, html){
   }
   v.rounds=rounds; v.fixes=fixes; v.html=html;
   return v;
+}
+
+
+/* ---------- archetype modules (Phase 4.3: Culinary + Wellness) ---------- */
+function modWrap(title, inner){ return '<section id="module"><h2>'+title+'</h2>'+inner+'</section>'; }
+function menuExplorerHTML(){
+  var cats={Starters:["Paneer Tikka","Hara Bhara Kebab","Crispy Corn","Spring Rolls"],Mains:["Paneer Butter Masala","Dal Makhani","Veg Biryani","Hakka Noodles"],Breads:["Butter Naan","Garlic Naan","Tandoori Roti","Laccha Paratha"],Desserts:["Gulab Jamun","Kulfi","Brownie Sizzle","Fruit Custard"],Beverages:["Cold Coffee","Masala Chai","Fresh Lime Soda","Sweet Lassi"]};
+  var tabs=Object.keys(cats).map(function(k,i){return '<button class="btn'+(i?' g':'')+'" style="padding:8px 16px;font-size:13.5px;margin:0 4px 10px" onclick="modMenu(\''+k+'\',this)">'+k+'</button>';}).join("");
+  var js='<script>var MODMENU='+JSON.stringify(cats)+';function modMenu(k,btn){document.getElementById("modMenuList").innerHTML=MODMENU[k].map(function(x){return "<div class=\"card\"><h3>"+x+"</h3><p>Ask for today\'s preparation.</p></div>";}).join("");var bs=btn.parentNode.children;for(var i=0;i<bs.length;i++)bs[i].classList.add("g");btn.classList.remove("g");}</'+'script>';
+  return modWrap("Explore the menu",'<div style="text-align:center">'+tabs+'</div><div class="grid" id="modMenuList">'+cats.Starters.map(function(x){return '<div class="card"><h3>'+x+'</h3><p>Ask for today&rsquo;s preparation.</p></div>';}).join("")+'</div><p style="text-align:center;opacity:.7;margin-top:14px">Menu changes with the season — prices at the counter, no surprises.</p>')+js;
+}
+function bookingWidgetHTML(kind){
+  var title=kind==="stay"?"Book your stay":"Book a table";
+  var js='<script>function modBook(){var d=document.getElementById("modDate").value;var g=document.getElementById("modGuests").value;var o=document.getElementById("modBookOut");if(!d){o.textContent="Please pick a date first.";return;}o.textContent="✔ Request noted for "+d+" · "+g+" guest(s). We will confirm shortly — see you soon!";}</'+'script>';
+  return modWrap(title,'<div style="max-width:520px;margin:0 auto;text-align:center"><label style="display:block;margin-bottom:6px;font-weight:600">Pick a date</label><input id="modDate" type="date" style="padding:11px 14px;border-radius:10px;border:1px solid #8884;background:transparent;color:inherit;width:100%;margin-bottom:12px"><label style="display:block;margin-bottom:6px;font-weight:600">Guests</label><select id="modGuests" style="padding:11px 14px;border-radius:10px;border:1px solid #8884;background:transparent;color:inherit;width:100%;margin-bottom:14px"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6+</option></select><button class="btn" onclick="modBook()">Request Booking</button><p id="modBookOut" style="margin-top:14px;font-weight:600"></p></div>')+js;
+}
+function bmiHTML(){
+  var js='<script>function modBMI(){var h=parseFloat(document.getElementById("modH").value);var w=parseFloat(document.getElementById("modW").value);var o=document.getElementById("modBMIOut");if(!h||!w||h<80||h>260||w<20||w>400){o.textContent="Enter a valid height and weight.";return;}var b=w/((h/100)*(h/100));var cat=b<18.5?"Underweight":(b<25?"Healthy range":(b<30?"Overweight":"Obese range"));o.textContent="Your BMI is "+b.toFixed(1)+" — "+cat+". A trainer can turn this number into a plan.";}</'+'script>';
+  return modWrap("Know your BMI",'<div style="max-width:520px;margin:0 auto;text-align:center"><div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center"><input id="modH" type="number" placeholder="Height (cm)" style="padding:11px 14px;border-radius:10px;border:1px solid #8884;background:transparent;color:inherit;width:160px"><input id="modW" type="number" placeholder="Weight (kg)" style="padding:11px 14px;border-radius:10px;border:1px solid #8884;background:transparent;color:inherit;width:160px"></div><button class="btn" style="margin-top:14px" onclick="modBMI()">Calculate</button><p id="modBMIOut" style="margin-top:14px;font-weight:600"></p><p style="opacity:.65;font-size:13px">BMI is a general guide, not a medical diagnosis.</p></div>')+js;
+}
+function scheduleHTML(){
+  var days={Mon:["6 AM — Power Yoga","7 AM — Hatha Basics","6 PM — Vinyasa Flow"],Tue:["6 AM — Pranayama","7 AM — Hatha Basics","6 PM — Yin Yoga"],Wed:["6 AM — Power Yoga","7 AM — Meditation","6 PM — Vinyasa Flow"],Thu:["6 AM — Pranayama","7 AM — Hatha Basics","6 PM — Yin Yoga"],Fri:["6 AM — Power Yoga","7 AM — Meditation","6 PM — Vinyasa Flow"],Sat:["7 AM — Weekend Flow","9 AM — Family Yoga","5 PM — Meditation"],Sun:["7 AM — Weekend Flow","9 AM — Family Yoga"]};
+  var tabs=Object.keys(days).map(function(k,i){return '<button class="btn'+(i?' g':'')+'" style="padding:8px 14px;font-size:13.5px;margin:0 3px 10px" onclick="modDay(\''+k+'\',this)">'+k+'</button>';}).join("");
+  var js='<script>var MODDAYS='+JSON.stringify(days)+';function modDay(k,btn){document.getElementById("modDayList").innerHTML=MODDAYS[k].map(function(x){return "<div class=\"card\"><h3>"+x+"</h3></div>";}).join("");var bs=btn.parentNode.children;for(var i=0;i<bs.length;i++)bs[i].classList.add("g");btn.classList.remove("g");}</'+'script>';
+  return modWrap("Weekly schedule",'<div style="text-align:center">'+tabs+'</div><div class="grid" id="modDayList">'+days.Mon.map(function(x){return '<div class="card"><h3>'+x+'</h3></div>';}).join("")+'</div><p style="text-align:center;opacity:.7;margin-top:14px">Timings can shift on holidays — confirm on call.</p>')+js;
+}
+function serviceMenuHTML(kind){
+  var items=kind==="spa"?[["Signature Massage","Slow, deep and unhurried"],["Aromatherapy","Essential oils, calm mind"],["Body Polish","Glow, from head to toe"],["Steam & Soak","Melt the week away"]]:[["Haircut & Styling","Shaped around your face"],["Colour & Care","Rich colour, gentle hands"],["Skin & Facial","Clean, calm, glowing"],["Bridal & Occasions","The full preparation"]];
+  return modWrap("Services",'<div class="grid">'+items.map(function(x){return '<div class="card"><h3>'+x[0]+'</h3><p>'+x[1]+'</p></div>';}).join("")+'</div><p style="text-align:center;opacity:.7;margin-top:14px">Full price list at the studio — confirmed before we begin, no surprises.</p>');
+}
+function productGridHTML(){
+  var items=[["Fresh Breads","Baked through the morning"],["Cakes & Pastries","For days worth celebrating"],["Cookies & Snacks","Tea-time, sorted"],["Seasonal Specials","Whatever the season gives"]];
+  return modWrap("From the oven",'<div class="grid">'+items.map(function(x){return '<div class="card"><h3>'+x[0]+'</h3><p>'+x[1]+'</p></div>';}).join("")+'</div><p style="text-align:center;opacity:.7;margin-top:14px">Bakes sell out fast — call ahead for today&rsquo;s stock.</p>');
+}
+function signatureModule(cat){
+  if(cat==="cafe"||cat==="restaurant")return menuExplorerHTML();
+  if(cat==="hotel")return bookingWidgetHTML("stay");
+  if(cat==="bakery")return productGridHTML();
+  if(cat==="gym")return bmiHTML();
+  if(cat==="yoga")return scheduleHTML();
+  if(cat==="salon")return serviceMenuHTML("salon");
+  if(cat==="spa")return serviceMenuHTML("spa");
+  return "";
 }
 
 /* ---------- build state machine (v1.5 Phase 3.3) ---------- */
