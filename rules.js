@@ -6,7 +6,7 @@
    flow ke kaaran ye JS-data file hai (JSON ka exact mirror; harness ise
    seedha load karke test karta hai). */
 window.YUG_RULES = {
-  version: "1.5.6",
+  version: "1.5.7",
   universal: {
     forbiddenText: ["lorem ipsum", "your text here", "coming soon", "todo:", "placeholder text", "[object", "undefined"],
     noProviderNames: true,
@@ -609,3 +609,7 @@ window.YUG_RULES.blueprints = {
 };
 /* Phase 4.4 — Healthcare disclaimer rule */
 ["clinic","dental","pharmacy"].forEach(function(k){ if(window.YUG_RULES.blueprints[k]) window.YUG_RULES.blueprints[k].requiresDisclaimer = true; });
+/* Phase 4.5 — Advisory disclaimer markers */
+window.YUG_RULES.blueprints.finance.disclaimerMarker = "not financial advice";
+window.YUG_RULES.blueprints.insurance.disclaimerMarker = "not financial advice";
+window.YUG_RULES.blueprints.lawfirm.disclaimerMarker = "not legal advice";

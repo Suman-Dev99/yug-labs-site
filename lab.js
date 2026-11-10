@@ -380,7 +380,8 @@ function validateBuild(p, html){
   }
   if(S.gates.forms===false&&/<form[\s>]/i.test(out))errs.push("form element not allowed for this type");
   var _bp=R.blueprints&&p&&p.details?R.blueprints[p.details.category]:null;
-  if(_bp&&_bp.requiresDisclaimer&&out.indexOf("not medical advice")===-1)errs.push("healthcare disclaimer missing");
+  var _dm=_bp?(_bp.disclaimerMarker||(_bp.requiresDisclaimer?"not medical advice":null)):null;
+  if(_dm&&out.indexOf(_dm)===-1)errs.push("disclaimer missing: "+_dm);
   if(S.spine){
     var lastIdx=-1;
     S.spine.forEach(function(sec){
@@ -486,7 +487,7 @@ function scheduleHTML(){
   return modWrap("Weekly schedule",'<div style="text-align:center">'+tabs+'</div><div class="grid" id="modDayList">'+days.Mon.map(function(x){return '<div class="card"><h3>'+x+'</h3></div>';}).join("")+'</div><p style="text-align:center;opacity:.7;margin-top:14px">Timings can shift on holidays — confirm on call.</p>')+js;
 }
 function serviceMenuHTML(kind){
-  var items=kind==="auto"?[["General Service","Full check and tune-up"],["Denting & Painting","Body work, clean finish"],["AC Service","Cooling, checked properly"],["Wheels & Brakes","Alignment, tyres, safety"]]:kind==="pets"?[["Grooming","Bath, trim and care"],["Vet Visits","Checkups and vaccination"],["Boarding","Safe stays, happy pets"],["Training","Basics, taught kindly"]]:kind==="dental"?[["Checkup & Cleaning","The six-month habit"],["Braces & Aligners","Straighten, patiently"],["Implants Consult","Know your options first"],["Kids Dentistry","Gentle first visits"]]:kind==="spa"?[["Signature Massage","Slow, deep and unhurried"],["Aromatherapy","Essential oils, calm mind"],["Body Polish","Glow, from head to toe"],["Steam & Soak","Melt the week away"]]:[["Haircut & Styling","Shaped around your face"],["Colour & Care","Rich colour, gentle hands"],["Skin & Facial","Clean, calm, glowing"],["Bridal & Occasions","The full preparation"]];
+  var items=kind==="finance"?[["Tax Planning","Returns, filed right"],["Loans & Credit","Options, explained plainly"],["Investments","Goals first, products later"],["Business Advisory","From books to boardroom"]]:kind==="auto"?[["General Service","Full check and tune-up"],["Denting & Painting","Body work, clean finish"],["AC Service","Cooling, checked properly"],["Wheels & Brakes","Alignment, tyres, safety"]]:kind==="pets"?[["Grooming","Bath, trim and care"],["Vet Visits","Checkups and vaccination"],["Boarding","Safe stays, happy pets"],["Training","Basics, taught kindly"]]:kind==="dental"?[["Checkup & Cleaning","The six-month habit"],["Braces & Aligners","Straighten, patiently"],["Implants Consult","Know your options first"],["Kids Dentistry","Gentle first visits"]]:kind==="spa"?[["Signature Massage","Slow, deep and unhurried"],["Aromatherapy","Essential oils, calm mind"],["Body Polish","Glow, from head to toe"],["Steam & Soak","Melt the week away"]]:[["Haircut & Styling","Shaped around your face"],["Colour & Care","Rich colour, gentle hands"],["Skin & Facial","Clean, calm, glowing"],["Bridal & Occasions","The full preparation"]];
   return modWrap("Services",'<div class="grid">'+items.map(function(x){return '<div class="card"><h3>'+x[0]+'</h3><p>'+x[1]+'</p></div>';}).join("")+'</div><p style="text-align:center;opacity:.7;margin-top:14px">Full price list at the studio — confirmed before we begin, no surprises.</p>');
 }
 function productGridHTML(){
@@ -503,9 +504,19 @@ function filterGridHTML(title, groups, note){
 function categoryGridHTML(title, items, note){
   return modWrap(title,'<div class="grid">'+items.map(function(x){return '<div class="card"><h3>'+x[0]+'</h3><p>'+x[1]+'</p></div>';}).join("")+'</div>'+(note?'<p style="text-align:center;opacity:.7;margin-top:14px">'+note+'</p>':""));
 }
-function disclaimerHTML(){
-  return '<section style="padding-top:0"><p style="text-align:center;opacity:.65;font-size:13px;max-width:640px;margin:0 auto">This website offers general information and appointment booking only. It is not medical advice. For emergencies, contact your nearest hospital.</p></section>';
+function disclaimerHTML(kind){
+  var t=kind==="financial"?"This website offers general information only. It is not financial advice. Please consult a licensed advisor before investing or buying a policy.":(kind==="legal"?"This website offers general information only. It is not legal advice. A consultation does not by itself create a lawyer-client relationship.":"This website offers general information and appointment booking only. It is not medical advice. For emergencies, contact your nearest hospital.");
+  return '<section style="padding-top:0"><p style="text-align:center;opacity:.65;font-size:13px;max-width:640px;margin:0 auto">'+t+'</p></section>';
 }
+function emiCalcHTML(){
+  var js='<script>function modEMI(){var P=parseFloat(document.getElementById("modAmt").value);var R=parseFloat(document.getElementById("modRate").value);var Y=parseFloat(document.getElementById("modYears").value);var o=document.getElementById("modEMIOut");if(!P||P<10000||R<0||R>36||!Y||Y<1||Y>40){o.textContent="Enter a valid amount, rate and tenure.";return;}var r=R/1200;var n=Math.round(Y*12);var emi=r===0?P/n:P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);var tot=emi*n;var fmt=function(x){return Math.round(x).toLocaleString("en-IN");};o.textContent="Monthly EMI \u2248 \u20B9"+fmt(emi)+" \u00B7 Total interest \u2248 \u20B9"+fmt(tot-P)+" \u00B7 Total payable \u2248 \u20B9"+fmt(tot);}</'+'script>';
+  return modWrap("EMI calculator",'<div style="max-width:560px;margin:0 auto;text-align:center"><div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center"><input id="modAmt" type="number" placeholder="Loan amount (\u20B9)" style="padding:11px 14px;border-radius:10px;border:1px solid #8884;background:transparent;color:inherit;width:170px"><input id="modRate" type="number" placeholder="Interest % / year" style="padding:11px 14px;border-radius:10px;border:1px solid #8884;background:transparent;color:inherit;width:150px"><input id="modYears" type="number" placeholder="Years" style="padding:11px 14px;border-radius:10px;border:1px solid #8884;background:transparent;color:inherit;width:110px"></div><button class="btn" style="margin-top:14px" onclick="modEMI()">Calculate EMI</button><p id="modEMIOut" style="margin-top:14px;font-weight:600"></p><p style="opacity:.65;font-size:13px">Estimate only — your bank&rsquo;s final EMI may differ slightly.</p></div>')+js;
+}
+function coverCalcHTML(){
+  var js='<script>function modCover(){var I=parseFloat(document.getElementById("modInc").value);var o=document.getElementById("modCoverOut");if(!I||I<50000){o.textContent="Enter your yearly income to see the thumb rule.";return;}var fmt=function(x){return Math.round(x).toLocaleString("en-IN");};o.textContent="A common thumb rule is 10-15x yearly income — for \u20B9"+fmt(I)+" that is \u20B9"+fmt(I*10)+" to \u20B9"+fmt(I*15)+" of cover. This is a guide, not a quote.";}</'+'script>';
+  return modWrap("How much cover?",'<div style="max-width:520px;margin:0 auto;text-align:center"><input id="modInc" type="number" placeholder="Your yearly income (\u20B9)" style="padding:11px 14px;border-radius:10px;border:1px solid #8884;background:transparent;color:inherit;width:100%;margin-bottom:14px"><button class="btn" onclick="modCover()">See the Thumb Rule</button><p id="modCoverOut" style="margin-top:14px;font-weight:600"></p></div>')+js;
+}
+
 function signatureModule(cat){
   if(cat==="cafe"||cat==="restaurant")return menuExplorerHTML();
   if(cat==="hotel")return bookingWidgetHTML("stay");
@@ -524,6 +535,17 @@ function signatureModule(cat){
   if(cat==="clinic")return bookingWidgetHTML("visit")+disclaimerHTML();
   if(cat==="dental")return serviceMenuHTML("dental")+disclaimerHTML();
   if(cat==="pharmacy")return categoryGridHTML("Categories",[["Everyday Medicines","Ask our pharmacist"],["Health & Nutrition","Vitamins and care"],["Baby & Mother Care","Gentle essentials"],["Personal Care","Daily hygiene"]],"Carry your prescription for scheduled medicines.")+disclaimerHTML();
+  if(cat==="realestate")return emiCalcHTML();
+  if(cat==="insurance")return coverCalcHTML()+disclaimerHTML("financial");
+  if(cat==="finance")return serviceMenuHTML("finance")+disclaimerHTML("financial");
+  if(cat==="lawfirm")return categoryGridHTML("Practice areas",[["Family & Property","Disputes, wills, agreements"],["Corporate","Contracts and compliance"],["Criminal Defence","Representation that prepares"],["Civil Matters","From notices to resolution"]])+disclaimerHTML("legal");
+  if(cat==="school")return categoryGridHTML("Programs",[["Early Years","Play, phonics, curiosity"],["Primary","Strong basics, kind teachers"],["Middle School","Concepts that click"],["Senior School","Boards and beyond"]],"Start with an admission enquiry — we will walk you through it.");
+  if(cat==="coaching")return categoryGridHTML("Courses & batches",[["Foundation (Class 9-10)","Boards, built step by step"],["Class 11-12 Science","Boards plus entrance, together"],["Competitive Exams","Structured test practice"],["Crash Courses","Short, focused revision"]],"Batch timings confirmed on enquiry.");
+  if(cat==="interior")return categoryGridHTML("What we design",[["Living Spaces","Warm, usable, personal"],["Kitchens","Built around how you cook"],["Offices","Work, but beautiful"],["Turnkey Homes","Design to handover"]]);
+  if(cat==="construction")return categoryGridHTML("What we build",[["Residential","Homes, built to last"],["Commercial","Offices and retail spaces"],["Renovation","Old spaces, new life"],["Turnkey Projects","One team, start to finish"]],"Estimates after a site visit — no blind quotes.");
+  if(cat==="wedding")return categoryGridHTML("Celebrations we craft",[["Weddings","Two families, one day"],["Receptions","The evening everyone remembers"],["Mehendi & Haldi","Colour, music, laughter"],["Destination Weddings","Plans that travel well"]]);
+  if(cat==="events")return categoryGridHTML("Events we run",[["Corporate Events","Conferences to offsites"],["Birthdays & Parties","Small joys, done big"],["Exhibitions","Stalls that stand out"],["Live Shows","Stage, sound, crowd"]]);
+  if(cat==="travel")return categoryGridHTML("Trip styles",[["Family Trips","Easy plans, happy kids"],["Honeymoons","Slow days, good stays"],["Group Tours","Friends, one plan"],["Custom Itineraries","Built around you"]],"Prices depend on your dates — share them for a real quote.");
   return "";
 }
 
