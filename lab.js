@@ -379,6 +379,8 @@ function validateBuild(p, html){
     if(bad.length)errs.push("external links not allowed: "+bad.slice(0,3).join(", "));
   }
   if(S.gates.forms===false&&/<form[\s>]/i.test(out))errs.push("form element not allowed for this type");
+  var _bp=R.blueprints&&p&&p.details?R.blueprints[p.details.category]:null;
+  if(_bp&&_bp.requiresDisclaimer&&out.indexOf("not medical advice")===-1)errs.push("healthcare disclaimer missing");
   if(S.spine){
     var lastIdx=-1;
     S.spine.forEach(function(sec){
@@ -465,13 +467,13 @@ function modWrap(title, inner){ return '<section id="module"><h2>'+title+'</h2>'
 function menuExplorerHTML(){
   var cats={Starters:["Paneer Tikka","Hara Bhara Kebab","Crispy Corn","Spring Rolls"],Mains:["Paneer Butter Masala","Dal Makhani","Veg Biryani","Hakka Noodles"],Breads:["Butter Naan","Garlic Naan","Tandoori Roti","Laccha Paratha"],Desserts:["Gulab Jamun","Kulfi","Brownie Sizzle","Fruit Custard"],Beverages:["Cold Coffee","Masala Chai","Fresh Lime Soda","Sweet Lassi"]};
   var tabs=Object.keys(cats).map(function(k,i){return '<button class="btn'+(i?' g':'')+'" style="padding:8px 16px;font-size:13.5px;margin:0 4px 10px" onclick="modMenu(\''+k+'\',this)">'+k+'</button>';}).join("");
-  var js='<script>var MODMENU='+JSON.stringify(cats)+';function modMenu(k,btn){document.getElementById("modMenuList").innerHTML=MODMENU[k].map(function(x){return "<div class=\"card\"><h3>"+x+"</h3><p>Ask for today\'s preparation.</p></div>";}).join("");var bs=btn.parentNode.children;for(var i=0;i<bs.length;i++)bs[i].classList.add("g");btn.classList.remove("g");}</'+'script>';
+  var js='<script>var MODMENU='+JSON.stringify(cats)+';function modMenu(k,btn){document.getElementById("modMenuList").innerHTML=MODMENU[k].map(function(x){return "<div class=\\"card\\"><h3>"+x+"</h3><p>Ask for today\'s preparation.</p></div>";}).join("");var bs=btn.parentNode.children;for(var i=0;i<bs.length;i++)bs[i].classList.add("g");btn.classList.remove("g");}</'+'script>';
   return modWrap("Explore the menu",'<div style="text-align:center">'+tabs+'</div><div class="grid" id="modMenuList">'+cats.Starters.map(function(x){return '<div class="card"><h3>'+x+'</h3><p>Ask for today&rsquo;s preparation.</p></div>';}).join("")+'</div><p style="text-align:center;opacity:.7;margin-top:14px">Menu changes with the season — prices at the counter, no surprises.</p>')+js;
 }
 function bookingWidgetHTML(kind){
-  var title=kind==="stay"?"Book your stay":"Book a table";
-  var js='<script>function modBook(){var d=document.getElementById("modDate").value;var g=document.getElementById("modGuests").value;var o=document.getElementById("modBookOut");if(!d){o.textContent="Please pick a date first.";return;}o.textContent="✔ Request noted for "+d+" · "+g+" guest(s). We will confirm shortly — see you soon!";}</'+'script>';
-  return modWrap(title,'<div style="max-width:520px;margin:0 auto;text-align:center"><label style="display:block;margin-bottom:6px;font-weight:600">Pick a date</label><input id="modDate" type="date" style="padding:11px 14px;border-radius:10px;border:1px solid #8884;background:transparent;color:inherit;width:100%;margin-bottom:12px"><label style="display:block;margin-bottom:6px;font-weight:600">Guests</label><select id="modGuests" style="padding:11px 14px;border-radius:10px;border:1px solid #8884;background:transparent;color:inherit;width:100%;margin-bottom:14px"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6+</option></select><button class="btn" onclick="modBook()">Request Booking</button><p id="modBookOut" style="margin-top:14px;font-weight:600"></p></div>')+js;
+  var title=kind==="stay"?"Book your stay":(kind==="visit"?"Book a visit":"Book a table");
+  var js='<script>function modBook(){var d=document.getElementById("modDate").value;var g=document.getElementById("modGuests").value;var o=document.getElementById("modBookOut");if(!d){o.textContent="Please pick a date first.";return;}o.textContent="✔ Request noted for "+d+" · "+g+" person(s). We will confirm shortly — see you soon!";}</'+'script>';
+  return modWrap(title,'<div style="max-width:520px;margin:0 auto;text-align:center"><label style="display:block;margin-bottom:6px;font-weight:600">Pick a date</label><input id="modDate" type="date" style="padding:11px 14px;border-radius:10px;border:1px solid #8884;background:transparent;color:inherit;width:100%;margin-bottom:12px"><label style="display:block;margin-bottom:6px;font-weight:600">'+(kind==="visit"?"People":"Guests")+'</label><select id="modGuests" style="padding:11px 14px;border-radius:10px;border:1px solid #8884;background:transparent;color:inherit;width:100%;margin-bottom:14px"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6+</option></select><button class="btn" onclick="modBook()">Request Booking</button><p id="modBookOut" style="margin-top:14px;font-weight:600"></p></div>')+js;
 }
 function bmiHTML(){
   var js='<script>function modBMI(){var h=parseFloat(document.getElementById("modH").value);var w=parseFloat(document.getElementById("modW").value);var o=document.getElementById("modBMIOut");if(!h||!w||h<80||h>260||w<20||w>400){o.textContent="Enter a valid height and weight.";return;}var b=w/((h/100)*(h/100));var cat=b<18.5?"Underweight":(b<25?"Healthy range":(b<30?"Overweight":"Obese range"));o.textContent="Your BMI is "+b.toFixed(1)+" — "+cat+". A trainer can turn this number into a plan.";}</'+'script>';
@@ -480,16 +482,29 @@ function bmiHTML(){
 function scheduleHTML(){
   var days={Mon:["6 AM — Power Yoga","7 AM — Hatha Basics","6 PM — Vinyasa Flow"],Tue:["6 AM — Pranayama","7 AM — Hatha Basics","6 PM — Yin Yoga"],Wed:["6 AM — Power Yoga","7 AM — Meditation","6 PM — Vinyasa Flow"],Thu:["6 AM — Pranayama","7 AM — Hatha Basics","6 PM — Yin Yoga"],Fri:["6 AM — Power Yoga","7 AM — Meditation","6 PM — Vinyasa Flow"],Sat:["7 AM — Weekend Flow","9 AM — Family Yoga","5 PM — Meditation"],Sun:["7 AM — Weekend Flow","9 AM — Family Yoga"]};
   var tabs=Object.keys(days).map(function(k,i){return '<button class="btn'+(i?' g':'')+'" style="padding:8px 14px;font-size:13.5px;margin:0 3px 10px" onclick="modDay(\''+k+'\',this)">'+k+'</button>';}).join("");
-  var js='<script>var MODDAYS='+JSON.stringify(days)+';function modDay(k,btn){document.getElementById("modDayList").innerHTML=MODDAYS[k].map(function(x){return "<div class=\"card\"><h3>"+x+"</h3></div>";}).join("");var bs=btn.parentNode.children;for(var i=0;i<bs.length;i++)bs[i].classList.add("g");btn.classList.remove("g");}</'+'script>';
+  var js='<script>var MODDAYS='+JSON.stringify(days)+';function modDay(k,btn){document.getElementById("modDayList").innerHTML=MODDAYS[k].map(function(x){return "<div class=\\"card\\"><h3>"+x+"</h3></div>";}).join("");var bs=btn.parentNode.children;for(var i=0;i<bs.length;i++)bs[i].classList.add("g");btn.classList.remove("g");}</'+'script>';
   return modWrap("Weekly schedule",'<div style="text-align:center">'+tabs+'</div><div class="grid" id="modDayList">'+days.Mon.map(function(x){return '<div class="card"><h3>'+x+'</h3></div>';}).join("")+'</div><p style="text-align:center;opacity:.7;margin-top:14px">Timings can shift on holidays — confirm on call.</p>')+js;
 }
 function serviceMenuHTML(kind){
-  var items=kind==="spa"?[["Signature Massage","Slow, deep and unhurried"],["Aromatherapy","Essential oils, calm mind"],["Body Polish","Glow, from head to toe"],["Steam & Soak","Melt the week away"]]:[["Haircut & Styling","Shaped around your face"],["Colour & Care","Rich colour, gentle hands"],["Skin & Facial","Clean, calm, glowing"],["Bridal & Occasions","The full preparation"]];
+  var items=kind==="auto"?[["General Service","Full check and tune-up"],["Denting & Painting","Body work, clean finish"],["AC Service","Cooling, checked properly"],["Wheels & Brakes","Alignment, tyres, safety"]]:kind==="pets"?[["Grooming","Bath, trim and care"],["Vet Visits","Checkups and vaccination"],["Boarding","Safe stays, happy pets"],["Training","Basics, taught kindly"]]:kind==="dental"?[["Checkup & Cleaning","The six-month habit"],["Braces & Aligners","Straighten, patiently"],["Implants Consult","Know your options first"],["Kids Dentistry","Gentle first visits"]]:kind==="spa"?[["Signature Massage","Slow, deep and unhurried"],["Aromatherapy","Essential oils, calm mind"],["Body Polish","Glow, from head to toe"],["Steam & Soak","Melt the week away"]]:[["Haircut & Styling","Shaped around your face"],["Colour & Care","Rich colour, gentle hands"],["Skin & Facial","Clean, calm, glowing"],["Bridal & Occasions","The full preparation"]];
   return modWrap("Services",'<div class="grid">'+items.map(function(x){return '<div class="card"><h3>'+x[0]+'</h3><p>'+x[1]+'</p></div>';}).join("")+'</div><p style="text-align:center;opacity:.7;margin-top:14px">Full price list at the studio — confirmed before we begin, no surprises.</p>');
 }
 function productGridHTML(){
   var items=[["Fresh Breads","Baked through the morning"],["Cakes & Pastries","For days worth celebrating"],["Cookies & Snacks","Tea-time, sorted"],["Seasonal Specials","Whatever the season gives"]];
   return modWrap("From the oven",'<div class="grid">'+items.map(function(x){return '<div class="card"><h3>'+x[0]+'</h3><p>'+x[1]+'</p></div>';}).join("")+'</div><p style="text-align:center;opacity:.7;margin-top:14px">Bakes sell out fast — call ahead for today&rsquo;s stock.</p>');
+}
+
+function filterGridHTML(title, groups, note){
+  var tabs=Object.keys(groups).map(function(k,i){return '<button class="btn'+(i?' g':'')+'" style="padding:8px 16px;font-size:13.5px;margin:0 4px 10px" onclick="modGrid(\''+k+'\',this)">'+k+'</button>';}).join("");
+  var js='<script>var MODGRID='+JSON.stringify(groups)+';function modGrid(k,btn){document.getElementById("modGridList").innerHTML=MODGRID[k].map(function(x){return "<div class=\\"card\\"><h3>"+x+"</h3><p>Ask in store or on call.</p></div>";}).join("");var bs=btn.parentNode.children;for(var i=0;i<bs.length;i++)bs[i].classList.add("g");btn.classList.remove("g");}</'+'script>';
+  var first=Object.keys(groups)[0];
+  return modWrap(title,'<div style="text-align:center">'+tabs+'</div><div class="grid" id="modGridList">'+groups[first].map(function(x){return '<div class="card"><h3>'+x+'</h3><p>Ask in store or on call.</p></div>';}).join("")+'</div>'+(note?'<p style="text-align:center;opacity:.7;margin-top:14px">'+note+'</p>':""))+js;
+}
+function categoryGridHTML(title, items, note){
+  return modWrap(title,'<div class="grid">'+items.map(function(x){return '<div class="card"><h3>'+x[0]+'</h3><p>'+x[1]+'</p></div>';}).join("")+'</div>'+(note?'<p style="text-align:center;opacity:.7;margin-top:14px">'+note+'</p>':""));
+}
+function disclaimerHTML(){
+  return '<section style="padding-top:0"><p style="text-align:center;opacity:.65;font-size:13px;max-width:640px;margin:0 auto">This website offers general information and appointment booking only. It is not medical advice. For emergencies, contact your nearest hospital.</p></section>';
 }
 function signatureModule(cat){
   if(cat==="cafe"||cat==="restaurant")return menuExplorerHTML();
@@ -499,6 +514,16 @@ function signatureModule(cat){
   if(cat==="yoga")return scheduleHTML();
   if(cat==="salon")return serviceMenuHTML("salon");
   if(cat==="spa")return serviceMenuHTML("spa");
+  if(cat==="fashion")return filterGridHTML("Shop the collection",{Women:["Kurtis & Sets","Sarees & Ethnic Wear","Western Dresses","Handbags"],Men:["Shirts & Tees","Jeans & Trousers","Ethnic Sets","Watches"],"Kids & More":["Kids Wear","Footwear","Accessories","Festive Picks"]});
+  if(cat==="jewellery")return filterGridHTML("Collections",{Gold:["Necklaces","Bangles","Earrings","Rings"],Diamond:["Rings","Pendants","Earrings","Bracelets"],Bridal:["Bridal Sets","Mangalsutra","Jhumkas","Anklets"]},"Look for the BIS hallmark when you buy — we are happy to explain it.");
+  if(cat==="store")return filterGridHTML("Browse products",{Popular:["Everyday Essentials","New Arrivals","Most Loved","Gift Picks"],Categories:["Home & Living","Personal Care","Stationery","Snacks & Sips"]});
+  if(cat==="electronics")return filterGridHTML("Explore the range",{Phones:["Smartphones","Tablets","Accessories","Wearables"],Home:["TVs","Refrigerators","Washing Machines","Air Conditioners"],Audio:["Earbuds","Headphones","Speakers","Soundbars"]});
+  if(cat==="grocery")return categoryGridHTML("Shop by category",[["Fruits & Vegetables","Fresh, every morning"],["Atta, Rice & Dal","Daily staples"],["Snacks & Beverages","Tea-time, sorted"],["Household Care","Home essentials"]],"Call for today&rsquo;s prices and availability.");
+  if(cat==="auto")return serviceMenuHTML("auto");
+  if(cat==="pets")return serviceMenuHTML("pets");
+  if(cat==="clinic")return bookingWidgetHTML("visit")+disclaimerHTML();
+  if(cat==="dental")return serviceMenuHTML("dental")+disclaimerHTML();
+  if(cat==="pharmacy")return categoryGridHTML("Categories",[["Everyday Medicines","Ask our pharmacist"],["Health & Nutrition","Vitamins and care"],["Baby & Mother Care","Gentle essentials"],["Personal Care","Daily hygiene"]],"Carry your prescription for scheduled medicines.")+disclaimerHTML();
   return "";
 }
 
