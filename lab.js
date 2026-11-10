@@ -517,6 +517,11 @@ function coverCalcHTML(){
   return modWrap("How much cover?",'<div style="max-width:520px;margin:0 auto;text-align:center"><input id="modInc" type="number" placeholder="Your yearly income (\u20B9)" style="padding:11px 14px;border-radius:10px;border:1px solid #8884;background:transparent;color:inherit;width:100%;margin-bottom:14px"><button class="btn" onclick="modCover()">See the Thumb Rule</button><p id="modCoverOut" style="margin-top:14px;font-weight:600"></p></div>')+js;
 }
 
+
+function guidedSelectorHTML(){
+  var js='<script>var MODGUIDE={info:"Everything essential is on this page. For anything else, reach us from the contact section below.",book:"Booking is easy — tell us your date in the contact section below and we will confirm.",buy:"Tell us what you need in the contact section below — we will reply with details and next steps."};function modGuide(k,btn){document.getElementById("modGuideOut").textContent=MODGUIDE[k]||"";var bs=btn.parentNode.children;for(var i=0;i<bs.length;i++)bs[i].classList.add("g");btn.classList.remove("g");}</'+'script>';
+  return modWrap("What do you need?",'<div style="text-align:center"><button class="btn" style="margin:0 4px 10px" onclick="modGuide(\'info\',this)">Information</button><button class="btn g" style="margin:0 4px 10px" onclick="modGuide(\'book\',this)">Book a Service</button><button class="btn g" style="margin:0 4px 10px" onclick="modGuide(\'buy\',this)">Buy / Enquire</button><p id="modGuideOut" style="margin-top:12px;font-weight:600;max-width:560px;margin-left:auto;margin-right:auto"></p></div>')+js;
+}
 function signatureModule(cat){
   if(cat==="cafe"||cat==="restaurant")return menuExplorerHTML();
   if(cat==="hotel")return bookingWidgetHTML("stay");
@@ -546,6 +551,12 @@ function signatureModule(cat){
   if(cat==="wedding")return categoryGridHTML("Celebrations we craft",[["Weddings","Two families, one day"],["Receptions","The evening everyone remembers"],["Mehendi & Haldi","Colour, music, laughter"],["Destination Weddings","Plans that travel well"]]);
   if(cat==="events")return categoryGridHTML("Events we run",[["Corporate Events","Conferences to offsites"],["Birthdays & Parties","Small joys, done big"],["Exhibitions","Stalls that stand out"],["Live Shows","Stage, sound, crowd"]]);
   if(cat==="travel")return categoryGridHTML("Trip styles",[["Family Trips","Easy plans, happy kids"],["Honeymoons","Slow days, good stays"],["Group Tours","Friends, one plan"],["Custom Itineraries","Built around you"]],"Prices depend on your dates — share them for a real quote.");
+  if(cat==="agency")return categoryGridHTML("What we make",[["Brand Identities","Logos that stick"],["Websites","Fast, clean, easy to find"],["Social Campaigns","Content people share"],["Video & Reels","Stories in thirty seconds"]],"Your project could be next — start with a conversation.");
+  if(cat==="startup")return categoryGridHTML("What we are building",[["The Problem","Why this needs to exist"],["Our Approach","Different, on purpose"],["Who It Serves","Built for people like you"],["Where We Are","Early — and moving"]]);
+  if(cat==="saas")return categoryGridHTML("Why teams switch",[["Fast Setup","Live in days, not months"],["Clear Plans","Everything explained upfront"],["Human Support","Real people, quick answers"],["Grows With You","Start small, scale clean"]],"Plans and pricing on the demo call — no surprises later.");
+  if(cat==="portfolio")return categoryGridHTML("Selected work",[["Project One","Replace with your best work"],["Project Two","Show range, not everything"],["Project Three","Your most recent piece"],["Project Four","The one you are proudest of"]],"Swap these placeholders with your real projects — honesty shows.");
+  if(cat==="photo")return categoryGridHTML("Portfolio",[["Weddings","Days that fly by"],["Portraits","People, as they are"],["Products","Things, beautifully lit"],["Events","Moments, caught live"]],"Share your date — we will confirm availability.");
+  if(cat==="generic")return guidedSelectorHTML();
   return "";
 }
 
