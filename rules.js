@@ -6,7 +6,7 @@
    flow ke kaaran ye JS-data file hai (JSON ka exact mirror; harness ise
    seedha load karke test karta hai). */
 window.YUG_RULES = {
-  version: "1.5.3",
+  version: "1.5.4",
   universal: {
     forbiddenText: ["lorem ipsum", "your text here", "coming soon", "todo:", "placeholder text", "[object", "undefined"],
     noProviderNames: true,
@@ -21,8 +21,21 @@ window.YUG_RULES = {
       id: "website", label: "Premium Website", lane: "website",
       required: ["<header", "<nav", "<h1", "hero", "<footer", "fonts.googleapis.com"],
       forbidden: ["three.min.js", "new Chart(", "getElementById(\"msgs\")", "sidebar"],
-      gates: { minBytes: 3000, h1ExactlyOne: true, forms: false, contrast: true },
-      acceptance: ["Spine order: header, hero, core, showcase, about, faq, contact, footer", "Picked colour tokens only", "All links in-page (#)", "GSAP reveal + fonts loaded", "Body + button contrast >= 4.5:1"]
+      gates: { minBytes: 4500, h1ExactlyOne: true, forms: false, contrast: true },
+      spine: [
+        { key: "header", marker: "<header", required: true },
+        { key: "hero", marker: "class=\"hero", required: true },
+        { key: "trust", marker: "id=\"trust\"", required: true },
+        { key: "core", marker: "id=\"features\"", required: true },
+        { key: "process", marker: "id=\"process\"", required: true },
+        { key: "showcase", marker: ["id=\"pricing\"", "id=\"gallery\""], required: false },
+        { key: "about", marker: "id=\"about\"", required: true },
+        { key: "testimonials", marker: "id=\"love\"", required: false },
+        { key: "faq", marker: "id=\"faq\"", required: true },
+        { key: "contact", marker: "id=\"contact\"", required: true },
+        { key: "footer", marker: "<footer", required: true }
+      ],
+      acceptance: ["Canonical 11-section spine in order (archetype required/optional from Phase 4.2)", "Picked colour tokens only", "All links in-page (#)", "GSAP reveal + fonts loaded", "Body + button contrast >= 4.5:1"]
     },
     "3D Website": {
       id: "threed", label: "3D Website", lane: "threed",

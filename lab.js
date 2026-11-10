@@ -223,6 +223,9 @@ function gen3D(p){
   var pricing=s.sections.pricing?'<section id="pricing"><h2>Pricing</h2><div class="grid"><div class="card"><h3>Essential</h3><div class="pr">₹999</div><p>Everything you need to start.</p></div><div class="card pop"><h3>Signature</h3><div class="pr">₹2,499</div><p>The full experience, most loved.</p></div><div class="card"><h3>Premium</h3><div class="pr">₹4,999</div><p>Top tier, no compromises.</p></div></div></section>':"";
   var testi=s.sections.testimonials?'<section id="love"><h2>Loved by customers</h2><div class="grid"><div class="card"><p>"Exactly what I hoped for — and then some."</p><b>— Priya S.</b></div><div class="card"><p>"Quality, honesty, and it just feels premium."</p><b>— Rahul M.</b></div><div class="card"><p>"Booked in minutes, delighted for weeks."</p><b>— Anita D.</b></div></div></section>':"";
   var gallery=s.sections.gallery?'<section id="gallery"><h2>Gallery</h2><div class="grid"><div class="card tile">🌟</div><div class="card tile">🎨</div><div class="card tile">📸</div><div class="card tile">✨</div><div class="card tile">🏆</div><div class="card tile">💎</div></div></section>':"";
+  var trust='<section id="trust" style="padding-top:34px"><div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">'+["Transparent pricing","Personal attention","Quality checked twice","Easy to reach"].map(function(t){return '<span style="border:1px solid '+c+'66;border-radius:999px;padding:8px 16px;font-size:13.5px;font-weight:600">✓ '+t+'</span>';}).join("")+'</div></section>';
+  var process='<section id="process"><h2>How it works</h2><div class="grid"><div class="card"><div class="ic">1</div><h3>Reach out</h3><p>Tell us what you need — walk in, call, or message.</p></div><div class="card"><div class="ic">2</div><h3>We plan it together</h3><p>You approve the plan and the full price before we start.</p></div><div class="card"><div class="ic">3</div><h3>Delivered with care</h3><p>Checked twice before it reaches you. That is the habit.</p></div></div></section>';
+  var faq='<section id="faq"><h2>Questions</h2><div style="max-width:720px;margin:0 auto;text-align:left"><details style="margin-bottom:10px"><summary style="font-weight:700;cursor:pointer">How do I book or order?</summary><p style="opacity:.8;margin-top:6px">Use the contact section below — we reply fast and confirm everything before we begin.</p></details><details style="margin-bottom:10px"><summary style="font-weight:700;cursor:pointer">How does pricing work?</summary><p style="opacity:.8;margin-top:6px">Pricing depends on what you choose. You always see and approve the full price first — no hidden charges.</p></details><details><summary style="font-weight:700;cursor:pointer">Can I request something custom?</summary><p style="opacity:.8;margin-top:6px">Yes — tell us what you have in mind and we will plan it with you.</p></details></div></section>';
   var css="*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}body{font-family:'Manrope',system-ui,sans-serif;background:#05060A;color:#EDF0F5;line-height:1.6;overflow-x:hidden}"
   +"#gl{position:fixed;inset:0;width:100%;height:100%;z-index:0}"
   +".orb{position:fixed;border-radius:50%;filter:blur(70px);z-index:0;opacity:.5;animation:fl 11s ease-in-out infinite}.orb.a{width:340px;height:340px;background:"+c+";top:-90px;right:-70px}.orb.b{width:260px;height:260px;background:"+c+";bottom:-80px;left:-60px;animation-delay:-5s;opacity:.32}@keyframes fl{50%{transform:translateY(36px) scale(1.07)}}"
@@ -243,9 +246,11 @@ function gen3D(p){
   +'<canvas id="gl"></canvas><div class="orb a"></div><div class="orb b"></div>'
   +'<header><div class="logo">'+esc(s.name)+'<span>.</span></div><nav><a href="#features">Features</a><a href="#about">About</a>'+(s.sections.pricing?'<a href="#pricing">Pricing</a>':"")+'<a href="#contact">Contact</a></nav></header>'
   +'<main><div class="hero"><span class="kick">Immersive · 3D</span><h1>'+esc(s.name)+'<br><em>'+esc(th.tag)+'</em></h1><p>'+esc(th.about)+'</p><div><a class="btn" href="#contact">Get Started</a><a class="btn g" href="#features">Explore</a></div></div>'
+  +trust
   +'<section id="features"><h2>What we do</h2><div class="grid">'+feats+'</div></section>'
-  +pricing+gallery+testi
+  +process+pricing+gallery
   +'<section class="about" id="about"><h2>About</h2><p>'+esc(th.about)+'</p></section>'
+  +testi+faq
   +'<section id="contact" style="text-align:center"><h2>Visit us</h2><p style="color:#AAB4C4">Walk in, call, or message — we reply fast.</p><div style="margin-top:20px"><a class="btn" href="#contact">Contact Now</a></div></section></main>'
   +'<footer>© 2026 '+esc(s.name)+' · 3D experience by YugLab</footer>'+three+'</body></html>';
 }
@@ -256,12 +261,17 @@ function genWebsite(p){
   var pricing=s.sections.pricing?'<section id="pricing"><h2>Pricing</h2><div class="grid"><div class="card"><h3>Essential</h3><div class="pr">₹999</div><p>Everything you need to start.</p></div><div class="card pop"><h3>Signature</h3><div class="pr">₹2,499</div><p>The full experience, most loved.</p></div><div class="card"><h3>Premium</h3><div class="pr">₹4,999</div><p>Top tier, no compromises.</p></div></div></section>':"";
   var testi=s.sections.testimonials?'<section id="love"><h2>Loved by customers</h2><div class="grid"><div class="card"><p>"Exactly what I hoped for — and then some. I keep coming back."</p><b>— Priya S.</b></div><div class="card"><p>"Quality, honesty, and it just feels premium. Rare combination."</p><b>— Rahul M.</b></div><div class="card"><p>"Booked in minutes, delighted for weeks. Highly recommended."</p><b>— Anita D.</b></div></div></section>':"";
   var gallery=s.sections.gallery?'<section id="gallery"><h2>Gallery</h2><div class="grid"><div class="card tile">🌟</div><div class="card tile">🎨</div><div class="card tile">📸</div><div class="card tile">✨</div><div class="card tile">🏆</div><div class="card tile">💎</div></div></section>':"";
+  var trust='<section id="trust" style="padding-top:34px"><div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">'+["Transparent pricing","Personal attention","Quality checked twice","Easy to reach"].map(function(t){return '<span style="border:1px solid '+c+'66;border-radius:999px;padding:8px 16px;font-size:13.5px;font-weight:600">✓ '+t+'</span>';}).join("")+'</div></section>';
+  var process='<section id="process"><h2>How it works</h2><div class="grid"><div class="card"><div class="ic">1</div><h3>Reach out</h3><p>Tell us what you need — walk in, call, or message.</p></div><div class="card"><div class="ic">2</div><h3>We plan it together</h3><p>You approve the plan and the full price before we start.</p></div><div class="card"><div class="ic">3</div><h3>Delivered with care</h3><p>Checked twice before it reaches you. That is the habit.</p></div></div></section>';
+  var faq='<section id="faq"><h2>Questions</h2><div style="max-width:720px;margin:0 auto;text-align:left"><details style="margin-bottom:10px"><summary style="font-weight:700;cursor:pointer">How do I book or order?</summary><p style="opacity:.8;margin-top:6px">Use the contact section below — we reply fast and confirm everything before we begin.</p></details><details style="margin-bottom:10px"><summary style="font-weight:700;cursor:pointer">How does pricing work?</summary><p style="opacity:.8;margin-top:6px">Pricing depends on what you choose. You always see and approve the full price first — no hidden charges.</p></details><details><summary style="font-weight:700;cursor:pointer">Can I request something custom?</summary><p style="opacity:.8;margin-top:6px">Yes — tell us what you have in mind and we will plan it with you.</p></details></div></section>';
   return '<!DOCTYPE html>\n<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>'+esc(s.name)+'</title><link href=\"https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Manrope:wght@400;600;800&display=swap\" rel=\"stylesheet\"><style>'+pageCSS(c,s.dark,fx)+'</style></head><body>'
   +'<header><div class="logo">'+esc(s.name)+'<span>.</span></div><nav><a href="#features">Features</a><a href="#about">About</a>'+(s.sections.pricing?'<a href="#pricing">Pricing</a>':"")+'<a href="#contact">Contact</a></nav></header>'
   +'<div class="hero"><h1>'+esc(s.name)+'<br><em>'+esc(s.tagline)+'</em></h1><p>'+esc(th.tag)+'</p><a class="btn" href="#contact">Get Started</a><a class="btn g" href="#features">Explore</a></div>'
+  +trust
   +'<section id="features"><h2>What we do</h2><div class="grid">'+feats+'</div></section>'
-  +pricing+gallery+testi
+  +process+pricing+gallery
   +'<section class="about" id="about"><h2>About</h2><p>'+esc(th.about)+'</p></section>'
+  +testi+faq
   +'<section id="contact" style="text-align:center"><h2>Visit us</h2><p style="color:inherit;opacity:.75">Walk in, call, or message — we reply fast.</p><div style="margin-top:20px"><a class="btn" href="#contact">Contact Now</a></div></section>'
   +'<footer>© 2026 '+esc(s.name)+' · Made with pride in India</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script><script>try{if(window.gsap&&window.ScrollTrigger){gsap.registerPlugin(ScrollTrigger);gsap.utils.toArray("section,.hero h1,.hero p").forEach(function(el){gsap.from(el,{y:26,opacity:0,duration:.8,ease:"power2.out",scrollTrigger:{trigger:el,start:"top 88%"}});});}}catch(e){}</script></body></html>';
 }
@@ -359,6 +369,15 @@ function validateBuild(p, html){
     if(bad.length)errs.push("external links not allowed: "+bad.slice(0,3).join(", "));
   }
   if(S.gates.forms===false&&/<form[\s>]/i.test(out))errs.push("form element not allowed for this type");
+  if(S.spine){
+    var lastIdx=-1;
+    S.spine.forEach(function(sec){
+      var markers=Array.isArray(sec.marker)?sec.marker:[sec.marker], idx=-1;
+      markers.forEach(function(mk){var i=out.indexOf(mk); if(i>-1&&(idx===-1||i<idx))idx=i;});
+      if(idx===-1){ if(sec.required)errs.push("spine section missing: "+sec.key); }
+      else{ if(idx<lastIdx)errs.push("spine order broken at: "+sec.key); else lastIdx=idx; }
+    });
+  }
   var warns=[];
   if(R.universal.domChecks){
     var idSeen={}, idDups=[], idRe=/id="([^"]+)"/g, im;
