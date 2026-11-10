@@ -18,6 +18,8 @@
   <div class="top-right">
     <button class="ai-pill" id="aiPill">✦ Yug AI · <b id="aiStatus">…</b></button>
     <span class="credits-pill">Credits: <b id="creditsVal">1000</b> · Studio</span>
+    <span class="credits-pill" id="planPill" style="display:none">Plan: <b id="planVal">Free</b></span>
+    <button class="btn small ghost" id="accountBtn">Login</button>
     <button class="btn small ghost" id="openPlayground">⌨ Code Studio</button>
     <a class="btn small ghost" href="index.html">View Site</a>
   </div>
@@ -160,6 +162,21 @@
       </div>
     </div>
   </main>
+</div>
+
+<div id="authModal" class="auth-overlay" style="display:none">
+  <div class="auth-card">
+    <div class="panel-title">Account</div>
+    <p class="publish-note">Login to sync your projects to the cloud — they follow your account, not just this device. New here? Sign up uses the same form.</p>
+    <div class="f-field"><label>Email</label><input id="authEmail" type="email" placeholder="you@example.com" autocomplete="email"></div>
+    <div class="f-field"><label>Password</label><input id="authPass" type="password" placeholder="6+ characters" autocomplete="current-password"></div>
+    <p class="auth-msg" id="authMsg"></p>
+    <div class="row-btns">
+      <button class="btn" id="authLoginBtn">Login</button>
+      <button class="btn ghost" id="authSignupBtn">Sign Up</button>
+      <button class="btn ghost" id="authCloseBtn">Close</button>
+    </div>
+  </div>
 </div>
 
 <div class="toast" id="toast"></div>

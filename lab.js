@@ -60,12 +60,85 @@ if(!state){
   try{var old=JSON.parse(localStorage.getItem(LS_OLD));if(old&&old.projects){state.credits=old.credits||1000;old.projects.forEach(function(p){state.projects.push({id:p.id,name:p.name,type:p.type||"Website",status:p.status||"Built",details:null,plan:p.plan||null,html:p.html||"",site:p.site||null});});state.activeId=old.activeId;}}catch(e){}
 }
 var draft=null; /* creation draft: {type, details:{}} */
-function save(){try{localStorage.setItem(LS_KEY,JSON.stringify(state));}catch(e){}}
+function save(){var now=Date.now();state.projects.forEach(function(p){p.updatedAt=now;});try{localStorage.setItem(LS_KEY,JSON.stringify(state));}catch(e){} sbSchedulePush();}
 function $(id){return document.getElementById(id);}
 function esc(s){return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;");}
 function active(){for(var i=0;i<state.projects.length;i++)if(state.projects[i].id===state.activeId)return state.projects[i];return null;}
 function toast(msg){var t=$("toast");t.textContent=msg;t.classList.add("show");setTimeout(function(){t.classList.remove("show");},2200);}
 function setStep(n){document.querySelectorAll("#stepsBar .sb").forEach(function(el){el.classList.toggle("on",+el.getAttribute("data-sb")<=n);});}
+
+/* ---------- 9.3 cloud: Supabase auth + project sync (additive, local-first) ---------- */
+var SB_LS="yuglab_sb_v1";
+var sbCfg=null, sbSess=null, sbSyncTimer=null, sbPushed={}, sbPlan="free";
+function sbLoadSess(){try{sbSess=JSON.parse(localStorage.getItem(SB_LS));}catch(e){sbSess=null;}return sbSess;}
+function sbSaveSess(){try{if(sbSess)localStorage.setItem(SB_LS,JSON.stringify(sbSess));else localStorage.removeItem(SB_LS);}catch(e){}}
+function sbUser(){return sbSess&&sbSess.user?sbSess.user:null;}
+function sbHeaders(extra){var h={"apikey":sbCfg.anonKey,"Content-Type":"application/json"};if(sbSess&&sbSess.access_token)h.Authorization="Bearer "+sbSess.access_token;if(extra)for(var k in extra)h[k]=extra[k];return h;}
+function sbAuth(path,body){return fetch(sbCfg.url+"/auth/v1/"+path,{method:"POST",headers:sbHeaders(),body:JSON.stringify(body)}).then(function(r){return r.json().then(function(j){return {r:r,j:j};});});}
+function sbSetSession(j){sbSess={access_token:j.access_token,refresh_token:j.refresh_token,expires_at:Date.now()+((j.expires_in||3600)*1000),user:{id:j.user.id,email:j.user.email}};sbSaveSess();}
+function sbErr(j,fb){return new Error((j&&(j.error_description||j.msg||j.error))||fb);}
+function sbLogin(email,pass){return sbAuth("token?grant_type=password",{email:email,password:pass}).then(function(x){if(!x.r.ok||!x.j.access_token)throw sbErr(x.j,"Login failed");sbSetSession(x.j);return sbAfterLogin();});}
+function sbSignup(email,pass){return sbAuth("signup",{email:email,password:pass}).then(function(x){if(!x.r.ok)throw sbErr(x.j,"Signup failed");if(x.j.access_token){sbSetSession(x.j);return sbAfterLogin();}return {needsConfirm:true};});}
+function sbLogout(){var done=function(){sbSess=null;sbPlan="free";sbSaveSess();sbRenderAccount();toast("Logged out. Projects stay on this device.");};if(sbSess&&sbCfg){fetch(sbCfg.url+"/auth/v1/logout",{method:"POST",headers:sbHeaders()}).then(done,done);}else done();}
+function sbRefresh(){if(!sbSess||!sbSess.refresh_token)return Promise.resolve(false);return sbAuth("token?grant_type=refresh_token",{refresh_token:sbSess.refresh_token}).then(function(x){if(x.r.ok&&x.j.access_token){sbSetSession(x.j);return true;}sbSess=null;sbSaveSess();return false;}).catch(function(){return false;});}
+function sbRest(path,opts){opts=opts||{};return fetch(sbCfg.url+"/rest/v1/"+path,{method:opts.method||"GET",headers:sbHeaders(opts.headers),body:opts.body!==undefined?JSON.stringify(opts.body):undefined}).then(function(r){return r.text().then(function(t){var j=null;try{j=t?JSON.parse(t):null;}catch(e){}return {r:r,j:j,t:t};});});}
+function sbHash(s){var h=0;for(var i=0;i<s.length;i++){h=((h<<5)-h+s.charCodeAt(i))|0;}return "h"+h;}
+function sbRow(p){return {id:p.id,user_id:sbUser().id,name:p.name||"Untitled",type:p.type||"Website",details:p.details||{},html:p.html||"",files:p.files||[],state:p.state||p.status||"Draft",version:p.version||1,updated_at:new Date(p.updatedAt||Date.now()).toISOString()};}
+function sbFromRow(r){return {id:r.id,name:r.name,type:r.type,status:r.state,details:r.details||null,plan:null,html:r.html||"",site:null,files:r.files||[],state:r.state,version:r.version||1};}
+function sbSchedulePush(){if(!sbCfg||!sbUser())return;if(sbSyncTimer)clearTimeout(sbSyncTimer);sbSyncTimer=setTimeout(function(){sbPushAll();},900);}
+function sbPushAll(){if(!sbCfg||!sbUser())return Promise.resolve(false);
+  var snap=[];
+  state.projects.forEach(function(p){if(p.html&&sbHash(p.html)!==sbPushed[p.id]){p.version=(p.version||1)+1;snap.push(p);}});
+  var rows=state.projects.map(sbRow);
+  return sbRest("projects",{method:"POST",headers:{"Prefer":"resolution=merge-duplicates,return=minimal"},body:rows}).then(function(x){
+    if(!x.r.ok)throw new Error("push "+x.r.status);
+    var jobs=snap.map(function(p){sbPushed[p.id]=sbHash(p.html);return sbRest("project_versions",{method:"POST",headers:{"Prefer":"return=minimal"},body:{project_id:p.id,version:p.version,html:p.html}});});
+    return Promise.all(jobs).then(function(){return true;});
+  }).catch(function(){return false;});
+}
+function sbDeleteProject(id){if(!sbCfg||!sbUser())return;sbRest("projects?id=eq."+encodeURIComponent(id),{method:"DELETE",headers:{"Prefer":"return=minimal"}}).catch(function(){});}
+function sbPullMerge(){return sbRest("projects?select=*&order=updated_at.desc").then(function(x){
+    if(!x.r.ok||!Array.isArray(x.j))return false;
+    var byId={};state.projects.forEach(function(p){byId[p.id]=p;});
+    x.j.forEach(function(r){var lp=byId[r.id];var cu=Date.parse(r.updated_at)||0;
+      if(!lp){var np=sbFromRow(r);np.updatedAt=cu;state.projects.push(np);byId[r.id]=np;sbPushed[r.id]=sbHash(r.html||"");}
+      else if(cu>(lp.updatedAt||0)){lp.name=r.name;lp.type=r.type;lp.details=r.details||lp.details;lp.html=r.html||"";lp.files=r.files||[];lp.state=r.state;lp.status=r.state;lp.version=r.version||lp.version;lp.updatedAt=cu;sbPushed[r.id]=sbHash(lp.html||"");}
+    });
+    save();renderProjects();return true;
+  }).catch(function(){return false;});}
+function sbLoadPlan(){if(!sbUser())return Promise.resolve();return sbRest("entitlements?user_id=eq."+sbUser().id+"&select=plan,status").then(function(x){sbPlan=(x.r.ok&&Array.isArray(x.j)&&x.j[0]&&x.j[0].plan)||"free";}).catch(function(){sbPlan="free";});}
+function sbAfterLogin(){var u=sbUser();sbRenderAccount();
+  return sbRest("profiles",{method:"POST",headers:{"Prefer":"resolution=merge-duplicates,return=minimal"},body:{id:u.id,email:u.email}})
+  .then(function(){return sbPullMerge();}).then(function(){return sbLoadPlan();}).then(function(){sbRenderAccount();toast("Logged in — projects sync to your account.");return true;});}
+function sbRenderAccount(){var b=$("accountBtn");var u=sbUser();if(b)b.textContent=u?u.email:"Login";
+  var pp=$("planPill");if(pp){if(u){pp.style.display="";var pv=$("planVal");if(pv)pv.textContent=sbPlan?sbPlan.charAt(0).toUpperCase()+sbPlan.slice(1):"Free";}else pp.style.display="none";}}
+function sbOpenAuth(){var m=$("authModal");if(m)m.style.display="flex";}
+function sbCloseAuth(){var m=$("authModal");if(m)m.style.display="none";}
+function sbAuthMsg(t){var m=$("authMsg");if(m)m.textContent=t||"";}
+function sbDoAuth(mode){var em=(($("authEmail")||{}).value||"").trim(),pw=($("authPass")||{}).value||"";
+  if(!sbCfg){sbAuthMsg("Cloud is not configured yet.");return;}
+  if(em.indexOf("@")<1||pw.length<6){sbAuthMsg("Enter a valid email and a password of 6+ characters.");return;}
+  sbAuthMsg(mode==="signup"?"Creating account…":"Logging in…");
+  (mode==="signup"?sbSignup:sbLogin)(em,pw).then(function(res){if(res&&res.needsConfirm){sbAuthMsg("Account created. Confirm from the email we sent, then login.");return;}sbCloseAuth();sbAuthMsg("");}).catch(function(err){sbAuthMsg(err.message||"Failed. Try again.");});}
+function sbInit(){
+  var ab=$("accountBtn");if(ab)ab.onclick=function(){if(sbUser()){if(confirm("Logout from "+sbUser().email+"?"))sbLogout();}else sbOpenAuth();};
+  var lb=$("authLoginBtn");if(lb)lb.onclick=function(){sbDoAuth("login");};
+  var su=$("authSignupBtn");if(su)su.onclick=function(){sbDoAuth("signup");};
+  var cl=$("authCloseBtn");if(cl)cl.onclick=function(){sbCloseAuth();};
+  sbRenderAccount();
+  fetch("/api/config").then(function(r){return r.json();}).then(function(j){
+    if(!j||!j.supabaseUrl||!j.supabaseAnonKey)return;
+    sbCfg={url:j.supabaseUrl,anonKey:j.supabaseAnonKey};
+    sbLoadSess();sbRenderAccount();
+    if(sbUser()){
+      var needRef=!sbSess.expires_at||sbSess.expires_at<Date.now()+30000;
+      (needRef?sbRefresh():Promise.resolve(true)).then(function(ok){
+        if(ok){sbPullMerge().then(function(){return sbLoadPlan();}).then(function(){sbRenderAccount();});}
+        else sbRenderAccount();
+      });
+    }
+  }).catch(function(){});
+}
 
 
 /* ---------- preview lock: guard + blob (iframe kabhi parent ko load nahi karega) ---------- */
@@ -804,7 +877,7 @@ function renderProjects(){
     var b=document.createElement("button");
     b.className="proj-item"+(p.id===state.activeId?" active":"");
     b.innerHTML=esc(p.name)+'<span class="del" title="Delete">✕</span><small>'+esc(p.type)+" · "+esc(p.status)+"</small>";
-    b.querySelector(".del").onclick=function(ev){ev.stopPropagation();if(confirm("Delete project '"+p.name+"'?")){state.projects=state.projects.filter(function(x){return x.id!==p.id;});if(state.activeId===p.id)state.activeId=null;save();renderAll();}};
+    b.querySelector(".del").onclick=function(ev){ev.stopPropagation();if(confirm("Delete project '"+p.name+"'?")){sbDeleteProject(p.id);state.projects=state.projects.filter(function(x){return x.id!==p.id;});if(state.activeId===p.id)state.activeId=null;save();renderAll();}};
     b.onclick=function(){state.activeId=p.id;save();renderAll();};
     el.appendChild(b);
   });
@@ -1059,7 +1132,7 @@ $("downloadBtn").onclick=downloadOut;
 var _zb=$("zipBtn"); if(_zb)_zb.onclick=downloadZip;
 $("copyBtn").onclick=function(){var p=active();if(p&&p.html&&navigator.clipboard)navigator.clipboard.writeText(p.html).then(function(){toast("Code copied ✔");});};
 $("openBtn").onclick=function(){var p=active();if(p&&p.html){var b=new Blob([p.html],{type:"text/html"});window.open(URL.createObjectURL(b),"_blank");}};
-$("deleteBtn").onclick=function(){var p=active();if(p&&confirm("Delete project '"+p.name+"'?")){state.projects=state.projects.filter(function(x){return x.id!==p.id;});state.activeId=null;save();renderAll();}};
+$("deleteBtn").onclick=function(){var p=active();if(p&&confirm("Delete project '"+p.name+"'?")){sbDeleteProject(p.id);state.projects=state.projects.filter(function(x){return x.id!==p.id;});state.activeId=null;save();renderAll();}};
 $("aiPill").onclick=function(){$("aiBox").scrollIntoView({behavior:"smooth",block:"center"});};
 $("aiSendBtn").onclick=aiAsk;
 $("aiInput").addEventListener("keydown",function(e){if(e.key==="Enter")aiAsk();});
@@ -1200,4 +1273,5 @@ $("csSave").onclick=function(){
   csFiles.forEach(function(f){if(f.name==="index.html")p.html=f.content;else others.push(f);});
   p.files=others;save();blobInto($("previewFrame"),p.html);toast("Saved.");
 };
+sbInit();
 })();
