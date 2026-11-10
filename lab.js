@@ -238,8 +238,27 @@ function pageCSS(c,dark,extra){
   +".about p{color:"+mut+";max-width:640px;margin:0 auto;text-align:center;font-size:16.5px}"
   +"footer{border-top:1px solid "+line+";text-align:center;color:"+mut+";padding:28px;font-size:13.5px}"+(extra||"")+MOTION_CSS;
 }
+function seoBlock(p,s,is3D){
+  var d=p.details||{};
+  var cat=CATS[s.theme]||"Business";
+  var biz=String(d.business||"");
+  var city=biz.indexOf(",")>-1?biz.split(",").pop().trim():"";
+  var th=THEMES[s.theme]||THEMES.generic;
+  var desc=(s.name+" \u2014 "+cat+(city?(" in "+city):"")+". "+(th.tag||"")).slice(0,160);
+  var title=s.name+" | "+cat+(is3D?" \u00b7 3D":"");
+  var LD_TYPE={cafe:"CafeOrCoffeeShop",restaurant:"Restaurant",bakery:"Bakery",gym:"HealthClub",yoga:"HealthClub",salon:"BeautySalon",spa:"HealthAndBeautyBusiness",hotel:"LodgingBusiness",dental:"Dentist",clinic:"MedicalClinic",pharmacy:"Pharmacy",store:"Store",grocery:"GroceryStore",electronics:"ElectronicsStore",fashion:"ClothingStore",jewellery:"JewelryStore",realestate:"RealEstateAgent",lawfirm:"LegalService",school:"EducationalOrganization",travel:"TravelAgency",auto:"AutoRepair",pets:"PetStore"};
+  var ld={"@context":"https://schema.org","@type":LD_TYPE[s.theme]||"LocalBusiness",name:s.name,description:desc};
+  if(city)ld.address={"@type":"PostalAddress",addressLocality:city,addressCountry:"IN"};
+  var html='<meta name="description" content="'+esc(desc)+'">'
+    +'<meta name="robots" content="index,follow">'
+    +'<meta property="og:type" content="website"><meta property="og:title" content="'+esc(title)+'"><meta property="og:description" content="'+esc(desc)+'"><meta property="og:locale" content="en_IN">'
+    +'<meta name="twitter:card" content="summary"><meta name="twitter:title" content="'+esc(title)+'"><meta name="twitter:description" content="'+esc(desc)+'">'
+    +'<script type="application/ld+json">'+JSON.stringify(ld).replace(/</g,"\\u003c")+'</scr'+'ipt>';
+  return {title:title,desc:desc,html:html};
+}
 function gen3D(p){
   var s=p.site, th=THEMES[s.theme]||THEMES.generic, c=s.colorHex||COLORS[s.colorName]||COLORS.amber, cInt=c.replace("#","");
+  var SB=seoBlock(p,s,true);
   var bpCta=blueprintFor(s.theme).cta;
   var feats=th.feats.map(function(f){return '<div class="card"><div class="ic">'+f[0]+'</div><h3>'+f[1]+'</h3><p>'+f[2]+'</p></div>';}).join("");
   var pricing=s.sections.pricing?'<section id="pricing"><h2>Pricing</h2><div class="grid"><div class="card"><h3>Essential</h3><div class="pr">₹999</div><p>Everything you need to start.</p></div><div class="card pop"><h3>Signature</h3><div class="pr">₹2,499</div><p>The full experience, most loved.</p></div><div class="card"><h3>Premium</h3><div class="pr">₹4,999</div><p>Top tier, no compromises.</p></div></div></section>':"";
@@ -267,7 +286,7 @@ function gen3D(p){
   css+=TYPE_CSS;
   css+=SPACE_CSS;
   css+=MOTION_CSS;
-  return '<!DOCTYPE html>\n<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>'+esc(s.name)+' — 3D</title><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet"><style>'+css+variantCSS(c,s)+'</style></head><body>'
+  return '<!DOCTYPE html>\n<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>'+esc(SB.title)+'</title>'+SB.html+'<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet"><style>'+css+variantCSS(c,s)+'</style></head><body>'
   +'<canvas id="gl"></canvas><div class="orb a"></div><div class="orb b"></div>'
   +'<header><div class="logo">'+esc(s.name)+'<span>.</span></div><nav><a href="#features">Features</a><a href="#about">About</a>'+(s.sections.pricing?'<a href="#pricing">Pricing</a>':"")+'<a href="#contact">Contact</a></nav></header>'
   +'<main><div class="hero hv'+s.heroVar+'"><span class="kick">Immersive · 3D</span><h1>'+esc(s.name)+'<br><em>'+esc(th.tag)+'</em></h1><p>'+esc(th.about)+'</p><div><a class="btn" href="#contact">'+esc(bpCta)+'</a><a class="btn g" href="#features">Explore</a></div></div>'
@@ -282,6 +301,7 @@ function gen3D(p){
 }
 function genWebsite(p){
   var s=p.site, th=THEMES[s.theme]||THEMES.generic, c=s.colorHex||COLORS[s.colorName]||COLORS.amber;
+  var SB=seoBlock(p,s,false);
   var bpCta=blueprintFor(s.theme).cta;
   var fx="body{font-family:'Manrope',system-ui,sans-serif}h1,h2{font-family:'Fraunces',Georgia,serif}"+TYPE_CSS+SPACE_CSS+(s.fx3d?".hero h1{transform:perspective(600px) rotateX(4deg);text-shadow:0 18px 40px rgba(0,0,0,.45)}.card{transition:.25s}.card:hover{transform:translateY(-6px) perspective(500px) rotateX(3deg)}":"");
   var feats=th.feats.map(function(f){return '<div class="card"><div class="ic">'+f[0]+'</div><h3>'+f[1]+'</h3><p>'+f[2]+'</p></div>';}).join("");
@@ -291,7 +311,7 @@ function genWebsite(p){
   var trust='<section id="trust" style="padding-top:34px"><div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">'+["Transparent pricing","Personal attention","Quality checked twice","Easy to reach"].map(function(t){return '<span style="border:1px solid '+c+'66;border-radius:999px;padding:8px 16px;font-size:13.5px;font-weight:600">✓ '+t+'</span>';}).join("")+'</div></section>';
   var process='<section id="process"><h2>How it works</h2><div class="grid"><div class="card"><div class="ic">1</div><h3>Reach out</h3><p>Tell us what you need — walk in, call, or message.</p></div><div class="card"><div class="ic">2</div><h3>We plan it together</h3><p>You approve the plan and the full price before we start.</p></div><div class="card"><div class="ic">3</div><h3>Delivered with care</h3><p>Checked twice before it reaches you. That is the habit.</p></div></div></section>';
   var faq='<section id="faq"><h2>Questions</h2><div style="max-width:720px;margin:0 auto;text-align:left"><details style="margin-bottom:10px"><summary style="font-weight:700;cursor:pointer">How do I book or order?</summary><p style="opacity:.8;margin-top:6px">Use the contact section below — we reply fast and confirm everything before we begin.</p></details><details style="margin-bottom:10px"><summary style="font-weight:700;cursor:pointer">How does pricing work?</summary><p style="opacity:.8;margin-top:6px">Pricing depends on what you choose. You always see and approve the full price first — no hidden charges.</p></details><details><summary style="font-weight:700;cursor:pointer">Can I request something custom?</summary><p style="opacity:.8;margin-top:6px">Yes — tell us what you have in mind and we will plan it with you.</p></details></div></section>';
-  return '<!DOCTYPE html>\n<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>'+esc(s.name)+'</title><link href=\"https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Manrope:wght@400;600;800&display=swap\" rel=\"stylesheet\"><style>'+pageCSS(c,s.dark,fx+variantCSS(c,s))+'</style></head><body>'
+  return '<!DOCTYPE html>\n<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>'+esc(SB.title)+'</title>'+SB.html+'<link href=\"https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Manrope:wght@400;600;800&display=swap\" rel=\"stylesheet\"><style>'+pageCSS(c,s.dark,fx+variantCSS(c,s))+'</style></head><body>'
   +'<header><div class="logo">'+esc(s.name)+'<span>.</span></div><nav><a href="#features">Features</a><a href="#about">About</a>'+(s.sections.pricing?'<a href="#pricing">Pricing</a>':"")+'<a href="#contact">Contact</a></nav></header>'
   +'<div class="hero hv'+s.heroVar+'">'+heroBadgeHTML(s)+'<h1>'+esc(s.name)+'<br><em>'+esc(s.tagline)+'</em></h1><p>'+esc(th.tag)+'</p><a class="btn" href="#contact">'+esc(bpCta)+'</a><a class="btn g" href="#features">Explore</a></div>'
   +trust
@@ -463,6 +483,18 @@ function validateBuild(p, html){
   if(S.gates.maxExternal!=null){
     var extN=((out.match(/<script[^>]+src="https?:/g)||[]).length)+((out.match(/<link[^>]+href="https?:/g)||[]).length);
     if(extN>S.gates.maxExternal)errs.push("external requests "+extN+" exceed budget "+S.gates.maxExternal);
+  }
+  if(S.gates.seo){
+    if(out.indexOf('name="description"')===-1)errs.push("meta description missing");
+    if(out.indexOf('property="og:title"')===-1)errs.push("OG tags missing");
+    if(out.indexOf('application/ld+json')===-1)errs.push("JSON-LD missing");
+    var tm2=out.match(/<title>([^<]*)<\/title>/);
+    if(!tm2||tm2[1].length<8)errs.push("title too short");
+    if(tm2&&tm2[1].length>70)warns.push("title long: "+tm2[1].length+" chars");
+    var dm2=out.match(/name="description" content="([^"]*)"/);
+    if(dm2&&(dm2[1].length<40||dm2[1].length>170))warns.push("description length "+dm2[1].length+" (ideal 50-160)");
+    var ldm2=out.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/);
+    if(ldm2){ try{ var lj=JSON.parse(ldm2[1]); if(!lj["@type"]||!lj.name)errs.push("JSON-LD missing @type/name"); }catch(e){ errs.push("JSON-LD invalid JSON"); } }
   }
   if(p&&p.details&&p.details.name&&p.details.name.length>60)warns.push("business name is long ("+p.details.name.length+" chars) — shorter names read better");
   if(R.universal.domChecks){
