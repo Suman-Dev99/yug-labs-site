@@ -199,11 +199,24 @@ function detailChips(p){
 }
 
 /* ---------- generators ---------- */
+function seedOf(name){var h=0;var t=String(name||"");for(var i=0;i<t.length;i++)h=(h*31+t.charCodeAt(i))>>>0;return h;}
+function variantCSS(c,s){
+  var v=".hbadge{display:inline-block;padding:6px 14px;border:1.5px solid "+c+";border-radius:99px;font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px}";
+  if(s.heroVar===1)v+=".hero{text-align:left;align-items:flex-start}.hero p{margin-left:0;margin-right:0}";
+  if(s.heroVar===2)v+=".hero h1{font-size:clamp(46px,7.5vw,78px);letter-spacing:-.02em}";
+  if(s.cardVar===1)v+=".card{border-top:3px solid "+c+"}";
+  if(s.cardVar===2)v+=".card{border-radius:22px;box-shadow:0 14px 34px rgba(0,0,0,.16)}";
+  if(s.btnVar===1)v+=".btn{border-radius:99px}";
+  return v;
+}
+function heroBadgeHTML(s){return s.heroVar===2?'<span class="hbadge">'+esc(CATS[s.theme]||"Business")+'</span>':"";}
+
 function siteFromDetails(p){
   var d=p.details;
   var revs=[];
   if(d.reviews){String(d.reviews).split(/\n+/).forEach(function(line){line=line.trim();if(!line)return;var parts=line.split(/\s+[—–-]\s+/);var nm=parts.length>1?parts.pop().trim():"Customer";var tx=parts.join(" — ").trim();if(tx)revs.push({text:tx.slice(0,200),name:(nm||"Customer").slice(0,40)});});revs=revs.slice(0,3);}
-  return {name:d.name||p.name,tagline:"Welcome to "+(d.name||p.name),theme:d.category||"generic",colorName:d.color||"mono",colorHex:(d.colorHex||""),dark:d.mode!=="light",fx3d:p.type==="3D Website",sections:{pricing:(d.sections||[]).indexOf("Pricing")>-1,testimonials:(d.sections||[]).indexOf("Testimonials")>-1,gallery:(d.sections||[]).indexOf("Gallery")>-1},reviews:revs};
+  var seed=seedOf(d.name||p.name);
+  return {seed:seed,heroVar:seed%3,cardVar:Math.floor(seed/3)%3,btnVar:Math.floor(seed/9)%2,name:d.name||p.name,tagline:"Welcome to "+(d.name||p.name),theme:d.category||"generic",colorName:d.color||"mono",colorHex:(d.colorHex||""),dark:d.mode!=="light",fx3d:p.type==="3D Website",sections:{pricing:(d.sections||[]).indexOf("Pricing")>-1,testimonials:(d.sections||[]).indexOf("Testimonials")>-1,gallery:(d.sections||[]).indexOf("Gallery")>-1},reviews:revs};
 }
 function pageCSS(c,dark,extra){
   var bg=dark?"#0C0E13":"#FAFAF8",panel=dark?"#141821":"#FFFFFF",tx=dark?"#EDF0F5":"#16181D",mut=dark?"#9AA6B5":"#5B6472",line=dark?"#232A38":"#E6E3DC";
@@ -247,10 +260,10 @@ function gen3D(p){
   +".about p{color:#AAB4C4;max-width:640px;margin:0 auto;text-align:center;font-size:16.5px}"
   +"footer{position:relative;z-index:1;border-top:1px solid rgba(255,255,255,.08);text-align:center;color:#8A94A6;padding:28px;font-size:13.5px}";
   var three='<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script><script>try{if(window.THREE){var cv=document.getElementById("gl");var rn=new THREE.WebGLRenderer({canvas:cv,alpha:true,antialias:true});var sc=new THREE.Scene();var cm=new THREE.PerspectiveCamera(55,innerWidth/innerHeight,.1,100);cm.position.z=8;var AC=0x'+cInt+';var knot=new THREE.Mesh(new THREE.TorusKnotGeometry(1.7,.52,180,26),new THREE.MeshStandardMaterial({color:AC,metalness:.85,roughness:.25}));knot.position.x=2.6;sc.add(knot);var pg=new THREE.BufferGeometry();var N=420,pos=new Float32Array(N*3);for(var i=0;i<N*3;i++)pos[i]=(Math.random()-.5)*26;pg.setAttribute("position",new THREE.BufferAttribute(pos,3));var pts=new THREE.Points(pg,new THREE.PointsMaterial({color:AC,size:.045,transparent:true,opacity:.85}));sc.add(pts);sc.add(new THREE.AmbientLight(0xffffff,.55));var pl=new THREE.PointLight(AC,1.6,60);pl.position.set(-4,3,6);sc.add(pl);var mx=0,my=0;addEventListener("pointermove",function(e){mx=(e.clientX/innerWidth-.5);my=(e.clientY/innerHeight-.5);});function rs(){rn.setSize(innerWidth,innerHeight);cm.aspect=innerWidth/innerHeight;cm.updateProjectionMatrix();}addEventListener("resize",rs);rs();var orbs=document.querySelectorAll(".orb");orbs.forEach(function(o){o.style.opacity=".18";});(function an(){requestAnimationFrame(an);knot.rotation.x+=.004;knot.rotation.y+=.006;pts.rotation.y+=.0006;cm.position.x+=((mx*1.6)-cm.position.x)*.04;cm.position.y+=((-my*1.1)-cm.position.y)*.04;cm.lookAt(1,0,0);rn.render(sc,cm);})();}}catch(e){}</script>';
-  return '<!DOCTYPE html>\n<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>'+esc(s.name)+' — 3D</title><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet"><style>'+css+'</style></head><body>'
+  return '<!DOCTYPE html>\n<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>'+esc(s.name)+' — 3D</title><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet"><style>'+css+variantCSS(c,s)+'</style></head><body>'
   +'<canvas id="gl"></canvas><div class="orb a"></div><div class="orb b"></div>'
   +'<header><div class="logo">'+esc(s.name)+'<span>.</span></div><nav><a href="#features">Features</a><a href="#about">About</a>'+(s.sections.pricing?'<a href="#pricing">Pricing</a>':"")+'<a href="#contact">Contact</a></nav></header>'
-  +'<main><div class="hero"><span class="kick">Immersive · 3D</span><h1>'+esc(s.name)+'<br><em>'+esc(th.tag)+'</em></h1><p>'+esc(th.about)+'</p><div><a class="btn" href="#contact">'+esc(bpCta)+'</a><a class="btn g" href="#features">Explore</a></div></div>'
+  +'<main><div class="hero hv'+s.heroVar+'"><span class="kick">Immersive · 3D</span><h1>'+esc(s.name)+'<br><em>'+esc(th.tag)+'</em></h1><p>'+esc(th.about)+'</p><div><a class="btn" href="#contact">'+esc(bpCta)+'</a><a class="btn g" href="#features">Explore</a></div></div>'
   +trust
   +'<section id="features"><h2>What we do</h2><div class="grid">'+feats+'</div></section>'
   +signatureModule(s.theme)
@@ -271,9 +284,9 @@ function genWebsite(p){
   var trust='<section id="trust" style="padding-top:34px"><div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">'+["Transparent pricing","Personal attention","Quality checked twice","Easy to reach"].map(function(t){return '<span style="border:1px solid '+c+'66;border-radius:999px;padding:8px 16px;font-size:13.5px;font-weight:600">✓ '+t+'</span>';}).join("")+'</div></section>';
   var process='<section id="process"><h2>How it works</h2><div class="grid"><div class="card"><div class="ic">1</div><h3>Reach out</h3><p>Tell us what you need — walk in, call, or message.</p></div><div class="card"><div class="ic">2</div><h3>We plan it together</h3><p>You approve the plan and the full price before we start.</p></div><div class="card"><div class="ic">3</div><h3>Delivered with care</h3><p>Checked twice before it reaches you. That is the habit.</p></div></div></section>';
   var faq='<section id="faq"><h2>Questions</h2><div style="max-width:720px;margin:0 auto;text-align:left"><details style="margin-bottom:10px"><summary style="font-weight:700;cursor:pointer">How do I book or order?</summary><p style="opacity:.8;margin-top:6px">Use the contact section below — we reply fast and confirm everything before we begin.</p></details><details style="margin-bottom:10px"><summary style="font-weight:700;cursor:pointer">How does pricing work?</summary><p style="opacity:.8;margin-top:6px">Pricing depends on what you choose. You always see and approve the full price first — no hidden charges.</p></details><details><summary style="font-weight:700;cursor:pointer">Can I request something custom?</summary><p style="opacity:.8;margin-top:6px">Yes — tell us what you have in mind and we will plan it with you.</p></details></div></section>';
-  return '<!DOCTYPE html>\n<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>'+esc(s.name)+'</title><link href=\"https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Manrope:wght@400;600;800&display=swap\" rel=\"stylesheet\"><style>'+pageCSS(c,s.dark,fx)+'</style></head><body>'
+  return '<!DOCTYPE html>\n<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>'+esc(s.name)+'</title><link href=\"https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Manrope:wght@400;600;800&display=swap\" rel=\"stylesheet\"><style>'+pageCSS(c,s.dark,fx+variantCSS(c,s))+'</style></head><body>'
   +'<header><div class="logo">'+esc(s.name)+'<span>.</span></div><nav><a href="#features">Features</a><a href="#about">About</a>'+(s.sections.pricing?'<a href="#pricing">Pricing</a>':"")+'<a href="#contact">Contact</a></nav></header>'
-  +'<div class="hero"><h1>'+esc(s.name)+'<br><em>'+esc(s.tagline)+'</em></h1><p>'+esc(th.tag)+'</p><a class="btn" href="#contact">'+esc(bpCta)+'</a><a class="btn g" href="#features">Explore</a></div>'
+  +'<div class="hero hv'+s.heroVar+'">'+heroBadgeHTML(s)+'<h1>'+esc(s.name)+'<br><em>'+esc(s.tagline)+'</em></h1><p>'+esc(th.tag)+'</p><a class="btn" href="#contact">'+esc(bpCta)+'</a><a class="btn g" href="#features">Explore</a></div>'
   +trust
   +'<section id="features"><h2>What we do</h2><div class="grid">'+feats+'</div></section>'
   +signatureModule(s.theme)
