@@ -315,7 +315,8 @@ function genWebsite(p){
   var faq='<section id="faq"><h2>Questions</h2><div style="max-width:720px;margin:0 auto;text-align:left"><details style="margin-bottom:10px"><summary style="font-weight:700;cursor:pointer">How do I book or order?</summary><p style="opacity:.8;margin-top:6px">Use the contact section below — we reply fast and confirm everything before we begin.</p></details><details style="margin-bottom:10px"><summary style="font-weight:700;cursor:pointer">How does pricing work?</summary><p style="opacity:.8;margin-top:6px">Pricing depends on what you choose. You always see and approve the full price first — no hidden charges.</p></details><details><summary style="font-weight:700;cursor:pointer">Can I request something custom?</summary><p style="opacity:.8;margin-top:6px">Yes — tell us what you have in mind and we will plan it with you.</p></details></div></section>';
   return '<!DOCTYPE html>\n<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>'+esc(SB.title)+'</title>'+SB.html+'<link href=\"https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Manrope:wght@400;600;800&display=swap\" rel=\"stylesheet\"><style>'+pageCSS(c,s.dark,fx+variantCSS(c,s))+'</style></head><body><a class="skip" href="#main">Skip to content</a>'
   +'<header><div class="logo">'+esc(s.name)+'<span>.</span></div><nav><a href="#features">Features</a><a href="#about">About</a>'+(s.sections.pricing?'<a href="#pricing">Pricing</a>':"")+'<a href="#contact">Contact</a></nav></header>'
-  +'<div id="main" class="hero hv'+s.heroVar+'">'+heroBadgeHTML(s)+'<h1>'+esc(s.name)+'<br><em>'+esc(s.tagline)+'</em></h1><p>'+esc(th.tag)+'</p><a class="btn" href="#contact">'+esc(bpCta)+'</a><a class="btn g" href="#features">Explore</a></div>'
+  +'<main id="main">'
+  +'<div class="hero hv'+s.heroVar+'">'+heroBadgeHTML(s)+'<h1>'+esc(s.name)+'<br><em>'+esc(s.tagline)+'</em></h1><p>'+esc(th.tag)+'</p><a class="btn" href="#contact">'+esc(bpCta)+'</a><a class="btn g" href="#features">Explore</a></div>'
   +trust
   +'<section id="features"><h2>What we do</h2><div class="grid">'+feats+'</div></section>'
   +signatureModule(s.theme)
@@ -323,6 +324,7 @@ function genWebsite(p){
   +'<section class="about" id="about"><h2>About</h2><p>'+esc(th.about)+'</p></section>'
   +testi+faq
   +'<section id="contact" style="text-align:center"><h2>Visit us</h2><p style="color:inherit;opacity:.75">Walk in, call, or message — we reply fast.</p><div style="margin-top:20px"><a class="btn" href="#contact">Contact Now</a></div></section>'
+  +'</main>'
   +'<footer>© 2026 '+esc(s.name)+' · Made with pride in India</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script><script>try{if(window.gsap&&window.ScrollTrigger&&!window.matchMedia("(prefers-reduced-motion: reduce)").matches){gsap.registerPlugin(ScrollTrigger);gsap.utils.toArray("section,.hero h1,.hero p").forEach(function(el){gsap.from(el,{y:26,opacity:0,duration:.8,ease:"power2.out",scrollTrigger:{trigger:el,start:"top 88%"}});});}}catch(e){}</script></body></html>';
 }
 function genApp(p){
