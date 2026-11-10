@@ -763,6 +763,21 @@ function runBuild(){
 
 /* ---------- quick edit ---------- */
 function editSay(who,text){var log=$("editLog");if(!log)return;var d=document.createElement("div");d.className="chat-msg "+who;d.innerHTML=text;log.appendChild(d);log.scrollTop=log.scrollHeight;}
+function applyTokenEdit(p, change){
+  var d=p.details; if(!d||!p.site)return {ok:false,error:"no site yet"};
+  var old={hex:d.colorHex||"",color:d.color||"mono",mode:d.mode||"dark"};
+  if(change.hex){ if(!/^#[0-9a-fA-F]{6}$/.test(change.hex))return {ok:false,error:"invalid colour code"}; d.colorHex=change.hex.toUpperCase(); }
+  else if(change.preset){ if(!COLORS[change.preset])return {ok:false,error:"unknown preset"}; d.color=change.preset; d.colorHex=""; }
+  if(typeof change.dark==="boolean")d.mode=change.dark?"dark":"light";
+  var html=generate(p);
+  var v=validateWithFix(p,html);
+  if(!v.ok){ d.colorHex=old.hex; d.color=old.color; d.mode=old.mode; generate(p); return {ok:false,error:"gates rejected this edit: "+v.errors.slice(0,2).join("; ")}; }
+  p.html=v.html||html; p.status="Edited";
+  var s=p.site, acc=s.colorHex||COLORS[s.colorName]||COLORS.amber;
+  var T=deriveTokens(acc, s.dark!==false);
+  return {ok:true,tokens:T,accentTextContrast:Math.round(contrastRatio(T.accentText,T.bg)*10)/10,btnContrast:Math.round(contrastRatio(T.accentInk,T.accentBtn)*10)/10};
+}
+
 function applyEdit(){
   var p=active(); if(!p||!p.html)return;
   var inp=$("editInput"), text=inp.value.trim(); if(!text)return;
@@ -772,11 +787,12 @@ function applyEdit(){
   if(p.site){
     var s=p.site, colorHit=null, hexHit=text.match(/#([0-9a-fA-F]{6})\b/);
     for(var k in COLORS)if(t.indexOf(k)>-1)colorHit=k;
-    if(hexHit){s.colorHex="#"+hexHit[1].toUpperCase();done.push("colour → <b>#"+hexHit[1].toUpperCase()+"</b>");}
+    var tokenChange=null;
+    if(hexHit){tokenChange={hex:"#"+hexHit[1].toUpperCase()};}
     else if(/title|name/.test(t)&&/to\s+/.test(t)){var m=text.split(/to\s+/i)[1];if(m){s.name=m.trim().replace(/[".]/g,"");p.name=s.name;done.push("title → <b>"+esc(s.name)+"</b>");}}
-    else if(colorHit){s.colorName=colorHit;s.colorHex="";done.push("colour → <b>"+colorHit+"</b>");}
-    else if(/light mode|light theme/.test(t)){s.dark=false;done.push("<b>light mode</b> on");}
-    else if(/dark mode|dark theme/.test(t)){s.dark=true;done.push("<b>dark mode</b> on");}
+    else if(colorHit){tokenChange={preset:colorHit};}
+    else if(/light mode|light theme/.test(t)){tokenChange={dark:false};}
+    else if(/dark mode|dark theme/.test(t)){tokenChange={dark:true};}
     else if(/add.*pricing/.test(t)){s.sections.pricing=true;done.push("<b>pricing</b> added");}
     else if(/remove.*pricing/.test(t)){s.sections.pricing=false;done.push("pricing removed");}
     else if(/add.*testimonial|add.*review/.test(t)){s.sections.testimonials=true;done.push("<b>testimonials</b> added");}
@@ -784,7 +800,14 @@ function applyEdit(){
     else if(/add.*gallery/.test(t)){s.sections.gallery=true;done.push("<b>gallery</b> added");}
     else if(/remove.*gallery/.test(t)){s.sections.gallery=false;done.push("gallery removed");}
   }
-  if(!done.length){editSay("lab","<b>Lab:</b> Quick edits work on website projects — colour (name or #hex), title, sections, light/dark. For bigger changes, ask the Lab Assistant below or rebuild via Edit Details.");return;}
+  if(!done.length&&!(typeof tokenChange!=="undefined"&&tokenChange)){editSay("lab","<b>Lab:</b> Quick edits work on website projects — colour (name or #hex), title, sections, light/dark. For bigger changes, ask the Lab Assistant below or rebuild via Edit Details.");return;}
+  if(typeof tokenChange!=="undefined"&&tokenChange){
+    var tr=applyTokenEdit(p,tokenChange);
+    if(!tr.ok){editSay("lab","<b>Lab:</b> Edit nahi laga — "+esc(tr.error)+". (koi credit nahi kata)");return;}
+    state.credits-=2; save(); renderAll();
+    editSay("lab","<b>Lab:</b> Done — colour/mode updated via tokens. Accent-text contrast <b>"+tr.accentTextContrast+":1</b>, button contrast <b>"+tr.btnContrast+":1</b> (dono ≥ 4.5 ✓). Preview updated. (2 credits)");
+    return;
+  }
   state.credits-=2; p.html=(p.type==="3D Website"?gen3D(p):genWebsite(p)); p.status="Edited"; save(); renderAll();
   editSay("lab","<b>Lab:</b> Done — "+done.join(", ")+". Preview updated. (2 credits)");
 }
