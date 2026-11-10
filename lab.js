@@ -407,6 +407,15 @@ function validateBuild(p, html){
     while((m=re.exec(out))){if(m[1].charAt(0)!=="#")bad.push(m[1]);}
     if(bad.length)errs.push("external links not allowed: "+bad.slice(0,3).join(", "));
   }
+  var imgTags=out.match(/<img\b[^>]*>/gi)||[];
+  imgTags.forEach(function(tag){
+    var sm=tag.match(/src="([^"]*)"/i);
+    if(sm&&/^(https?:)?\/\//i.test(sm[1]))errs.push("hotlinked image not allowed: "+sm[1].slice(0,60));
+    if(!/width=/.test(tag)||!/height=/.test(tag))errs.push("img without dimensions (width+height required)");
+    if(!/loading=/.test(tag))errs.push("img without loading attribute (lazy required)");
+  });
+  var bgUrls=out.match(/url\(\s*["']?https?:\/\/[^)]*\)/gi);
+  if(bgUrls&&bgUrls.length)errs.push("hotlinked CSS background not allowed");
   if(S.gates.forms===false&&/<form[\s>]/i.test(out))errs.push("form element not allowed for this type");
   var _bp=R.blueprints&&p&&p.details?R.blueprints[p.details.category]:null;
   var _dm=_bp?(_bp.disclaimerMarker||(_bp.requiresDisclaimer?"not medical advice":null)):null;
@@ -488,6 +497,9 @@ function autoFix(html, errors){
     if(e==="img without alt attribute"&&applied.indexOf("img-alt")===-1){
       out=out.replace(/<img\b(?![^>]*alt=)[^>]*>/gi,function(t){return t.replace(/<img/i,'<img alt=""');});
       applied.push("img-alt");
+    }else if(e==="img without loading attribute (lazy required)"&&applied.indexOf("img-lazy")===-1){
+      out=out.replace(/<img\b(?![^>]*loading=)[^>]*>/gi,function(t){return t.replace(/<img/i,'<img loading="lazy"');});
+      applied.push("img-lazy");
     }else if(e==="viewport meta missing"&&applied.indexOf("viewport")===-1){
       out=out.replace(/<head>/i,'<head>\n<meta name="viewport" content="width=device-width, initial-scale=1.0">');
       applied.push("viewport");
