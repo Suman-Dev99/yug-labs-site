@@ -1,6 +1,5 @@
 // Public plan catalog (Phase 9.5). Prices live ONLY in _plans.js (server).
-// `draft: true` is returned until Suman's D4 pricing decision is final —
-// clients must not present draft prices as final.
+// Pricing is FINAL (D4, 10 Nov 2026) — PLANS_DRAFT is false.
 import { rateLimit, tooMany } from "./_ratelimit.js";
 import { logEvent } from "./_log.js";
 import { PLANS, PLANS_DRAFT } from "./_plans.js";

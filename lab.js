@@ -56,8 +56,8 @@ var THEMES={
 function load(){try{return JSON.parse(localStorage.getItem(LS_KEY));}catch(e){return null;}}
 var state=load();
 if(!state){
-  state={credits:1000,projects:[],activeId:null};
-  try{var old=JSON.parse(localStorage.getItem(LS_OLD));if(old&&old.projects){state.credits=old.credits||1000;old.projects.forEach(function(p){state.projects.push({id:p.id,name:p.name,type:p.type||"Website",status:p.status||"Built",details:null,plan:p.plan||null,html:p.html||"",site:p.site||null});});state.activeId=old.activeId;}}catch(e){}
+  state={credits:100,projects:[],activeId:null};
+  try{var old=JSON.parse(localStorage.getItem(LS_OLD));if(old&&old.projects){state.credits=old.credits||100;old.projects.forEach(function(p){state.projects.push({id:p.id,name:p.name,type:p.type||"Website",status:p.status||"Built",details:null,plan:p.plan||null,html:p.html||"",site:p.site||null});});state.activeId=old.activeId;}}catch(e){}
 }
 var draft=null; /* creation draft: {type, details:{}} */
 function save(){var now=Date.now();state.projects.forEach(function(p){p.updatedAt=now;});try{localStorage.setItem(LS_KEY,JSON.stringify(state));}catch(e){} sbSchedulePush();}
@@ -111,7 +111,8 @@ function sbAfterLogin(){var u=sbUser();sbRenderAccount();
   return sbRest("profiles",{method:"POST",headers:{"Prefer":"resolution=merge-duplicates,return=minimal"},body:{id:u.id,email:u.email}})
   .then(function(){return sbPullMerge();}).then(function(){return sbLoadPlan();}).then(function(){sbRenderAccount();toast("Logged in — projects sync to your account.");return true;});}
 function sbRenderAccount(){var b=$("accountBtn");var u=sbUser();if(b)b.textContent=u?u.email:"Login";
-  var pp=$("planPill");if(pp){if(u){pp.style.display="";var pv=$("planVal");if(pv)pv.textContent=sbPlan?sbPlan.charAt(0).toUpperCase()+sbPlan.slice(1):"Free";}else pp.style.display="none";}}
+  var pp=$("planPill");if(pp){if(u){pp.style.display="";var pv=$("planVal");if(pv)pv.textContent=sbPlan?sbPlan.charAt(0).toUpperCase()+sbPlan.slice(1):"Free";}else pp.style.display="none";}
+  applyExportLocks();}
 function sbOpenAuth(){var m=$("authModal");if(m)m.style.display="flex";}
 function sbCloseAuth(){var m=$("authModal");if(m)m.style.display="none";}
 function sbAuthMsg(t){var m=$("authMsg");if(m)m.textContent=t||"";}
@@ -123,13 +124,25 @@ function sbDoAuth(mode){var em=(($("authEmail")||{}).value||"").trim(),pw=($("au
 function sbRenderPlans(){var row=$("plansRow");if(!row)return;
   fetch("/api/plans").then(function(r){return r.json();}).then(function(j){
     if(!j||!Array.isArray(j.plans))return;
-    var paid=j.plans.filter(function(p){return p.pricePaise>0;});
-    if(!paid.length)return;
-    row.innerHTML=paid.map(function(p){
-      return '<div class="plan-card"><h3>'+esc(p.name)+'</h3><div class="plan-price">\u20B9'+(p.pricePaise/100)+' / month</div><p>'+p.credits.toLocaleString("en-IN")+' credits / month \u00B7 '+esc((p.features||[]).slice(-1)[0]||"")+'</p><button class="btn small" data-plan="'+p.id+'">Subscribe</button></div>';
+    row.innerHTML=j.plans.map(function(p){
+      if(p.pricePaise<=0){
+        return '<div class="plan-card free"><h3>'+esc(p.name)+' <span class="plan-tag">ATTACHED</span></h3><div class="plan-price">\u20B90</div><p>'+p.credits+' trial credits \u00B7 Preview only \u2014 download, copy aur export paid plan par unlock hote hain</p><button class="btn small ghost" disabled>Har account ke saath free</button></div>';
+      }
+      var was=p.compareAtPaise?'<span class="plan-was">\u20B9'+(p.compareAtPaise/100)+'</span> ':"";
+      var off=p.compareAtPaise?Math.round((1-p.pricePaise/p.compareAtPaise)*100):0;
+      var offTag=off>0?' <span class="plan-off">'+off+'% OFF</span>':"";
+      return '<div class="plan-card"><h3>'+esc(p.name)+'</h3><div class="plan-price">'+was+'\u20B9'+(p.pricePaise/100)+' / month'+offTag+'</div><p>'+p.credits.toLocaleString("en-IN")+' credits / month \u00B7 '+esc((p.features||[]).slice(-1)[0]||"")+'</p><button class="btn small" data-plan="'+p.id+'">Subscribe</button></div>';
     }).join("");
     row.querySelectorAll("[data-plan]").forEach(function(b){b.onclick=function(){sbSubscribe(b.getAttribute("data-plan"));};});
   }).catch(function(){});
+}
+/* ---------- D4 (10 Nov): Free plan = preview-only ---------- */
+function planIsFree(){return !sbUser()||sbPlan==="free";}
+function guardExport(what){if(!planIsFree())return false;toast("Free plan me "+what+" band hai \u2014 paid plan par unlock hoga.");return true;}
+function applyExportLocks(){
+  var locked=planIsFree();
+  ["downloadBtn","zipBtn","copyBtn","openBtn","codeBtn"].forEach(function(id){var b=$(id);if(!b)return;b.disabled=locked;b.classList.toggle("is-locked",locked);b.title=locked?"Free plan \u2014 preview only":"";});
+  var n=$("publishNote");if(n)n.textContent=locked?"Free plan: sirf preview milega (watermark ke saath). Download, Copy, ZIP, Full Preview aur Code \u2014 sab paid plan par unlock honge.":"Downloads are real, finished files \u2014 host them anywhere. One-click publish to your GitHub / Vercel arrives with the backend phase.";
 }
 function sbLoadRazorpay(){return new Promise(function(res,rej){
   if(window.Razorpay)return res();
@@ -177,7 +190,8 @@ function sbInit(){
 
 /* ---------- preview lock: guard + blob (iframe kabhi parent ko load nahi karega) ---------- */
 var PREVIEW_GUARD='<script>(function(){document.addEventListener("click",function(e){var a=e.target&&e.target.closest?e.target.closest("a"):null;if(a){var h=a.getAttribute("href")||"";if(h.charAt(0)!=="#"){e.preventDefault();e.stopPropagation();}}},true);document.addEventListener("submit",function(e){e.preventDefault();},true);window.open=function(){return null;};})();<\/script>';
-function previewHTML(html){if(!html)return html;if(html.indexOf("<head>")>-1)return html.replace("<head>","<head>"+PREVIEW_GUARD);return PREVIEW_GUARD+html;}
+var FREE_PREVIEW_GUARD='<script>(function(){var css="*{-webkit-user-select:none!important;user-select:none!important}input,textarea{-webkit-user-select:text!important;user-select:text!important}@media print{body{display:none!important}}";var st=document.createElement("style");st.textContent=css;(document.head||document.documentElement).appendChild(st);function wm(){if(!document.body||document.getElementById("ylwm"))return;var d=document.createElement("div");d.id="ylwm";d.setAttribute("aria-hidden","true");d.style.cssText="position:fixed;inset:0;z-index:2147483647;pointer-events:none;overflow:hidden";for(var i=0;i<28;i++){var s=document.createElement("span");s.textContent="YUGLAB FREE PREVIEW \\u00B7 ";s.style.cssText="position:absolute;left:"+((i%4)*26)+"%;top:"+(Math.floor(i/4)*15)+"%;transform:rotate(-24deg);font:700 13px system-ui,sans-serif;color:rgba(140,140,140,.35);white-space:nowrap";d.appendChild(s);}document.body.appendChild(d);}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",wm);else wm();document.addEventListener("contextmenu",function(e){e.preventDefault();},true);document.addEventListener("copy",function(e){e.preventDefault();},true);document.addEventListener("cut",function(e){e.preventDefault();},true);document.addEventListener("dragstart",function(e){e.preventDefault();},true);function blk(e){var k=e.key||"";var c=e.ctrlKey||e.metaKey;if(k==="PrintScreen"||(c&&/^[psu]$/i.test(k))){e.preventDefault();e.stopPropagation();}}document.addEventListener("keydown",blk,true);document.addEventListener("keyup",blk,true);})();<\/script>';
+function previewHTML(html){if(!html)return html;var g=PREVIEW_GUARD+(planIsFree()?FREE_PREVIEW_GUARD:"");if(html.indexOf("<head>")>-1)return html.replace("<head>","<head>"+g);return g+html;}
 function blobInto(frame,html){if(!frame)return;if(frame._u)URL.revokeObjectURL(frame._u);frame._u=URL.createObjectURL(new Blob([previewHTML(html)],{type:"text/html"}));frame.src=frame._u;}
 
 /* ---------- create: type cards ---------- */
@@ -930,6 +944,7 @@ function renderAll(){
   $("resultPanel").style.display=showResult?"block":"none";
   if(showPlan){$("planCost").textContent="Cost: "+COSTS[p.type]+" credits";$("detailSummary").innerHTML=detailChips(p);$("planList").innerHTML=p.plan.map(function(s){return "<li>"+esc(s)+"</li>";}).join("");}
   if(showResult)blobInto($("previewFrame"),p.html);
+  applyExportLocks();
   setStep(p.html?5:(p.plan?3:2));
 }
 function toPlan(){
@@ -1105,6 +1120,7 @@ function zipBytes(files){
   return out;
 }
 function downloadZip(){
+  if(guardExport("ZIP download"))return;
   var p=active(); if(!p||!p.html)return;
   var files=[{name:"index.html",text:p.html}].concat((p.files||[]).map(function(f){return {name:f.name,text:f.text!=null?f.text:(f.content||"")};}));
   var readme="Built with YugLab — "+p.name+" ("+p.type+")\n\nFiles:\n"+files.map(function(f){return "- "+f.name;}).join("\n")+"\n\nHost index.html on any static host to publish.\n";
@@ -1115,6 +1131,7 @@ function downloadZip(){
 }
 
 function downloadOut(){
+  if(guardExport("Download"))return;
   var p=active(); if(!p||!p.html)return;
   var blob=new Blob([p.html],{type:"text/html"}); var a=document.createElement("a");
   a.href=URL.createObjectURL(blob); a.download=p.name.replace(/\s+/g,"-").toLowerCase()+"-"+p.type.replace(/\s+/g,"-").toLowerCase()+".html"; a.click();
@@ -1164,8 +1181,8 @@ $("editSendBtn").onclick=applyEdit;
 $("editInput").addEventListener("keydown",function(e){if(e.key==="Enter")applyEdit();});
 $("downloadBtn").onclick=downloadOut;
 var _zb=$("zipBtn"); if(_zb)_zb.onclick=downloadZip;
-$("copyBtn").onclick=function(){var p=active();if(p&&p.html&&navigator.clipboard)navigator.clipboard.writeText(p.html).then(function(){toast("Code copied ✔");});};
-$("openBtn").onclick=function(){var p=active();if(p&&p.html){var b=new Blob([p.html],{type:"text/html"});window.open(URL.createObjectURL(b),"_blank");}};
+$("copyBtn").onclick=function(){if(guardExport("Copy Code"))return;var p=active();if(p&&p.html&&navigator.clipboard)navigator.clipboard.writeText(p.html).then(function(){toast("Code copied ✔");});};
+$("openBtn").onclick=function(){if(guardExport("Full Preview"))return;var p=active();if(p&&p.html){var b=new Blob([p.html],{type:"text/html"});window.open(URL.createObjectURL(b),"_blank");}};
 $("deleteBtn").onclick=function(){var p=active();if(p&&confirm("Delete project '"+p.name+"'?")){sbDeleteProject(p.id);state.projects=state.projects.filter(function(x){return x.id!==p.id;});state.activeId=null;save();renderAll();}};
 $("aiPill").onclick=function(){$("aiBox").scrollIntoView({behavior:"smooth",block:"center"});};
 $("aiSendBtn").onclick=aiAsk;
@@ -1255,6 +1272,7 @@ function openCodeStudio(files,active,projectId){
 }
 function openPlayground(){csLoad();openCodeStudio(csFiles,csActive,null);}
 function openProjectCode(){
+  if(guardExport("Code access"))return;
   var p=active();if(!p)return;
   var files=[{name:"index.html",content:p.html||""}].concat(p.files||[]);
   openCodeStudio(files,"index.html",p.id);
