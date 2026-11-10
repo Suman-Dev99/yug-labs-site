@@ -343,6 +343,10 @@ function validateBuild(p, html){
   S.forbidden.forEach(function(m){if(out.indexOf(m)>-1)errs.push("forbidden present: "+m);});
   var low=out.toLowerCase();
   (R.universal.forbiddenText||[]).forEach(function(m){if(low.indexOf(m)>-1)errs.push("forbidden text: "+m);});
+  if(R.universal.noProviderNames){
+    (R.universal.providerPatterns||[]).forEach(function(m){if(low.indexOf(m)>-1)errs.push("provider name leaked: "+m);});
+    if(/\bgpt-[0-9]/.test(low))errs.push("provider name leaked: gpt-*");
+  }
   if(S.gates.h1ExactlyOne){
     var h1=(out.match(/<h1[\s>]/g)||[]).length;
     if(h1!==1)errs.push("h1 count "+h1+" (exactly 1 required)");

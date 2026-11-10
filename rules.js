@@ -6,10 +6,11 @@
    flow ke kaaran ye JS-data file hai (JSON ka exact mirror; harness ise
    seedha load karke test karta hai). */
 window.YUG_RULES = {
-  version: "1.5.2",
+  version: "1.5.3",
   universal: {
     forbiddenText: ["lorem ipsum", "your text here", "coming soon", "todo:", "placeholder text", "[object", "undefined"],
     noProviderNames: true,
+    providerPatterns: ["nemotron", "nvidia", "openrouter", "judge0", "piston", "nvapi", "deepseek", "llama", "mistral", "chatgpt", "openai", "anthropic", "gemini", "hugging face", "huggingface", "claude"],
     domChecks: true,
     noUndefined: true,
     scriptsMustParse: true,
