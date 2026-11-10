@@ -209,6 +209,7 @@ function variantCSS(c,s){
   if(s.btnVar===1)v+=".btn{border-radius:99px}";
   return v;
 }
+var TYPE_CSS="h1{line-height:1.08}h2{font-size:clamp(26px,3.5vw,36px);line-height:1.15}h3{font-size:18px;line-height:1.3}body{font-size:16.5px;line-height:1.65}";
 function heroBadgeHTML(s){return s.heroVar===2?'<span class="hbadge">'+esc(CATS[s.theme]||"Business")+'</span>':"";}
 
 function siteFromDetails(p){
@@ -225,7 +226,7 @@ function pageCSS(c,dark,extra){
   +"header{position:sticky;top:0;background:"+bg+";border-bottom:1px solid "+line+";padding:16px 24px;display:flex;justify-content:space-between;align-items:center;z-index:5}"
   +".logo{font-weight:800;font-size:20px}.logo span{color:"+T.accentText+"}nav a{color:"+mut+";text-decoration:none;margin-left:20px;font-size:14.5px}"
   +".hero{text-align:center;padding:88px 24px 64px;background:radial-gradient(560px 280px at 50% -40px,"+c+"26,transparent 70%)}"
-  +".hero h1{font-size:clamp(32px,5.5vw,52px);letter-spacing:-.02em;line-height:1.12}.hero h1 em{font-style:normal;color:"+T.accentText+"}"
+  +".hero h1{font-size:clamp(34px,5.5vw,54px);letter-spacing:-.02em;line-height:1.08}.hero h1 em{font-style:normal;color:"+T.accentText+"}"
   +".hero p{color:"+mut+";font-size:17.5px;max-width:540px;margin:16px auto 28px}"
   +".btn{display:inline-block;background:"+T.accentBtn+";color:"+T.accentInk+";font-weight:700;padding:13px 26px;border-radius:999px;text-decoration:none;border:0;cursor:pointer;font-size:15px}.btn.g{background:transparent;color:"+tx+";border:1px solid "+line+";margin-left:10px}"
   +"section{max-width:1040px;margin:0 auto;padding:56px 24px}section h2{text-align:center;font-size:30px;margin-bottom:30px}"
@@ -261,6 +262,7 @@ function gen3D(p){
   +".about p{color:#AAB4C4;max-width:640px;margin:0 auto;text-align:center;font-size:16.5px}"
   +"footer{position:relative;z-index:1;border-top:1px solid rgba(255,255,255,.08);text-align:center;color:#8A94A6;padding:28px;font-size:13.5px}";
   var three='<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script><script>try{if(window.THREE){var cv=document.getElementById("gl");var rn=new THREE.WebGLRenderer({canvas:cv,alpha:true,antialias:true});var sc=new THREE.Scene();var cm=new THREE.PerspectiveCamera(55,innerWidth/innerHeight,.1,100);cm.position.z=8;var AC=0x'+cInt+';var knot=new THREE.Mesh(new THREE.TorusKnotGeometry(1.7,.52,180,26),new THREE.MeshStandardMaterial({color:AC,metalness:.85,roughness:.25}));knot.position.x=2.6;sc.add(knot);var pg=new THREE.BufferGeometry();var N=420,pos=new Float32Array(N*3);for(var i=0;i<N*3;i++)pos[i]=(Math.random()-.5)*26;pg.setAttribute("position",new THREE.BufferAttribute(pos,3));var pts=new THREE.Points(pg,new THREE.PointsMaterial({color:AC,size:.045,transparent:true,opacity:.85}));sc.add(pts);sc.add(new THREE.AmbientLight(0xffffff,.55));var pl=new THREE.PointLight(AC,1.6,60);pl.position.set(-4,3,6);sc.add(pl);var mx=0,my=0;addEventListener("pointermove",function(e){mx=(e.clientX/innerWidth-.5);my=(e.clientY/innerHeight-.5);});function rs(){rn.setSize(innerWidth,innerHeight);cm.aspect=innerWidth/innerHeight;cm.updateProjectionMatrix();}addEventListener("resize",rs);rs();var orbs=document.querySelectorAll(".orb");orbs.forEach(function(o){o.style.opacity=".18";});(function an(){requestAnimationFrame(an);knot.rotation.x+=.004;knot.rotation.y+=.006;pts.rotation.y+=.0006;cm.position.x+=((mx*1.6)-cm.position.x)*.04;cm.position.y+=((-my*1.1)-cm.position.y)*.04;cm.lookAt(1,0,0);rn.render(sc,cm);})();}}catch(e){}</script>';
+  css+=TYPE_CSS;
   return '<!DOCTYPE html>\n<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>'+esc(s.name)+' — 3D</title><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet"><style>'+css+variantCSS(c,s)+'</style></head><body>'
   +'<canvas id="gl"></canvas><div class="orb a"></div><div class="orb b"></div>'
   +'<header><div class="logo">'+esc(s.name)+'<span>.</span></div><nav><a href="#features">Features</a><a href="#about">About</a>'+(s.sections.pricing?'<a href="#pricing">Pricing</a>':"")+'<a href="#contact">Contact</a></nav></header>'
@@ -277,7 +279,7 @@ function gen3D(p){
 function genWebsite(p){
   var s=p.site, th=THEMES[s.theme]||THEMES.generic, c=s.colorHex||COLORS[s.colorName]||COLORS.amber;
   var bpCta=blueprintFor(s.theme).cta;
-  var fx="body{font-family:'Manrope',system-ui,sans-serif}h1,h2{font-family:'Fraunces',Georgia,serif}"+(s.fx3d?".hero h1{transform:perspective(600px) rotateX(4deg);text-shadow:0 18px 40px rgba(0,0,0,.45)}.card{transition:.25s}.card:hover{transform:translateY(-6px) perspective(500px) rotateX(3deg)}":"");
+  var fx="body{font-family:'Manrope',system-ui,sans-serif}h1,h2{font-family:'Fraunces',Georgia,serif}"+TYPE_CSS+(s.fx3d?".hero h1{transform:perspective(600px) rotateX(4deg);text-shadow:0 18px 40px rgba(0,0,0,.45)}.card{transition:.25s}.card:hover{transform:translateY(-6px) perspective(500px) rotateX(3deg)}":"");
   var feats=th.feats.map(function(f){return '<div class="card"><div class="ic">'+f[0]+'</div><h3>'+f[1]+'</h3><p>'+f[2]+'</p></div>';}).join("");
   var pricing=s.sections.pricing?'<section id="pricing"><h2>Pricing</h2><div class="grid"><div class="card"><h3>Essential</h3><div class="pr">₹999</div><p>Everything you need to start.</p></div><div class="card pop"><h3>Signature</h3><div class="pr">₹2,499</div><p>The full experience, most loved.</p></div><div class="card"><h3>Premium</h3><div class="pr">₹4,999</div><p>Top tier, no compromises.</p></div></div></section>':"";
   var testi=(s.sections.testimonials&&s.reviews&&s.reviews.length)?'<section id="love"><h2>Loved by customers</h2><div class="grid">'+s.reviews.map(function(r){return '<div class="card"><p>"'+esc(r.text)+'"</p><b>— '+esc(r.name)+'</b></div>';}).join("")+'</div></section>':"";
@@ -410,6 +412,15 @@ function validateBuild(p, html){
   var visText=out.replace(/<script[\s\S]*?<\/script>/g," ").replace(/<style[\s\S]*?<\/style>/g," ").replace(/<[^>]+>/g," ");
   var CLAIMRULES=[[/((?<![\d,])\d{2,}\+?\s*(happy\s+)?(customers|clients|students|patients|members|projects|users))\b/i,"invented count claim"],[/\b(no\.?\s*1|#1|best in (the )?(city|india|world)|award[- ]winning|top[- ]rated)\b/i,"invented superlative claim"],[/\b\d+(\.\d+)?\s*stars?\b|\brated\s+\d+(\.\d+)?/i,"invented rating claim"],[/\bguaranteed\s+(results?|success|placement|selection|returns?)\b/i,"invented guarantee claim"],[/\bsince\s+(19|20)\d{2}\b/i,"invented founding-year claim"]];
   CLAIMRULES.forEach(function(cr){var re=new RegExp(cr[0].source,"gi");var m;while((m=re.exec(visText))){if(userText.indexOf(m[0])===-1){errs.push(cr[1]+": "+m[0]);break;}}});
+  if(S.gates.typography){
+    var styleText=(out.match(/<style>([\s\S]*?)<\/style>/g)||[]).join(" ");
+    var ALLOWED_FONTS=["Fraunces","Manrope","system-ui","-apple-system","Segoe UI","Roboto","Georgia","serif","sans-serif","monospace"];
+    var ffRe=/font-family:([^;}]+)/g, fm2;
+    while((fm2=ffRe.exec(styleText))){var fams=fm2[1].split(",").map(function(x){return x.trim().replace(/^["']|["']$/g,"");});for(var fi=0;fi<fams.length;fi++){if(ALLOWED_FONTS.indexOf(fams[fi])===-1)errs.push("font not in type system: "+fams[fi]);}}
+    if(p.type==="Website"&&out.indexOf("clamp(34px,5.5vw,54px)")===-1)errs.push("display type scale missing (locked clamp)");
+    var lhMatches=out.match(/body\{[^}]*line-height:([0-9.]+)/g);
+    if(lhMatches){var lastLh=parseFloat((lhMatches[lhMatches.length-1].match(/line-height:([0-9.]+)/)||[])[1]);if(lastLh&&lastLh<1.5)errs.push("body line-height "+lastLh+" (< 1.5)");}
+  }
   if(S.spine){
     var lastIdx=-1;
     S.spine.forEach(function(sec){
