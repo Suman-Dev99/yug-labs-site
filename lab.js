@@ -120,12 +120,46 @@ function sbDoAuth(mode){var em=(($("authEmail")||{}).value||"").trim(),pw=($("au
   if(em.indexOf("@")<1||pw.length<6){sbAuthMsg("Enter a valid email and a password of 6+ characters.");return;}
   sbAuthMsg(mode==="signup"?"Creating account…":"Logging in…");
   (mode==="signup"?sbSignup:sbLogin)(em,pw).then(function(res){if(res&&res.needsConfirm){sbAuthMsg("Account created. Confirm from the email we sent, then login.");return;}sbCloseAuth();sbAuthMsg("");}).catch(function(err){sbAuthMsg(err.message||"Failed. Try again.");});}
+function sbRenderPlans(){var row=$("plansRow");if(!row)return;
+  fetch("/api/plans").then(function(r){return r.json();}).then(function(j){
+    if(!j||!Array.isArray(j.plans))return;
+    var paid=j.plans.filter(function(p){return p.pricePaise>0;});
+    if(!paid.length)return;
+    row.innerHTML=paid.map(function(p){
+      return '<div class="plan-card"><h3>'+esc(p.name)+'</h3><div class="plan-price">\u20B9'+(p.pricePaise/100)+' / month</div><p>'+p.credits.toLocaleString("en-IN")+' credits / month \u00B7 '+esc((p.features||[]).slice(-1)[0]||"")+'</p><button class="btn small" data-plan="'+p.id+'">Subscribe</button></div>';
+    }).join("");
+    row.querySelectorAll("[data-plan]").forEach(function(b){b.onclick=function(){sbSubscribe(b.getAttribute("data-plan"));};});
+  }).catch(function(){});
+}
+function sbLoadRazorpay(){return new Promise(function(res,rej){
+  if(window.Razorpay)return res();
+  var s=document.createElement("script");s.src="https://checkout.razorpay.com/v1/checkout.js";s.onload=function(){res();};s.onerror=function(){rej(new Error("checkout load failed"));};
+  document.head.appendChild(s);
+});}
+function sbSubscribe(planId){
+  if(!sbCfg){toast("Cloud is not configured yet.");return;}
+  if(!sbUser()){sbOpenAuth();toast("Login first — phir subscribe karo.");return;}
+  toast("Order ban raha hai…");
+  fetch("/api/checkout",{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer "+sbSess.access_token},body:JSON.stringify({planId:planId})})
+  .then(function(r){return r.json().then(function(j){return {r:r,j:j};});})
+  .then(function(x){
+    if(x.r.status===503){toast("Payments abhi ON nahi hain — jald aa raha hai.");return;}
+    if(!x.r.ok||!x.j.orderId){toast("Order nahi bana: "+((x.j&&x.j.code)||x.r.status));return;}
+    sbLoadRazorpay().then(function(){
+      var rz=new window.Razorpay({key:x.j.keyId,order_id:x.j.orderId,amount:x.j.amount,currency:x.j.currency,name:"YugLab",description:"YugLab "+x.j.plan+" plan",
+        handler:function(){toast("Payment ho gaya — access kuch seconds me active hoga.");setTimeout(function(){sbLoadPlan().then(function(){sbRenderAccount();});},4000);},
+        modal:{ondismiss:function(){toast("Payment band kar diya — koi charge nahi hua.");}}});
+      rz.open();
+    }).catch(function(){toast("Checkout load nahi hua — dobara try karo.");});
+  })
+  .catch(function(){toast("Network error — dobara try karo.");});
+}
 function sbInit(){
   var ab=$("accountBtn");if(ab)ab.onclick=function(){if(sbUser()){if(confirm("Logout from "+sbUser().email+"?"))sbLogout();}else sbOpenAuth();};
   var lb=$("authLoginBtn");if(lb)lb.onclick=function(){sbDoAuth("login");};
   var su=$("authSignupBtn");if(su)su.onclick=function(){sbDoAuth("signup");};
   var cl=$("authCloseBtn");if(cl)cl.onclick=function(){sbCloseAuth();};
-  sbRenderAccount();
+  sbRenderAccount(); sbRenderPlans();
   fetch("/api/config").then(function(r){return r.json();}).then(function(j){
     if(!j||!j.supabaseUrl||!j.supabaseAnonKey)return;
     sbCfg={url:j.supabaseUrl,anonKey:j.supabaseAnonKey};

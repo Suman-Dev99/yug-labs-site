@@ -10,6 +10,7 @@ import crypto from "node:crypto";
 import { logEvent } from "./_log.js";
 import { planById } from "./_plans.js";
 import { sbService } from "./_supabase.js";
+import { sendEmail } from "./_email.js";
 
 export const config = { api: { bodyParser: false } };
 
@@ -48,6 +49,15 @@ async function grantEntitlement(row, plan) {
     body: { user_id: row.user_id, plan: plan.id, status: "active", current_period_end: newEnd, updated_at: new Date().toISOString() },
   });
   return up.ok;
+}
+
+
+async function notify(row, subject, text) {
+  try {
+    const p = await sbService("profiles?id=eq." + row.user_id + "&select=email");
+    const email = p.ok && Array.isArray(p.j) && p.j[0] && p.j[0].email;
+    if (email) await sendEmail(email, subject, text);
+  } catch (e) { /* mail is best-effort */ }
 }
 
 export default async function handler(req, res) {
@@ -100,6 +110,7 @@ export default async function handler(req, res) {
       await sbService("payments?id=eq." + row.id, { method: "PATCH", headers: { Prefer: "return=minimal" }, body: { status: "paid", razorpay_payment_id: payment.id, updated_at: new Date().toISOString() } });
       const granted = await grantEntitlement(row, plan);
       logEvent("webhook", granted ? "ENTITLEMENT_GRANTED" : "GRANT_FAILED", { plan: plan.id });
+      if (granted) await notify(row, "Your YugLab " + plan.name + " plan is active", "Hi,\n\nYour payment was successful and your YugLab " + plan.name + " plan is now active for 30 days.\nOpen the Lab and keep building: https://yuglab.online/lab-app\n\n— YugLab");
       res.status(200).json({ ok: true });
       return;
     }
@@ -112,6 +123,7 @@ export default async function handler(req, res) {
         await sbService("payments?id=eq." + row.id, { method: "PATCH", headers: { Prefer: "return=minimal" }, body: { status: "refunded", updated_at: new Date().toISOString() } });
         await sbService("entitlements?user_id=eq." + row.user_id, { method: "PATCH", headers: { Prefer: "return=minimal" }, body: { status: "refunded", current_period_end: new Date().toISOString(), updated_at: new Date().toISOString() } });
         logEvent("webhook", "REFUND_PROCESSED", {});
+        await notify(row, "Your YugLab refund is processed", "Hi,\n\nYour refund has been processed and your paid plan has ended. Your projects stay saved in your account.\n\n— YugLab");
       }
       res.status(200).json({ ok: true });
       return;

@@ -250,3 +250,10 @@ body.lab-body .preview-frame{border-color:#2A2A2A;box-shadow:0 -2px 0 0 rgba(167
 .auth-card{background:#0A0A0A;border:1px solid #2A2A2A;border-radius:16px;padding:24px;width:min(92vw,380px)}
 .auth-card .f-field{margin-bottom:14px}
 .auth-msg{color:#F59E0B;font-size:13px;min-height:18px;margin:4px 0 10px}
+
+/* 9.6 plans strip */
+.plans-row{display:flex;gap:12px;flex-wrap:wrap;margin:0 0 22px}
+.plan-card{flex:1;min-width:180px;border:1px solid #2A2A2A;border-radius:16px;padding:16px;background:#0A0A0A}
+.plan-card h3{margin:0 0 4px;font-size:16px}
+.plan-card .plan-price{color:#F59E0B;font-weight:700;font-size:20px}
+.plan-card p{color:#A3A3A3;font-size:13px;margin:6px 0 12px}
